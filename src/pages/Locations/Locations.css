@@ -1,0 +1,162 @@
+
+.myContainer {
+    top: 0px;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 1rem 1rem 0px;
+    width: 100%;
+}
+
+button {
+    border-radius: unset !important;
+}
+
+.myButton {
+    flex: 1 1 0%;
+    /*display: flex;*/
+    /*-webkit-box-align: center;*/
+    /*align-items: center;*/
+}
+
+
+.myButtonWrapper {
+    position: relative;
+    flex: 1 1;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgb(0, 0, 0);
+}
+.myButtonWrapper:last-child {
+    border-bottom: none;
+}
+
+@media (min-width: 768px) {
+    .myButtonWrapper {
+        border-bottom: none;
+        border-right: 1px solid rgb(0, 0, 0);
+    }
+
+    .myButtonWrapper:last-child {
+        border-right: none !important;
+    }
+}
+
+
+
+.myButtonInner {
+    width: 100%;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    min-height: 56px;
+    justify-content: space-between;
+}
+
+@media (min-width: 768px) {
+    .myButtonInner {
+        border-bottom: 3px solid transparent;
+        border-top: 3px solid transparent;
+        padding: 0.707rem;
+    }
+}
+
+.myLabel {
+    color: rgb(151, 152, 154);
+    font-size: 12px;
+    cursor: pointer;
+}
+
+@media (min-width: 768px) {
+    .myLabel {
+        font-size: 13px;
+    }
+}
+
+.myInput {
+    border: none;
+    outline: 0px;
+    font-weight: bold;
+    padding-top: 3px;
+    padding-left: 0px;
+    width: 100%;
+    cursor: pointer;
+    text-overflow: ellipsis;
+    font-size: 1rem;
+}
+
+@media (min-width: 768px) {
+    .myInput {
+        font-size: 18px;
+        padding-top: 0.354rem;
+    }
+}
+
+.myDropdownButton {
+    /*display: flex;*/
+    /*flex: 1 1 0;*/
+    display: flex;
+    flex-flow: column wrap;
+    width: 100%;
+    border: 1px solid rgb(0, 0, 0);
+    -webkit-box-align: stretch;
+    align-items: stretch;
+    justify-content: stretch;
+}
+
+@media (min-width: 768px) {
+    .myDropdownButton {
+        flex-flow: row nowrap;
+    }
+}
+
+.myDropdown {
+    position: absolute;
+    will-change: transform;
+    top: 100%;
+    left: 0px;
+    /*transform: translate3d(78px, 320px, 0px);*/
+    width: 90%;
+    z-index: 6;
+}
+
+.dropHidden {
+    position: absolute;
+    will-change: transform;
+    /*transform: translate3d(78px, 320px, 0px);*/
+    z-index: 6;
+    top: 100%;
+    left: 0px;
+    width: 0;
+    visibility: hidden;
+}
+
+.myDropdownInnerWrapper {
+    background: rgb(255, 255, 255);
+    border: 1px solid rgb(0, 0, 0);
+    margin-top: 0.354rem;
+    overflow-y: auto;
+}
+
+.myDropdownInner {
+    /*width: 390px;*/
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.myLocationOptions {
+    padding: 1rem;
+    box-shadow: rgb(0 0 0) 0px -1px 0px inset;
+    min-width: 250px;
+    user-select: none;
+    cursor: pointer;
+    font-weight: normal;
+    font-size: 18px;
+    background-color: rgb(232, 232, 232);
+}
