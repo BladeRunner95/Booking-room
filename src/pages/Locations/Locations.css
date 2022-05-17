@@ -1,6 +1,6 @@
 
 .myContainer {
-    top: 0px;
+    top: 0;
     z-index: 5;
     display: flex;
     flex-direction: column;
@@ -8,7 +8,7 @@
     justify-content: space-between;
     -webkit-box-align: center;
     align-items: center;
-    padding: 1rem 1rem 0px;
+    padding: 1rem 1rem 0;
     width: 100%;
 }
 
@@ -18,9 +18,6 @@ button {
 
 .myButton {
     flex: 1 1 0%;
-    /*display: flex;*/
-    /*-webkit-box-align: center;*/
-    /*align-items: center;*/
 }
 
 
@@ -81,10 +78,10 @@ button {
 
 .myInput {
     border: none;
-    outline: 0px;
+    outline: 0;
     font-weight: bold;
     padding-top: 3px;
-    padding-left: 0px;
+    padding-left: 0;
     width: 100%;
     cursor: pointer;
     text-overflow: ellipsis;
@@ -99,8 +96,6 @@ button {
 }
 
 .myDropdownButton {
-    /*display: flex;*/
-    /*flex: 1 1 0;*/
     display: flex;
     flex-flow: column wrap;
     width: 100%;
@@ -120,9 +115,8 @@ button {
     position: absolute;
     will-change: transform;
     top: 100%;
-    left: 0px;
-    /*transform: translate3d(78px, 320px, 0px);*/
-    width: 90%;
+    left: 10%;
+    width: 300px;
     z-index: 6;
 }
 
@@ -137,6 +131,20 @@ button {
     visibility: hidden;
 }
 
+.calendarWrapper {
+    background: rgb(255, 255, 255);
+    border: 1px solid rgb(0, 0, 0);
+    margin-top: 0.354rem;
+    overflow-y: auto;
+}
+
+.calendarWrapperInner {
+    width: 100%;
+    text-align: center;
+    overflow-x: hidden;
+    /* hide scroll */
+}
+
 .myDropdownInnerWrapper {
     background: rgb(255, 255, 255);
     border: 1px solid rgb(0, 0, 0);
@@ -145,7 +153,6 @@ button {
 }
 
 .myDropdownInner {
-    /*width: 390px;*/
     max-height: 300px;
     overflow-y: auto;
 }

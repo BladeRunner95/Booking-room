@@ -1,0 +1,6 @@
+.myButton {
+    flex: 1 1 0%;
+    /*display: flex;*/
+    /*-webkit-box-align: center;*/
+    /*align-items: center;*/
+}

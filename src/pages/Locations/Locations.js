@@ -1,38 +1,48 @@
 import {_Nav} from "../../components/Nav/_Nav";
-import {InputGroup, DropdownButton, Dropdown, FormControl, Container, ButtonGroup} from "react-bootstrap";
+import {Container} from "react-bootstrap";
 import "./Locations.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {useState} from "react";
+import {MyDatepicker} from "../../components/Datepicker/MyDatepicker";
 
 export const Locations = (props) => {
 
-    const [opened, setOpened] = useState(0);
+    const [opened, setOpened] = useState(
+        {
+            index: null,
+            open: false
+        });
 
     const inputs = [
         {
             id: 1,
             title: "Location",
             value: ["Tel-Aviv"],
-            type: "list"
+            status: false
         },
         {
             id: 2,
             title: "Date",
-            value: ["Sunday"],
-            type: "calendar"
+            value: [new Date(Date.now()).toDateString()],
+            status: false
         },
         {
             id: 3,
             title: "Time",
             value: ["2am"],
-            type: "time"
+            status: false
         }
     ];
 
 
     const handleClickedDropdown = (inputId) => {
-        setOpened(inputId);
+        if (inputId === opened.index) {
+            setOpened({index: null, open: false});
+        } else {
+            setOpened({index: inputId, open: true});
+        }
     };
+
 
     return (
         <>
@@ -40,77 +50,54 @@ export const Locations = (props) => {
             <div>
                 <Container className="mb-5 mt-5 myContainer">
                     <div className="myDropdownButton">
-                        {inputs.map(input => (
-                            <div className="myButtonWrapper">
-                                <div onClick={() => handleClickedDropdown(input.id)}
-                                     placeholder={"papa"}
-                                     className={"myButton"}>
-                                    <div className="myButtonInner">
-                                        <div>
-                                            <label htmlFor="input" className="myLabel">{input.title}</label>
-                                            <input placeholder={input.value}
-                                                   value={input.value}
-                                                   className="myInput"
-                                                   type="text"
-                                                   readOnly/>
-                                        </div>
-                                        <span>▼</span>
-                                    </div>
-                                </div>
-                                <div className={opened === input.id ? "myDropdown" : "dropHidden"}>
-                                    <div className="myDropdownInnerWrapper">
-                                        <div className="myDropdownInner">
-                                            <div className="myLocationOptions">{input.id}</div>
-                                            <div className="myLocationOptions">{input.id}</div>
-                                            <div className="myLocationOptions">{input.id}</div>
-                                            <div className="myLocationOptions">{input.id}</div>
-                                            <div className="myLocationOptions">{input.id}</div>
-                                            <div className="myLocationOptions">{input.id}</div>
-                                            <div className="myLocationOptions">{input.id}</div>
+
+                        {inputs.map((input, index) => (
+                            <div key={input.id} className="myButtonWrapper">
+                                {input.title === "Date" ?
+                                    //if object.title is "Time" => return MyDatepicker component but with dropdown functionality
+                                    <MyDatepicker onClose={() => handleClickedDropdown(index) } calendarOpened={opened.index === index}
+                                        onClick={() => handleClickedDropdown(index)}
+                                                  placeholder={input.value}
+                                                  className="myButton"
+                                                  title={input.title} /> :
+
+                                    //in other case return regular div with dropdown
+                                    <div onClick={() => handleClickedDropdown(index)}
+                                         placeholder={input.value}
+                                         className="myButton">
+                                        <div className="myButtonInner">
+                                            <div>
+                                                <label htmlFor="input" className="myLabel">{input.title}</label>
+                                                <input placeholder={input.value}
+                                                       value={input.value}
+                                                       className="myInput"
+                                                       type="text"
+                                                       readOnly/>
+                                            </div>
+                                            <span>▼</span>
                                         </div>
                                     </div>
-                                </div>
+                                }
+                                {/*{input.title === "Location" ?*/}
+                                {/*    <div className={opened.index === index ? "myDropdown" : "dropHidden"}>*/}
+                                {/*        /!*disabled until we have just one location*!/*/}
+
+                                {/*        /!*<div className="myDropdownInnerWrapper">*!/*/}
+                                {/*        /!*    <div className="myDropdownInner">*!/*/}
+                                {/*        /!*        /!* show all locations *!/*!/*/}
+                                {/*        /!*        {input.value.map((dropdownItem,index) => <div key={index} className="myLocationOptions">{dropdownItem}</div>)}*!/*/}
+                                {/*        /!*    </div>*!/*/}
+                                {/*        /!*</div>*!/*/}
+                                {/*    </div> : null}*/}
+                                {input.title === "Time" ?
+                                    <div className={opened.index === index ? "myDropdown" : "dropHidden"}>
+                                        <div className="calendarWrapper">
+                                            <div className="calendarWrapperInner">
+                                            </div>
+                                        </div>
+                                    </div> : null}
                             </div>
                         ))}
-                        {/*<div className={opened ? "myDropdown" : "dropHidden"}>*/}
-                        {/*    <div className="myDropdownInnerWrapper">*/}
-                        {/*        <div className="myDropdownInner">*/}
-                        {/*            <div className="myLocationOptions">test option</div>*/}
-                        {/*            <div className="myLocationOptions">test option</div>*/}
-                        {/*            <div className="myLocationOptions">test option</div>*/}
-                        {/*            <div className="myLocationOptions">test option</div>*/}
-                        {/*            <div className="myLocationOptions">test option</div>*/}
-                        {/*            <div className="myLocationOptions">test option</div>*/}
-                        {/*            <div className="myLocationOptions">test option</div>*/}
-                        {/*        </div>*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
-                        {/*<div className={opened ? "myDropdown" : "dropHidden"}>*/}
-                        {/*    <div className="myDropdownInnerWrapper">*/}
-                        {/*        <div className="myDropdownInner">*/}
-                        {/*            <div className="myLocationOptions">test option2</div>*/}
-                        {/*            <div className="myLocationOptions">test option2</div>*/}
-                        {/*            <div className="myLocationOptions">test option2</div>*/}
-                        {/*            <div className="myLocationOptions">test option2</div>*/}
-                        {/*            <div className="myLocationOptions">test option2</div>*/}
-                        {/*            <div className="myLocationOptions">test option2</div>*/}
-                        {/*            <div className="myLocationOptions">test option2</div>*/}
-                        {/*        </div>*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
-                        {/*<div className={opened ? "myDropdown" : "dropHidden"}>*/}
-                        {/*    <div className="myDropdownInnerWrapper">*/}
-                        {/*        <div className="myDropdownInner">*/}
-                        {/*            <div className="myLocationOptions">test option3</div>*/}
-                        {/*            <div className="myLocationOptions">test option3</div>*/}
-                        {/*            <div className="myLocationOptions">test option3</div>*/}
-                        {/*            <div className="myLocationOptions">test option3</div>*/}
-                        {/*            <div className="myLocationOptions">test option3</div>*/}
-                        {/*            <div className="myLocationOptions">test option3</div>*/}
-                        {/*            <div className="myLocationOptions">test option3</div>*/}
-                        {/*        </div>*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
                     </div>
                 </Container>
             </div>
