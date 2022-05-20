@@ -1,12 +1,10 @@
-import {forwardRef, useState} from "react";
+import {forwardRef} from "react";
 import DatePicker, {CalendarContainer} from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
 import "./MyDatepicker.css";
 
 
 export const MyDatepicker = (props) => {
-    const [startDate, setStartDate] = useState(new Date());
-
     //input editing
     const MyCustomInput = forwardRef(({onClick, className}, ref) => (
         //forward input inside MyDatepicker component with following props
@@ -17,14 +15,14 @@ export const MyDatepicker = (props) => {
                 }
                 props.onClick()
             }}
-            placeholder={startDate.toDateString()}
+            placeholder={props.value}
             className={props.className ? props.className : className}
         >
             <div className="myButtonInner">
                 <div>
                     <label htmlFor="input" className="myLabel">{props.title}</label>
                     <input
-                        value={startDate.toDateString()}
+                        value={props.value.toDateString()}
                         className="myInput"
                         type="text"
                         readOnly/>
@@ -36,16 +34,16 @@ export const MyDatepicker = (props) => {
     //Container editing
     const MyContainer = ({ className, children }) => {
         return (
-                <CalendarContainer className="myDropdown">
-                    <div className="calendarWrapper">{children}</div>
+                <CalendarContainer className="myDropdownDate">
+                    <div className="DateTimeWrapper">{children}</div>
                 </CalendarContainer>
         );
     };
 
 
     return (
-        <DatePicker selected={startDate}
-                    onChange={(date) => setStartDate(date)}
+        <DatePicker selected={props.value}
+                    onChange={(date) => props.onChange(date)}
                     onCalendarClose={() => props.onClose()}
                     customInput={<MyCustomInput/>}
                     calendarContainer = {MyContainer}
