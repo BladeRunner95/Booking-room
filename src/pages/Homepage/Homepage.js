@@ -1,6 +1,7 @@
 import {_Nav} from "../../components/Nav/_Nav";
 import {Container, Row, Col} from "react-bootstrap";
 import {Locations} from "../Locations/Locations";
+import {SingleLocation} from "../SingleLocation/SingleLocation";
 
 export const HomePage = (props) => {
     return (
@@ -12,6 +13,7 @@ export const HomePage = (props) => {
                     </Row>
                 </Container>
             <Locations />
+            <SingleLocation />
         </>
 )
 }

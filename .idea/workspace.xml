@@ -2,15 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37aa10dd-2f46-4349-8f1c-a3aa6e31e09e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/components/Datepicker/MyDatepicker.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Datepicker/MyDatepicker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Dropdown/Locations.styles.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Homepage/Homepage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Homepage/Homepage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Locations/Locations.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Locations/Locations.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Locations/Locations.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Locations/Locations.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/SingleLocation/SingleLocation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/SingleLocation/SingleLocation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/SingleLocation/SingleLocation.styles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/SingleLocation/StyleLocation.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="CSS File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -27,6 +39,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="29QR6zPPg2xx1mdR3xV1mCAiMBM" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -35,8 +48,10 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../react-burger" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2021.3.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -47,32 +62,41 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1653043152624</updated>
-      <workItem from="1653043153905" duration="16568000" />
+      <workItem from="1653043153905" duration="18036000" />
+      <workItem from="1653145404680" duration="562000" />
+      <workItem from="1653160641438" duration="2995000" />
+      <workItem from="1653213580038" duration="13592000" />
+      <workItem from="1653299203361" duration="25887000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/Locations/Locations.js</url>
-          <line>50</line>
+          <line>69</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/Locations/Locations.js</url>
-          <line>148</line>
+          <line>114</line>
           <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/pages/Locations/Locations.js</url>
-          <line>77</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="6" />
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

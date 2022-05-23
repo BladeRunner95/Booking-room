@@ -1,0 +1,247 @@
+
+.singleLocationWrapper {
+    max-width: 71rem;
+    margin: auto;
+}
+
+.locationsCountWrapper {
+    margin: 1.25rem;
+    text-align: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    display: flex;
+}
+
+.locationsListWrapper {
+    padding: 0 1.125rem;
+}
+
+@media (min-width: 768px) {
+    .locationsListWrapper {
+        padding: 0 1.5rem;
+    }
+}
+
+.locationsListInner {
+    gap: 1rem;
+    margin-bottom: 1rem;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0px, 1fr));
+}
+
+@media (min-width: 768px) {
+    .locationsListInner {
+        grid-template-columns: repeat(12, minmax(0px, 1fr));
+    }
+}
+
+.locationWrapper {
+    grid-column-end: span 4;
+}
+
+@media (min-width: 992px) {
+    .locationWrapper {
+        grid-column-end: span 4;
+    }
+}
+
+@media (min-width: 768px) {
+    .locationWrapper {
+        grid-column-end: span 6;
+    }
+}
+
+.locationInner {
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    display: flex;
+}
+
+.locationImageWrapper {
+    width: 100%;
+}
+
+.locationImageInner {
+    cursor: pointer;
+    user-select: none;
+    background-color: rgb(191, 191, 191);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+}
+
+.locationImage {
+    object-fit: cover;
+    max-width: 100%;
+    height: 192px;
+    width: 100%;
+    opacity: 1;
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+    border-image: initial;
+    border-bottom: none;
+}
+
+.locationInfoWrapper {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    flex-direction: column;
+    display: flex;
+    border-top: 1px solid;
+    border-right: 1px solid;
+    border-left: 1px solid;
+    border-image: initial;
+    border-bottom: none;
+}
+
+.locationDescriptionWrapper {
+    padding-top: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    flex-direction: column;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    display: flex;
+}
+
+.locationDescriptionTitle {
+    font-size: 1.5rem;
+    /*margin: 0;*/
+    color: rgb(0, 0, 0);
+    /*might remove margin and color*/
+    font-weight: bold;
+    letter-spacing: -0.5px;
+    line-height: 1.25rem;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+}
+
+@media (min-width: 992px) {
+    .locationDescriptionTitle {
+        font-size: 1.75rem;
+        line-height: 1.75rem;
+    }
+}
+
+.locationDescriptionPrices {
+    font-size: 0.875rem;
+    letter-spacing: 0;
+    line-height: 1rem;
+    color: rgb(0, 0, 0);
+    margin-bottom: 1rem;
+}
+
+.locationCapacityPriceWrapper {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid;
+}
+
+.locationCapacityPriceInner {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    align-items: flex-end;
+    display: flex;
+}
+
+.locationCapacityWrapper {
+    display: flex;
+}
+
+.locationCapacityIconWrapper {
+    pointer-events: none;
+    line-height: 0;
+}
+
+.locationCapacityCount {
+    font-size: 1rem;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 1rem;
+    margin: 0 0 0 0.25rem;
+    color: rgb(0, 0, 0);
+}
+
+@media (min-width: 992px) {
+    .locationCapacityCount {
+        font-size: 1.5rem;
+        line-height: 1.5rem;
+        font-weight: bold;
+    }
+}
+
+.locationPriceWrapper {
+    display: flex;
+}
+
+.locationPriceInner {
+    flex-direction: column;
+    align-items: flex-end;
+    display: flex;
+}
+
+.locationPricePerHour {
+    font-size: 0.75rem;
+    letter-spacing: 0;
+    line-height: 0.875rem;
+    color: rgb(128, 128, 128);
+    margin-bottom: 0.25rem;
+}
+
+.locationPrice {
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: -0.5px;
+    line-height: 1.25rem;
+    text-transform: uppercase;
+    margin: 0;
+    color: rgb(0, 0, 0);
+}
+
+@media (min-width: 992px) {
+    .locationPrice {
+        font-size: 1.25rem;
+        line-height: 1.25rem;
+        font-weight: 400;
+    }
+}
+
+.locationButton {
+    padding: 0.9rem 1.5rem 0.8rem;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    cursor: pointer;
+    flex: 0 0 auto;
+    font-family: inherit;
+    -webkit-box-pack: center;
+    justify-content: center;
+    transition: all 0.2s ease-in-out 0s;
+    text-decoration: none;
+    text-align: center;
+    white-space: nowrap;
+    font-weight: bold;
+    border-radius: 0;
+    text-transform: uppercase;
+    font-size: 1rem;
+    user-select: none;
+    color: rgb(240, 240, 240);
+    background-color: rgb(0, 0, 0);
+    border: none;
+
+    overflow: visible;
+}
+
+.locationButtonSpan {
+    pointer-events: none;
+}

@@ -120,15 +120,16 @@ button {
     z-index: 6;
 }
 
-.dropHidden {
+.myDropdownLocation {
     position: absolute;
     will-change: transform;
-    /*transform: translate3d(78px, 320px, 0px);*/
-    z-index: 6;
-    top: 100%;
+    top: 0px;
     left: 0px;
-    width: 0;
-    visibility: hidden;
+    transform: translate3d(98px, 171px, 0px);
+}
+
+.dropHidden {
+    display: none;
 }
 
 .DateTimeWrapper {
@@ -166,6 +167,10 @@ button {
     font-weight: normal;
     font-size: 18px;
     background-color: rgb(232, 232, 232);
+}
+
+.timepickerInputWrapper {
+    width: 100%;
 }
 
 .timepickerContainer {
