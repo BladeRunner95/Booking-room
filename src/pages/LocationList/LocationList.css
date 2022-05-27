@@ -1,9 +1,4 @@
 
-.singleLocationWrapper {
-    max-width: 71rem;
-    margin: auto;
-}
-
 .locationsCountWrapper {
     margin: 1.25rem;
     text-align: center;
@@ -39,15 +34,15 @@
     grid-column-end: span 4;
 }
 
-@media (min-width: 992px) {
-    .locationWrapper {
-        grid-column-end: span 4;
-    }
-}
-
 @media (min-width: 768px) {
     .locationWrapper {
         grid-column-end: span 6;
+    }
+}
+
+@media (min-width: 992px) {
+    .locationWrapper {
+        grid-column-end: span 4;
     }
 }
 
@@ -172,13 +167,13 @@
     color: rgb(0, 0, 0);
 }
 
-@media (min-width: 992px) {
-    .locationCapacityCount {
-        font-size: 1.5rem;
-        line-height: 1.5rem;
-        font-weight: bold;
-    }
-}
+/*@media (min-width: 992px) {*/
+/*    .locationCapacityCount {*/
+/*        font-size: 1.5rem;*/
+/*        line-height: 1.5rem;*/
+/*        font-weight: bold;*/
+/*    }*/
+/*}*/
 
 .locationPriceWrapper {
     display: flex;
@@ -208,13 +203,13 @@
     color: rgb(0, 0, 0);
 }
 
-@media (min-width: 992px) {
-    .locationPrice {
-        font-size: 1.25rem;
-        line-height: 1.25rem;
-        font-weight: 400;
-    }
-}
+/*@media (min-width: 992px) {*/
+/*    .locationPrice {*/
+/*        font-size: 1.25rem;*/
+/*        line-height: 1.25rem;*/
+/*        font-weight: 400;*/
+/*    }*/
+/*}*/
 
 .locationButton {
     padding: 0.9rem 1.5rem 0.8rem;
@@ -240,6 +235,12 @@
     border: none;
 
     overflow: visible;
+}
+
+.locationButton:hover {
+    background-color: rgb(51, 51, 51);
+    color: rgb(242, 242, 242);
+    border-color: rgb(51, 51, 51);
 }
 
 .locationButtonSpan {

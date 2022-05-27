@@ -1,9 +1,9 @@
 import {_Nav} from "../../components/Nav/_Nav";
-import {Container} from "react-bootstrap";
 import "./Locations.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {useState, useEffect, useRef} from "react";
 import {MyDatepicker} from "../../components/Datepicker/MyDatepicker";
+import {LocationList} from "../LocationList/LocationList";
 
 
 export const Locations = (props) => {
@@ -14,7 +14,7 @@ export const Locations = (props) => {
         useEffect(() => {
             function handleClickOutside(event) {
                 if (ref.current && !ref.current.contains(event.target)) {
-                    setOutsideClick(false);
+                    setOutsideClick({...outsideClick, outside: false, inside: false});
                 }
             }
             document.addEventListener("click", handleClickOutside);
@@ -24,7 +24,10 @@ export const Locations = (props) => {
         }, [ref]);
     }
 
-    const [outsideClick, setOutsideClick] = useState(false)
+    const [outsideClick, setOutsideClick] = useState({
+        outside: false,
+        inside: false
+    })
 
     const [opened, setOpened] = useState(
         {
@@ -48,20 +51,17 @@ export const Locations = (props) => {
         {
             id: 1,
             title: "Location",
-            value: ["Tel-Aviv"],
-            status: false
+            value: ["Tel-Aviv"]
         },
         {
             id: 2,
             title: "Date",
-            value: [new Date()],
-            status: false
+            value: [new Date()]
         },
         {
             id: 3,
             title: "Time",
-            value: ["2am"],
-            status: false
+            value: ["2am"]
         }
     ];
 
@@ -120,8 +120,8 @@ export const Locations = (props) => {
     return (
         <>
             {props.title ? <_Nav/> : null}
-            <div>
-                <Container className="mb-5 mt-5 myContainer">
+            <div className="mainWrap">
+                <div className="mb-5 mt-5 myContainer">
                     <div className="myDropdownButton">
 
                         {inputs.map((input, index) => (
@@ -172,7 +172,7 @@ export const Locations = (props) => {
                                     <div ref={wrapperRef} className="timepickerInputWrapper">
                                         <div onClick={() => {
                                             handleClickedDropdown(index);
-                                            setOutsideClick(true);
+                                            setOutsideClick({...outsideClick, outside: true, inside: !outsideClick.inside});
                                         }}
                                              className="myButton">
                                             <div className="myButtonInner">
@@ -188,7 +188,7 @@ export const Locations = (props) => {
                                             </div>
                                         </div>
 
-                                        <div className={opened.index === index && outsideClick ? "myDropdownTime" : "dropHidden"}>
+                                        <div className={outsideClick.inside && outsideClick.outside ? "myDropdownTime" : "dropHidden"}>
                                             <div className="DateTimeWrapper">
                                                 <div className="timepickerContainer">
                                                     <div className="timepickerColumnContainer">
@@ -234,7 +234,9 @@ export const Locations = (props) => {
                             </div>
                         ))}
                     </div>
-                </Container>
+                </div>
+                <button onClick={()=> console.log(`start: ${date.startDate}, finish:  ${date.finishDate}`)} type="button">Show logs</button>
+                <LocationList />
             </div>
         </>
     )

@@ -1,0 +1,113 @@
+.wrongPageWrapper {
+    padding-top: 55px;
+}
+
+@media (min-width: 992px) {
+    .wrongPageWrapper {
+        padding-top: 64px;
+    }
+}
+
+.wrongPageInnerWrapper {
+    height: calc(100vh - 91px);
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    display: flex;
+}
+
+@media (min-width: 576px) {
+    .wrongPageInnerWrapper {
+        height: calc(100vh - 140px);
+    }
+}
+
+.wrongPageInner {
+    color: rgb(151, 152, 154);
+    padding: 1.414rem;
+    text-align: center;
+    flex-direction: column;
+    -webkit-box-align: center;
+    align-items: center;
+    display: flex;
+}
+
+.wrongPageError {
+    letter-spacing: 1px;
+    margin: 0.707rem 0 2.827rem;
+    line-height: 2.827rem;
+    font-size: 7rem;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+}
+
+@media screen and (min-width: 576px) {
+    .wrongPageError {
+        font-size: 8rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .wrongPageError {
+        line-height: 3.998rem;
+        font-size: 7rem;
+        font-weight: bold;
+    }
+}
+
+@media (min-width: 992px) {
+    @media screen and (min-width: 576px) {
+        .wrongPageError {
+            font-size: 8rem;
+        }
+    }
+}
+
+.wrongPageTitle {
+    letter-spacing: 1px;
+    margin: 0 0 0.707rem;
+    font-size: 1.414rem;
+    line-height: 1.7rem;
+    font-weight: normal;
+    color: rgb(151, 152, 154);
+}
+
+@media screen and (min-width: 576px) {
+    .wrongPageTitle {
+        font-size: 1.999rem;
+    }
+}
+
+@media screen and (min-width: 576px) {
+    .wrongPageTitle {
+        line-height: 2.3rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .wrongPageTitle {
+        font-size: 1.414rem;
+        line-height: 1.7rem;
+        font-weight: normal;
+    }
+}
+
+@media (min-width: 992px) {
+    @media screen and (min-width: 576px) {
+        .wrongPageTitle {
+            font-size: 1.999rem;
+            line-height: 2.3rem;
+        }
+    }
+}
+
+.wrongPageText {
+    color: rgb(151, 152, 154);
+    padding: 1.414rem;
+    text-align: center;
+    flex-direction: column;
+    -webkit-box-align: center;
+    align-items: center;
+    display: flex;
+}

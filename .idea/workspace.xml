@@ -2,14 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37aa10dd-2f46-4349-8f1c-a3aa6e31e09e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/NotFound/NotFound.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/NotFound/NotFound.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/LocationList/LocationList.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/SingleLocation/SingleLocation.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Homepage/Homepage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Homepage/Homepage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Locations/Locations.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Locations/Locations.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Locations/Locations.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Locations/Locations.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/SingleLocation/SingleLocation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/SingleLocation/SingleLocation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/SingleLocation/SingleLocation.styles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/SingleLocation/StyleLocation.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/SingleLocation/StyleLocation.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/LocationList/LocationList.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +69,10 @@
       <workItem from="1653145404680" duration="562000" />
       <workItem from="1653160641438" duration="2995000" />
       <workItem from="1653213580038" duration="13592000" />
-      <workItem from="1653299203361" duration="25887000" />
+      <workItem from="1653299203361" duration="40164000" />
+      <workItem from="1653493027316" duration="22533000" />
+      <workItem from="1653660676421" duration="1408000" />
+      <workItem from="1653664395157" duration="6311000" />
     </task>
     <servers />
   </component>
@@ -95,8 +101,12 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/Locations/Locations.js</url>
           <line>114</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/pages/LocationList/LocationList.js</url>
+          <line>56</line>
+          <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
