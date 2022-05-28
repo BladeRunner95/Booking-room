@@ -4,10 +4,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {useState, useEffect, useRef} from "react";
 import {MyDatepicker} from "../../components/Datepicker/MyDatepicker";
 import {LocationList} from "../LocationList/LocationList";
+import {useSelector, useDispatch} from "react-redux";
+
+// import {myAction, setStartDate, setStartFinishDate} from "../../store/store";
+import {allActions} from "../../store/store";
 
 
 export const Locations = (props) => {
     const wrapperRef = useRef(null);
+    const booking = useSelector(state => state.myReducer);
+    console.log(useSelector(state =>state));
+    const dispatch = useDispatch();
 
     //click outside hook
     const useOutsideClick =(ref) => {
@@ -40,12 +47,13 @@ export const Locations = (props) => {
         timeDuration: null
     });
 
-    const [date, setDate] = useState(
-        {
-            startDate: new Date(new Date().setHours(timepicker.time, 0, 0, 0)),
-            finishDate: undefined,
-        }
-    );
+    // const [date, setDate] = useState(
+    //     {
+    //         startDate: new Date(new Date().setHours(timepicker.time, 0, 0, 0)),
+    //         finishDate: undefined,
+    //         totalCost: null
+    //     }
+    // );
 
     const inputs = [
         {
@@ -80,41 +88,44 @@ export const Locations = (props) => {
     };
 
     const handleDateSelect = (selectedDate) => {
-        if (date.finishDate === undefined) {
-            setDate({...date, startDate: selectedDate});
+        if (booking.finishDate === undefined) {
+            dispatch(allActions.setStartDate(selectedDate));
+            console.log(booking.startDate)
         } else {
             const startDateCloned = new Date(selectedDate.getTime());
             startDateCloned.setHours((selectedDate.getHours() + timepicker.timeDuration));
-            setDate({...date, startDate: selectedDate, finishDate: startDateCloned});
+            dispatch(allActions.setStartFinishDate(selectedDate, startDateCloned));
         }
 
     };
 
     const handleTimeSelect = (selectedTime) => {
         setTimepicker({...timepicker, time: selectedTime});
-        if (date.finishDate === undefined) {
-            setDate(prev => {
-                prev.startDate.setHours(selectedTime);
-                return prev;
-            });
-        } else {
-            setDate(prev => {
-                prev.startDate.setHours(selectedTime);
-                const startDateCloned = new Date(prev.startDate.getTime());
-                startDateCloned.setHours((prev.startDate.getHours() + timepicker.timeDuration));
-                prev.finishDate = startDateCloned;
-                return prev;
-            });
-        }
+        // if (date.finishDate === undefined) {
+        //     setDate(prev => {
+        //         prev.startDate.setHours(selectedTime);
+        //         return prev;
+        //     });
+        // } else {
+        //     setDate(prev => {
+        //         prev.startDate.setHours(selectedTime);
+        //         const startDateCloned = new Date(prev.startDate.getTime());
+        //         startDateCloned.setHours((prev.startDate.getHours() + timepicker.timeDuration));
+        //         prev.finishDate = startDateCloned;
+        //         return prev;
+        //     });
+        // }
     };
 
     const handleDurationSelect = (selectedDuration) => {
         setTimepicker({...timepicker, timeDuration: selectedDuration});
-        setDate(prev => {
-            const startDateCloned = new Date(prev.startDate.getTime());
-            startDateCloned.setHours((prev.startDate.getHours() + selectedDuration));
-            return {...prev, finishDate: startDateCloned};
-        })
+        // setDate(prev => {
+        //     const startDateCloned = new Date(prev.startDate.getTime());
+        //     startDateCloned.setHours((prev.startDate.getHours() + selectedDuration));
+        //     const updateTotalCost = selectedDuration * 125;
+        //     return {...prev, finishDate: startDateCloned, totalCost: updateTotalCost};
+        // })
+        dispatch(allActions.myAction());
     }
 
     return (
@@ -156,11 +167,11 @@ export const Locations = (props) => {
 
                                 {input.title === "Date" ?
                                     <MyDatepicker
-                                        value={date.startDate}
+                                        value={booking.startDate}
                                         onClose={() => handleClickedDropdown(index)}
                                         calendarOpened={opened.index === index}
                                         onClick={() => handleClickedDropdown(index)}
-                                        placeholder={date.startDate}
+                                        placeholder={booking.startDate}
                                         className="myButton"
                                         title={input.title}
                                         onChange={(date) => handleDateSelect(date)}
@@ -179,7 +190,7 @@ export const Locations = (props) => {
                                                 <div>
                                                     <label htmlFor="input" className="myLabel">{input.title}</label>
                                                     <input placeholder="choose time and duration"
-                                                           value={timePrefix(timepicker.time) + (date.finishDate ? ' - ' + timePrefix(date.finishDate.getHours()) : "")}
+                                                           value={timePrefix(timepicker.time) + (booking.finishDate ? ' - ' + timePrefix(booking.finishDate.getHours()) : "")}
                                                            className="myInput"
                                                            type="text"
                                                            readOnly/>
@@ -235,7 +246,7 @@ export const Locations = (props) => {
                         ))}
                     </div>
                 </div>
-                <button onClick={()=> console.log(`start: ${date.startDate}, finish:  ${date.finishDate}`)} type="button">Show logs</button>
+                <button onClick={()=> console.log(`start: ${booking.startDate}, finish:  ${booking.finishDate}`)} type="button">Show logs {booking.totalCost}</button>
                 <LocationList />
             </div>
         </>

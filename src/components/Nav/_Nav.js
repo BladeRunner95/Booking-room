@@ -17,7 +17,7 @@ export const _Nav = (props) => {
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="ms-auto">
                         <Nav.Link as={Link} to={"/locations"} href="/locations">Book A Studio</Nav.Link>
-                        <NavDropdown title="En" id="collasible-nav-dropdown">
+                        <NavDropdown title="En" id="collasible-nav-dropdown" className="pe-1">
                             <NavDropdown.Item href="#action/3.1">En</NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="#action/3.4">He</NavDropdown.Item>

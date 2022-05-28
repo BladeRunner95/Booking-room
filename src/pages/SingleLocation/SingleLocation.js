@@ -4,7 +4,7 @@ import {_Nav} from "../../components/Nav/_Nav";
 import drocher from '../../assets/lexshug.jpg'
 import './SingleLocation.css';
 
-export const SingleLocation = () => {
+export const SingleLocation = (props) => {
   const {id} = useParams();
   const navigate = useNavigate();
   const goBack = () => navigate(-1);
@@ -53,6 +53,10 @@ export const SingleLocation = () => {
   setSlide(prev => !prev)
   };
 
+  useEffect(() => {
+    console.log('rerender');
+  });
+
   return (
       (
         currentLocation ? <>
@@ -65,7 +69,7 @@ export const SingleLocation = () => {
                         <div className="singleLocaInnerPad">
                           <ul className="singleLocaFilters">
                             <li className="singleLocaFilter">
-                              <a className="singleLocaFilterLink" onClick={goBack}>Back to all studios</a>
+                              <Link className="singleLocaFilterLink" to={goBack} onClick={goBack}>Back to all studios</Link>
                             </li>
                             <span className="singleLocaFilterSlash">/</span>
                             <li className="singleLocaFilter secondFilter">
@@ -230,9 +234,9 @@ export const SingleLocation = () => {
                                     </div>
                                   </div>
                                 </div>
-                                <a className="paymentPayButton" href="">
+                                <Link className="paymentPayButton" to="">
                                   <span>Book this studio</span>
-                                </a>
+                                </Link>
                                 <div className="paymentCardsWrap">
                                   <div className="paymentAcceptText">We accept</div>
                                 </div>
