@@ -3,11 +3,16 @@ import {useState, useEffect} from "react";
 import {_Nav} from "../../components/Nav/_Nav";
 import drocher from '../../assets/lexshug.jpg'
 import './SingleLocation.css';
+import {useSelector} from "react-redux";
 
 export const SingleLocation = (props) => {
   const {id} = useParams();
   const navigate = useNavigate();
   const goBack = () => navigate(-1);
+  const booking = useSelector(state => state.myReducer);
+
+  let options = { weekday: 'long', year: false, month: 'long', day: 'numeric' };
+
 
   const [ slide, setSlide ] = useState(false);
   const locations = [
@@ -98,7 +103,7 @@ export const SingleLocation = (props) => {
                                             </ul>
                                           </div>
                                         </div>
-                                        <div className="singleLocaSliderBottomShadow"></div>
+                                        <div className="singleLocaSliderBottomShadow" />
                                         <button
                                             onClick={() => handleSlideImage()}
                                             className="singleLocaCarouselLeftButtonWrapper">
@@ -221,16 +226,21 @@ export const SingleLocation = (props) => {
                                   <h2 className="paymentTitle">{currentLocation.title}</h2>
                                 </div>
                                 <div className="paymentColumnCity"><span>{currentLocation.city}</span></div>
-                                <div className="paymentColumnDate">|Booking state start date|</div>
+                                <div className="paymentColumnDate">{booking.startDate.toDateString().slice(0, 10)} - {booking.finishDate.toDateString()}</div>
                                 <div className="paymentColumnTimeWrap">
-                                  <div className="paymentColumnTimeWrap">|Booking state Time - Time(dur)|</div>
+                                  <div className="paymentColumnTimeWrap">
+                                    {
+                                      booking.startDate.toLocaleString('en-US', { hour: 'numeric', hour12: true })
+                                    } - {
+                                    booking.finishDate.toLocaleString('en-US', { hour: 'numeric', hour12: true })
+                                  } ({booking.timeDuration}hrs)</div>
                                   <button className="paymentEditButton"><span>Edit</span></button>
                                 </div>
                                 <div className="paymentColumnTotal">
                                   <div className="paymentColumnTotalInner">
                                     <h3 className="paymentColumnTotalText">total</h3>
                                     <div className="paymentColumnTotalAmount">
-                                      <span className="paymentTotalAmountSpan"> |ToTal cost|</span>
+                                      <span className="paymentTotalAmountSpan">₪{booking.totalCost}</span>
                                     </div>
                                   </div>
                                 </div>

@@ -7,23 +7,25 @@ import {LocationList} from "../LocationList/LocationList";
 import {useSelector, useDispatch} from "react-redux";
 
 // import {myAction, setStartDate, setStartFinishDate} from "../../store/store";
-import {allActions} from "../../store/store";
+// import {booking} from "../../actions/booking.actions";
+import {allActions} from "../../actions/booking.actions";
 
 
 export const Locations = (props) => {
     const wrapperRef = useRef(null);
     const booking = useSelector(state => state.myReducer);
-    console.log(useSelector(state =>state));
+    console.log(booking)
     const dispatch = useDispatch();
 
     //click outside hook
-    const useOutsideClick =(ref) => {
+    const useOutsideClick = (ref) => {
         useEffect(() => {
             function handleClickOutside(event) {
                 if (ref.current && !ref.current.contains(event.target)) {
                     setOutsideClick({...outsideClick, outside: false, inside: false});
                 }
             }
+
             document.addEventListener("click", handleClickOutside);
             return () => {
                 document.removeEventListener("click", handleClickOutside);
@@ -42,10 +44,10 @@ export const Locations = (props) => {
             open: false
         });
 
-    const [timepicker, setTimepicker] = useState({
-        time: 13,
-        timeDuration: null
-    });
+    // const [timepicker, setTimepicker] = useState({
+    //     time: 13,
+    //     timeDuration: null
+    // });
 
     // const [date, setDate] = useState(
     //     {
@@ -90,42 +92,22 @@ export const Locations = (props) => {
     const handleDateSelect = (selectedDate) => {
         if (booking.finishDate === undefined) {
             dispatch(allActions.setStartDate(selectedDate));
-            console.log(booking.startDate)
         } else {
-            const startDateCloned = new Date(selectedDate.getTime());
-            startDateCloned.setHours((selectedDate.getHours() + timepicker.timeDuration));
-            dispatch(allActions.setStartFinishDate(selectedDate, startDateCloned));
+            dispatch(allActions.setStartFinishDate(selectedDate));
         }
 
     };
 
     const handleTimeSelect = (selectedTime) => {
-        setTimepicker({...timepicker, time: selectedTime});
-        // if (date.finishDate === undefined) {
-        //     setDate(prev => {
-        //         prev.startDate.setHours(selectedTime);
-        //         return prev;
-        //     });
-        // } else {
-        //     setDate(prev => {
-        //         prev.startDate.setHours(selectedTime);
-        //         const startDateCloned = new Date(prev.startDate.getTime());
-        //         startDateCloned.setHours((prev.startDate.getHours() + timepicker.timeDuration));
-        //         prev.finishDate = startDateCloned;
-        //         return prev;
-        //     });
-        // }
+        if (booking.finishDate === undefined) {
+            dispatch(allActions.setTimeStart(selectedTime));
+        } else {
+            dispatch(allActions.changeStartFinishTime(selectedTime));
+        }
     };
 
     const handleDurationSelect = (selectedDuration) => {
-        setTimepicker({...timepicker, timeDuration: selectedDuration});
-        // setDate(prev => {
-        //     const startDateCloned = new Date(prev.startDate.getTime());
-        //     startDateCloned.setHours((prev.startDate.getHours() + selectedDuration));
-        //     const updateTotalCost = selectedDuration * 125;
-        //     return {...prev, finishDate: startDateCloned, totalCost: updateTotalCost};
-        // })
-        dispatch(allActions.myAction());
+        dispatch(allActions.setDuration(selectedDuration));
     }
 
     return (
@@ -159,7 +141,8 @@ export const Locations = (props) => {
                                         <div className={opened.index === index ? "myDropdownLocation" : "dropHidden"}>
                                             {/*<div className="myDropdownInnerWrapper">*/}
                                             {/*    <div className="myDropdownInner">*/}
-                                            {/*        {input.value.map((dropdownItem,index) => <div key={index} className="myLocationOptions">{dropdownItem}</div>)}*/}
+                                            {/*        {input.value.map((dropdownItem,index) => <div key={index}
+                                             className="myLocationOptions">{dropdownItem}</div>)}*/}
                                             {/*    </div>*/}
                                             {/*</div>*/}
                                         </div>
@@ -183,14 +166,18 @@ export const Locations = (props) => {
                                     <div ref={wrapperRef} className="timepickerInputWrapper">
                                         <div onClick={() => {
                                             handleClickedDropdown(index);
-                                            setOutsideClick({...outsideClick, outside: true, inside: !outsideClick.inside});
+                                            setOutsideClick({
+                                                ...outsideClick,
+                                                outside: true,
+                                                inside: !outsideClick.inside
+                                            });
                                         }}
                                              className="myButton">
                                             <div className="myButtonInner">
                                                 <div>
                                                     <label htmlFor="input" className="myLabel">{input.title}</label>
                                                     <input placeholder="choose time and duration"
-                                                           value={timePrefix(timepicker.time) + (booking.finishDate ? ' - ' + timePrefix(booking.finishDate.getHours()) : "")}
+                                                           value={timePrefix(booking.time) + (booking.finishDate ? ' - ' + timePrefix(booking.finishDate.getHours()) : "")}
                                                            className="myInput"
                                                            type="text"
                                                            readOnly/>
@@ -199,7 +186,8 @@ export const Locations = (props) => {
                                             </div>
                                         </div>
 
-                                        <div className={outsideClick.inside && outsideClick.outside ? "myDropdownTime" : "dropHidden"}>
+                                        <div
+                                            className={outsideClick.inside && outsideClick.outside ? "myDropdownTime" : "dropHidden"}>
                                             <div className="DateTimeWrapper">
                                                 <div className="timepickerContainer">
                                                     <div className="timepickerColumnContainer">
@@ -207,7 +195,7 @@ export const Locations = (props) => {
                                                         <div className="timepickerTimeContainer">
                                                             {times.map(time =>
                                                                 <label key={time}
-                                                                       className={`${timepicker.time === time ?
+                                                                       className={`${booking.time === time ?
                                                                            "timepickerTime timepickerTimeSelected" : "timepickerTime"}`}>
                                                                     <input key={time}
                                                                            onClick={() => handleTimeSelect(time)}
@@ -225,7 +213,7 @@ export const Locations = (props) => {
                                                             {timeDuration.map(duration =>
                                                                 <label
                                                                     key={duration}
-                                                                    className={`${timepicker.timeDuration === duration ?
+                                                                    className={`${booking.timeDuration === duration ?
                                                                         "timepickerTime timepickerTimeSelected" : "timepickerTime"}`}>
                                                                     <input
                                                                         onClick={() => handleDurationSelect(duration)}
@@ -240,14 +228,17 @@ export const Locations = (props) => {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>: null
+                                    </div> : null
                                 }
                             </div>
                         ))}
                     </div>
                 </div>
-                <button onClick={()=> console.log(`start: ${booking.startDate}, finish:  ${booking.finishDate}`)} type="button">Show logs {booking.totalCost}</button>
-                <LocationList />
+                <button onClick={() =>
+                    console.log(`start: ${booking.startDate}, finish:  ${booking.finishDate}, total cost: ${booking.totalCost}`)}
+                        type="button">
+                    Show logs {booking.totalCost}</button>
+                <LocationList/>
             </div>
         </>
     )

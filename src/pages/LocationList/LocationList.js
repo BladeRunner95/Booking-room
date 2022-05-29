@@ -58,9 +58,9 @@ export const LocationList = () => {
                         <div key={loca.id} className="locationWrapper">
                             <div className="locationInner">
                                 <div className="locationImageWrapper">
-                                    <div className="locationImageInner">
+                                    <Link to={`/singleLocation/${loca.id}`} className="locationImageInner">
                                         <img className="locationImage" src={loca.img} alt={loca.title}/>
-                                    </div>
+                                    </Link>
                                 </div>
                                 <div className="locationInfoWrapper">
                                     <div className="locationDescriptionWrapper">
