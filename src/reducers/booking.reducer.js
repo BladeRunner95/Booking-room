@@ -6,7 +6,8 @@ export let initialState = {
     finishDate: undefined,
     totalCost: null,
     time: 13,
-    timeDuration: null
+    timeDuration: null,
+    location: ['Tel-Aviv']
 }
 
 export const myReducer = (state = initialState, action) => {
@@ -21,7 +22,6 @@ export const myReducer = (state = initialState, action) => {
         case actionTypes.SETSTARTFINISHDATE:
             const getStartDate = new Date(action.selectedDate.getTime());
             getStartDate.setHours((action.selectedDate.getHours() + state.timeDuration));
-
             return {
                 ...state,
                 startDate: action.selectedDate,
