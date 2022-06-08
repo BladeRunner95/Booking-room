@@ -4,8 +4,8 @@ import {useCallback, useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
 import {Spinner} from "../../components/Spinner/Spinner";
-export const LocationList = () => {
 
+export const LocationList = () => {
     const [selectedLocations, setSelectedLocations] = useState(null);
     const filtersStored = useSelector(state => state.myReducer);
     // const dispatch = useDispatch();
@@ -14,7 +14,7 @@ export const LocationList = () => {
             try {
                 if (filtersStored.finishDate) {
                     console.log('finish date updated');
-                    const locations = await axios.get(`http://localhost:5000/api/locations/${filtersStored.location[0]}`);
+                    const locations = await axios.get(`http://localhost:5000/api/locations/byName/${filtersStored.location[0]}`);
                     setSelectedLocations(locations.data);
                 }
             } catch (error) {
@@ -28,38 +28,6 @@ export const LocationList = () => {
 
     //navigate back one page
     const goBack = () => navigate(-1);
-    const locations = [
-        {
-            id: 1,
-            title: "Shugaev studio",
-            img: 'https://piratestudios-kraken-files.s3.eu-west-1.amazonaws.com/studio_images/54f5375e9e0d3f2a1798cd079f7aa309_medium.jpg',
-            price: 125,
-            capacity: 6,
-            coupon: null
-        }, {
-            id: 2,
-            title: "Shugaev studio",
-            img: 'https://piratestudios-kraken-files.s3.eu-west-1.amazonaws.com/studio_images/54f5375e9e0d3f2a1798cd079f7aa309_medium.jpg',
-            price: 125,
-            capacity: 6,
-            coupon: null
-        }, {
-            id: 3,
-            title: "Shugaev studio",
-            img: 'https://piratestudios-kraken-files.s3.eu-west-1.amazonaws.com/studio_images/54f5375e9e0d3f2a1798cd079f7aa309_medium.jpg',
-            price: 125,
-            capacity: 6,
-            coupon: null
-        }, {
-            id: 4,
-            title: "Shugaev studio",
-            img: 'https://piratestudios-kraken-files.s3.eu-west-1.amazonaws.com/studio_images/54f5375e9e0d3f2a1798cd079f7aa309_medium.jpg',
-            price: 125,
-            capacity: 6,
-            coupon: null
-        }
-
-    ];
 
     return (
         <>
@@ -72,10 +40,10 @@ export const LocationList = () => {
                     <div className="locationsListWrapper">
                         <div className="locationsListInner">
                             {selectedLocations.map(loca => (
-                                <div key={selectedLocations.id} className="locationWrapper">
+                                <div key={loca._id} className="locationWrapper">
                                     <div className="locationInner">
                                         <div className="locationImageWrapper">
-                                            <Link to={`/singleLocation/${selectedLocations.id}`}
+                                            <Link to={`/singleLocation/${loca._id}`}
                                                   className="locationImageInner">
                                                 <img className="locationImage" src={loca.images[0]} alt={loca.name}/>
                                             </Link>
@@ -116,21 +84,15 @@ export const LocationList = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        {/*<button className="locationButton">*/}
-                                        <Link className="locationButton" to={`/singleLocation/${loca.id}`}>
+                                        <Link className="locationButton" to={`/singleLocation/${loca._id}`}>
                                             <span className="locationButtonSpan">Explore</span>
                                         </Link>
-                                        {/*</button>*/}
                                     </div>
                                 </div>
                             ))}
                         </div>
                     </div>
-
-                    {/*<Routes>*/}
-                    {/*    <Route path="/locations/:id" element={<SingleLocation />} />*/}
-                    {/*</Routes>*/}
-                </> : <Spinner />
+                </> :null
             }
         </>
     )

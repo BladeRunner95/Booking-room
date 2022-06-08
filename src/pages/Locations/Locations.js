@@ -12,22 +12,50 @@ import {Spinner} from "../../components/Spinner/Spinner";
 
 export const Locations = (props) => {
     const wrapperRef = useRef(null);
-    const filtersStored = useSelector(state => state.myReducer);
-    console.log(filtersStored);
+    let filtersStored = useSelector(state => state.myReducer);
     const dispatch = useDispatch();
-
     const [filters, setFilters] = useState(null);
+
+    const startTimestampToDate = (timestamp) => {
+      return new Date(timestamp.startDate);
+    };
+
+    const finishTimestampToDate = (timestamp) => {
+        return new Date(timestamp.finishDate);
+    };
 
     useEffect(() => {
         async function getData() {
             try {
                 if (filtersStored.finishDate) {
                     console.log('finish date updated');
-                    const locations = await axios.get('http://localhost:5000/api');
-                } else {
                     const getFilters = await axios.get('http://localhost:5000/api');
                     setFilters(getFilters.data);
-                    console.log('setFilters rerender');
+                    // setFilters(locations.data);
+                    // let newObj = {};
+                    // for (let [key, value] of Object.entries(filtersStored)) {
+                    //     if (typeof value === 'object' && !Array.isArray(value)) {
+                    //         newObj[JSON.stringify(key)] = value.toString();
+                    //     } else {
+                    //         newObj[JSON.stringify(key)] = value;
+                    //     }
+                    // }
+                    // if (localStorage.getItem('filters') === null) {
+                    //     await localStorage.setItem('filters', JSON.stringify(filtersStored));
+                    // }
+                    // else {
+                    //     const storageFilters = JSON.parse(localStorage.getItem('filters'));
+                    //     console.log(storageFilters);
+                        //dispatch action change initialState to localstorage object
+                    // }
+                } else {
+                    if (localStorage.getItem('filters') !== null) {
+                        const getFilters = await JSON.parse(localStorage.getItem('filters'));
+                        console.log(getFilters);
+                        fullUpdateState(getFilters.locations);
+                    }
+                        const getFilters = await axios.get('http://localhost:5000/api');
+                        setFilters(getFilters.data);
                 }
             } catch (error) {
                 console.log(error);
@@ -35,14 +63,20 @@ export const Locations = (props) => {
         }
 
         getData();
+
+        // return async ()=> {
+        //     if (filtersStored.finishDate) {
+        //         await localStorage.setItem('filters', JSON.stringify(filtersStored));
+        //     }
+        // }
     }, [filtersStored.finishDate]);
 
-    // const fakeDbBooking = {
-    //     console.log(finishDate);
-    //     startDate: new Date(new Date().setHours(13, 0, 0, 0)),
-    //     finishDate: new Date(new Date().setHours(15, 0, 0, 0)),
-    // };
 
+
+    const fullUpdateState = (newState) => {
+        dispatch(allActions.fullUpdateState(newState));
+        console.log('full state update1!!!!!!!!!!!!!!!')
+    };
     //click outside hook
     // const useOutsideClick = (ref) => {
     //     useEffect(() => {
@@ -68,24 +102,6 @@ export const Locations = (props) => {
         });
 
 
-    const inputs = [
-        {
-            id: 1,
-            title: "Location",
-            value: ["Tel-Aviv"]
-        },
-        {
-            id: 2,
-            title: "Date",
-            value: [new Date()]
-        },
-        {
-            id: 3,
-            title: "Time",
-            value: ["2am"]
-        }
-    ];
-
     const times = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
     const timeDuration = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 24];
     const timePrefix = (hour) => ((hour + 11) % 12 + 1) + (hour >= 12 ? "pm" : "am");
@@ -105,6 +121,7 @@ export const Locations = (props) => {
             dispatch(allActions.setStartDate(selectedDate));
         } else {
             dispatch(allActions.setStartFinishDate(selectedDate));
+            // localStorage.setItem();
         }
 
     };
@@ -162,14 +179,14 @@ export const Locations = (props) => {
 
                                     {input.title === "Date" ?
                                         <MyDatepicker
-                                            value={filtersStored.startDate}
+                                            value={startTimestampToDate(filtersStored)}
                                             onClose={() => handleClickedDropdown(index)}
                                             calendarOpened={opened.index === index}
                                             onClick={() => handleClickedDropdown(index)}
-                                            placeholder={filtersStored.startDate}
+                                            placeholder={startTimestampToDate(filtersStored)}
                                             className="myButton"
                                             title={input.title}
-                                            onChange={(date) => handleDateSelect(date)}
+                                            onChange={(date) => handleDateSelect(date.getTime())}
                                         />
                                         : null}
 
@@ -189,7 +206,8 @@ export const Locations = (props) => {
                                                     <div>
                                                         <label htmlFor="input" className="myLabel">{input.title}</label>
                                                         <input placeholder="choose time and duration"
-                                                               value={timePrefix(filtersStored.time) + (filtersStored.finishDate ? ' - ' + timePrefix(filtersStored.finishDate.getHours()) : "")}
+                                                               value={timePrefix(filtersStored.time) + (filtersStored.finishDate ? ' - ' +
+                                                                   timePrefix(finishTimestampToDate(filtersStored).getHours()) : "")}
                                                                className="myInput"
                                                                type="text"
                                                                readOnly/>
@@ -245,14 +263,13 @@ export const Locations = (props) => {
                                 </div>
                             ))
                             }
-
                         </div> : <Spinner/>
                     }
                 </div>
                 <button onClick={() =>
-                    console.log(`start: ${filtersStored.startDate}, finish:  ${filtersStored.finishDate}, total cost: ${filtersStored.totalCost}`)}
+                    console.log(`start: ${startTimestampToDate(filtersStored)}, finish:  ${finishTimestampToDate(filtersStored)}, total cost: ${filtersStored.totalCost}`)}
                         type="button">
-                    Show logs {filtersStored.totalCost}</button>
+                    Show logs</button>
                 <LocationList/>
             </div>
         </>

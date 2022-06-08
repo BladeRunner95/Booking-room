@@ -22,7 +22,7 @@ export const MyDatepicker = (props) => {
                 <div>
                     <label htmlFor="input" className="myLabel">{props.title}</label>
                     <input
-                        value={props.value.toDateString()}
+                        value={new Date(props.value).toDateString()}
                         className="myInput"
                         type="text"
                         readOnly/>

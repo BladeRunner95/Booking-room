@@ -4,6 +4,8 @@ import {_Nav} from "../../components/Nav/_Nav";
 import drocher from '../../assets/lexshug.jpg'
 import './SingleLocation.css';
 import {useSelector} from "react-redux";
+import {Spinner} from "../../components/Spinner/Spinner";
+import axios from "axios";
 
 export const SingleLocation = (props) => {
   const {id} = useParams();
@@ -11,60 +13,39 @@ export const SingleLocation = (props) => {
   const goBack = () => navigate(-1);
   const booking = useSelector(state => state.myReducer);
 
-  let options = { weekday: 'long', year: false, month: 'long', day: 'numeric' };
 
-
+  const [ location, setLocation ] = useState(null);
   const [ slide, setSlide ] = useState(false);
-  const locations = [
-    {
-      id: 1,
-      title: "Shugaev studio",
-      img: ['https://piratestudios-kraken-files.s3.eu-west-1.amazonaws.com/studio_images/54f5375e9e0d3f2a1798cd079f7aa309_medium.jpg',
-        drocher],
-      price: 125,
-      capacity: 6,
-      city: 'Tel-Aviv',
-      coupon: null
-    }, {
-      id: 2,
-      title: "Shugaev studio",
-      img: ['https://piratestudios-kraken-files.s3.eu-west-1.amazonaws.com/studio_images/54f5375e9e0d3f2a1798cd079f7aa309_medium.jpg'],
-      price: 125,
-      capacity: 6,
-      city: 'Tel-Aviv',
-      coupon: null
-    }, {
-      id: 3,
-      title: "Shugaev studio",
-      img: ['https://piratestudios-kraken-files.s3.eu-west-1.amazonaws.com/studio_images/54f5375e9e0d3f2a1798cd079f7aa309_medium.jpg'],
-      price: 125,
-      capacity: 6,
-      city: 'Tel-Aviv',
-      coupon: null
-    }, {
-      id: 4,
-      title: "Shugaev studio",
-      img: ['https://piratestudios-kraken-files.s3.eu-west-1.amazonaws.com/studio_images/54f5375e9e0d3f2a1798cd079f7aa309_medium.jpg'],
-      price: 125,
-      capacity: 6,
-      city: 'Tel-Aviv',
-      coupon: null
-    }
+  const [ filters, setFilters ] = useState(null);
 
-  ];
-  const currentLocation = locations.find(current => current.id.toString() === id);
+  useEffect(() => {
+    async function getData() {
+      try {
+        const getLocation = await axios.get(`http://localhost:5000/api/locations/${id}`);
+        setLocation(getLocation.data);
+        console.log(getLocation);
+        if (localStorage.getItem('filters') !== null) {
+          const getFilters = JSON.parse(localStorage.getItem('filters'));
+          setFilters(getFilters.locations);
+        }
+      } catch (e) {
+        console.log('pipipiopopo');
+      }
+    }
+    getData();
+  },[]);
+
+  const timeStampToDate = (timestamp) => {
+    return new Date(timestamp);
+  };
 
   const handleSlideImage = () => {
   setSlide(prev => !prev)
   };
 
-  useEffect(() => {
-    console.log('rerender');
-  });
-
   return (
       (
-        currentLocation ? <>
+          (location && filters) ? <>
           <_Nav />
               <div className="singleLocaWrapper">
                 <div>
@@ -78,10 +59,10 @@ export const SingleLocation = (props) => {
                             </li>
                             <span className="singleLocaFilterSlash">/</span>
                             <li className="singleLocaFilter secondFilter">
-                              <span>{currentLocation.title}</span>
+                              <span>{location.name}</span>
                             </li>
                             <span className="singleLocaFilterSlash filterGreyText">/</span>
-                            <li className="singleLocaFilter filterGreyText">{currentLocation.capacity} people</li>
+                            <li className="singleLocaFilter filterGreyText">{location.capacity} people</li>
                           </ul>
                           <div className="singleLocaInfoMainSection">
                             <div className="singleLocaInfoWrapper">
@@ -93,10 +74,10 @@ export const SingleLocation = (props) => {
                                         <div className="singleLocaCarouselImagesWrapper">
                                           <div>
                                             <ul className={`singleLocaCarouselList ${slide? "singleLocaCarouselTwo" : "singleLocaCarouselOne"}`}>
-                                              {currentLocation.img.map(singleImage => (
+                                              {location.images.map(singleImage => (
                                                   <li key={singleImage} className="singleLocaCarouselImageWrapper">
                                                     <div className="singleLocaCarouselImageInner">
-                                                      <img className="singleLocaCarouselImage" src={singleImage} alt={currentLocation.title}/>
+                                                      <img className="singleLocaCarouselImage" src={singleImage} alt={location.name}/>
                                                     </div>
                                                   </li>
                                               ))}
@@ -121,8 +102,8 @@ export const SingleLocation = (props) => {
                                           </div>
                                         </button>
                                         <div className="singleLocaCarouselCapacity">
-                                          <img src="https://book.pirate.com/static/media/capacity-white.9786fb66.svg" alt={currentLocation.capacity}/>
-                                          <span className="singleLocaCapacityNumber">{currentLocation.capacity}</span>
+                                          <img src="https://book.pirate.com/static/media/capacity-white.9786fb66.svg" alt={location.capacity}/>
+                                          <span className="singleLocaCapacityNumber">{location.capacity}</span>
                                         </div>
                                       </div>
                                     </div>
@@ -159,8 +140,8 @@ export const SingleLocation = (props) => {
                                           </svg>
                                         </div>
                                         <div className="ps-1">
-                                          <h4 className="singleLocaDetailEquipTitle">Broadcast Microphone</h4>
-                                          <div className="singleLocaDetailEquipText">4x Rode Procaster</div>
+                                          <h4 className="singleLocaDetailEquipTitle">{location.details[0].title}</h4>
+                                          <div className="singleLocaDetailEquipText">{location.details[0].description}</div>
                                         </div>
                                       </div>
 
@@ -179,8 +160,8 @@ export const SingleLocation = (props) => {
                                           </svg>
                                         </div>
                                         <div className="ps-1">
-                                          <h4 className="singleLocaDetailEquipTitle">Headphones</h4>
-                                          <div className="singleLocaDetailEquipText">4x Pioneer HRM-5 Headphones</div>
+                                          <h4 className="singleLocaDetailEquipTitle">{location.details[1].title}</h4>
+                                          <div className="singleLocaDetailEquipText">{location.details[1].title}</div>
                                         </div>
                                       </div>
 
@@ -199,8 +180,8 @@ export const SingleLocation = (props) => {
                                           </svg>
                                         </div>
                                         <div className="ps-1">
-                                          <h4 className="singleLocaDetailEquipTitle">Interface</h4>
-                                          <div className="singleLocaDetailEquipText">Rode RODECaster Pro Integrated Podcast Production Console</div>
+                                          <h4 className="singleLocaDetailEquipTitle">{location.details[2].title}</h4>
+                                          <div className="singleLocaDetailEquipText">{location.details[2].title}</div>
                                         </div>
                                       </div>
                                     </div>
@@ -223,24 +204,24 @@ export const SingleLocation = (props) => {
                             <div className="paymentColumn">
                               <div className="paymentColumnInner">
                                 <div className="paymentTitleWrap">
-                                  <h2 className="paymentTitle">{currentLocation.title}</h2>
+                                  <h2 className="paymentTitle">{location.name}</h2>
                                 </div>
-                                <div className="paymentColumnCity"><span>{currentLocation.city}</span></div>
-                                <div className="paymentColumnDate">{booking.startDate.toDateString().slice(0, 10)} - {booking.finishDate.toDateString()}</div>
+                                <div className="paymentColumnCity"><span>{location.title}</span></div>
+                                <div className="paymentColumnDate">{timeStampToDate(filters.startDate).toDateString().slice(0, 10)} - {timeStampToDate(filters.finishDate).toDateString()}</div>
                                 <div className="paymentColumnTimeWrap">
                                   <div className="paymentColumnTimeWrap">
                                     {
-                                      booking.startDate.toLocaleString('en-US', { hour: 'numeric', hour12: true })
+                                      timeStampToDate(filters.startDate).toLocaleString('en-US', { hour: 'numeric', hour12: true })
                                     } - {
-                                    booking.finishDate.toLocaleString('en-US', { hour: 'numeric', hour12: true })
-                                  } ({booking.timeDuration}hrs)</div>
+                                    timeStampToDate(filters.finishDate).toLocaleString('en-US', { hour: 'numeric', hour12: true })
+                                  } ({filters.timeDuration}hrs)</div>
                                   <button className="paymentEditButton"><span>Edit</span></button>
                                 </div>
                                 <div className="paymentColumnTotal">
                                   <div className="paymentColumnTotalInner">
                                     <h3 className="paymentColumnTotalText">total</h3>
                                     <div className="paymentColumnTotalAmount">
-                                      <span className="paymentTotalAmountSpan">₪{booking.totalCost}</span>
+                                      <span className="paymentTotalAmountSpan">₪{filters.totalCost}</span>
                                     </div>
                                   </div>
                                 </div>
@@ -269,7 +250,7 @@ export const SingleLocation = (props) => {
                   </div>
                 </div>
               </div>
-            </> : <Navigate to="/" replace/>
+            </> : <Spinner/>
       )
   )
 

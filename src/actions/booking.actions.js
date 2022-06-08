@@ -5,7 +5,8 @@ export const allActions = {
     setStartFinishDate,
     setTimeStart,
     changeStartFinishTime,
-    setDuration
+    setDuration,
+    fullUpdateState
 }
 
 
@@ -28,4 +29,8 @@ function setDuration(selectedDuration) {
 
 function changeStartFinishTime(selectedTime) {
     return { type: actionTypes.CHANGESTARTFINISHTIME, selectedTime}
+}
+
+function fullUpdateState(newState) {
+    return { type: actionTypes.FULLUPDATESTATE, newState}
 }
