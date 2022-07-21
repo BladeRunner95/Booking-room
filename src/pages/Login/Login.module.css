@@ -1,0 +1,339 @@
+
+.mainWrapper {
+    padding-top: 55px;
+}
+
+@media (min-width: 992px) {
+    .mainWrapper {
+        padding-top: 64px;
+    }
+}
+
+.mainInnerWrapper {
+    max-width: 32rem;
+    padding-bottom: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin: auto;
+}
+
+@media screen and (min-width: 576px) {
+    .mainInnerWrapper {
+        padding-left: 0;
+        padding-right: 0;
+        padding-bottom: 1rem;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .mainInnerWrapper {
+        padding-bottom: 5rem;
+    }
+}
+
+.innerWrapper {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1rem;
+}
+
+@media screen and (min-width: 576px) {
+    .innerWrapper {
+        margin-top: 1rem;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .innerWrapper {
+        margin-top: 5rem;
+    }
+}
+
+.welcomeWrapper {
+    height: 228px;
+    width: 100%;
+
+    display: flex;
+}
+
+@media (min-width: 576px) {
+    .welcomeWrapper {
+        height: 340px;
+    }
+}
+
+.welcomeInner {
+    /*position: relative;*/
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+    height: 228px;
+    max-height: 228px;
+    margin-bottom: -4px;
+    margin-top: -13px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column-reverse;
+}
+
+@media (min-width: 576px) {
+    .welcomeInner {
+        height: 340px;
+        max-height: 340px;
+        margin-bottom: -15px;
+        margin-top: -20px;
+    }
+}
+
+@media screen and (min-width: 576px) {
+    .welcomeInner {
+        height: 32rem;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .welcomeInner {
+        height: 32rem;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .welcomeInner {
+        height: 32rem;
+    }
+}
+
+.welcomeText {
+    text-align: center;
+    max-width: 100%;
+    margin: 0;
+    font-size: 6em;
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*left: 0;*/
+    transform: scale( 1, 3.1429);
+    opacity: 1;
+    color: rgb(0, 0, 0);
+    line-height: 1.75rem;
+    text-transform: uppercase;
+
+    display: block;
+    /*font-size: 2em;*/
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 576px) {
+    .welcomeText {
+        font-size: 4em;
+    }
+}
+
+.emailMainWrap {
+    margin-bottom: 0.5rem;
+}
+
+.formInputInner {
+    position: relative;
+}
+
+.formLabel {
+    font-size: 1rem;
+    pointer-events: none;
+    transition: all 0.2s ease-in-out 0s;
+    z-index: 2;
+    padding: 0.75rem 0;
+    display: none;
+    color: rgb(0, 0, 0);
+}
+
+input {
+    overflow: visible;
+     font-family: inherit;
+     font-size: 100%;
+     line-height: 1.15;
+     margin: 0;
+}
+
+.formInput {
+    caret-color: rgb(0, 0, 0);
+    font-size: 1rem;
+    line-height: 1.25rem;
+    transition: all 0.2s ease-in-out 0s;
+    padding: 0.875rem 1rem;
+    min-width: 100%;
+    max-width: 100%;
+    position: relative;
+    border-radius: 0;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(0, 0, 0);
+    color: rgb(0, 0, 0);
+}
+
+/*.formInput:invalid {*/
+/*    border: 1px solid rgb(243, 32, 32);*/
+/*}*/
+
+ .formInput:focus {
+     outline: none;
+ }
+
+ .passwordWrap {
+     margin-top: 0.5rem;
+     margin-bottom: 1rem;
+ }
+
+ .checkboxRowWrap {
+     margin-bottom: 1rem;
+     -webkit-box-pack: justify;
+     justify-content: space-between;
+     flex-wrap: wrap;
+     display: flex;
+ }
+
+ .rememberMeWrap {
+     position: relative;
+     display: block;
+     width: 100%;
+ }
+
+ .checkboxInput {
+     opacity: 0;
+     position: absolute;
+     top: 0;
+     left: 0;
+     padding: 0;
+ }
+
+ .customCheckboxWrap {
+     pointer-events: none;
+     line-height: 0;
+ }
+
+ .checkboxSvg {
+     display: none;
+     left: 3px;
+     position: absolute;
+     top: 12px;
+ }
+ .checked {
+     display: inline-block;
+ }
+
+ .checkboxLabel {
+     font-size: 1rem;
+     padding: 0.5rem 0 0.5rem 2rem;
+     line-height: 1.75rem;
+     font-weight: 400;
+     cursor: pointer;
+     color: rgb(0, 0, 0);
+ }
+
+ .checkboxLabel::before {
+     content: " ";
+     position: absolute;
+     left: 0;
+     /*top: 0.1875rem;*/
+     top: 0.6rem;
+     height: 1.25rem;
+     width: 1.25rem;
+     display: inline-block;
+     border: 0.125rem solid rgb(0, 0, 0);
+     background-color: transparent;
+ }
+
+ .forgotPassword {
+     display: flex;
+     align-items: center;
+     cursor: pointer;
+     flex: 0 0 auto;
+     font-family: inherit;
+     -webkit-box-pack: center;
+     justify-content: center;
+     -webkit-box-align: center;
+     transition: all 0.2s ease-in-out 0s;
+     text-align: center;
+     white-space: nowrap;
+     border-radius: 0;
+     border: 1.5px solid transparent;
+     font-size: 1rem;
+     user-select: none;
+     color: rgb(0, 0, 0);
+     background-color: transparent;
+     text-decoration: underline;
+     text-transform: none;
+     font-weight: 400;
+     padding: 0;
+ }
+
+ .loginWrap {
+     margin-bottom: 0.5rem;
+ }
+
+ .loginButton {
+     padding: 0.9rem 1.5rem 0.8rem;
+     display: flex;
+     -webkit-box-align: center;
+     align-items: center;
+     cursor: pointer;
+     flex: 0 0 auto;
+     font-family: inherit;
+     -webkit-box-pack: center;
+     justify-content: center;
+     transition: all 0.2s ease-in-out 0s;
+     text-decoration: none;
+     text-align: center;
+     white-space: nowrap;
+     font-weight: bold;
+     border-radius: 0;
+     text-transform: uppercase;
+     border: 1.5px solid rgb(0, 0, 0);
+     font-size: 1rem;
+     user-select: none;
+     color: rgb(240, 240, 240);
+     background-color: rgb(0, 0, 0);
+     width: 100%;
+ }
+
+ .loginButton:disabled {
+     color: rgb(51, 51, 51);
+     border-color: rgb(191, 191, 191);
+     background-color: rgb(191, 191, 191);
+     cursor: default;
+     opacity: 1;
+ }
+
+
+ .createAccount {
+     padding: 0.9rem 1.5rem 0.8rem;
+     -webkit-box-align: center;
+     display: flex;
+     align-items: center;
+     cursor: pointer;
+     flex: 0 0 auto;
+     font-family: inherit;
+     transition: all 0.2s ease-in-out 0s;
+     -webkit-box-pack: center;
+     justify-content: center;
+     text-decoration: none;
+     text-align: center;
+     white-space: nowrap;
+     font-weight: bold;
+     border-radius: 0;
+     text-transform: uppercase;
+     border: 1.5px solid rgb(0, 0, 0);
+     font-size: 1rem;
+     user-select: none;
+     color: rgb(0, 0, 0);
+     background-color: transparent;
+     width: 100%;
+ }
+
+ .createAccount:hover {
+     background-color: transparent;
+     color: rgb(51, 51, 51);
+     border-color: rgb(51, 51, 51);
+ }

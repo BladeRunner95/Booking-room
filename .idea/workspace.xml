@@ -2,19 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37aa10dd-2f46-4349-8f1c-a3aa6e31e09e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/localStorage/localStorage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/Dashboard/Dashboard.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/Dashboard/UsersDashboard/UsersDashboard.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/Login/Login.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/Payment/Payment.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/Payment/Payment.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reducers/user.reducer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/types/user.types.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/booking.actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/booking.actions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Datepicker/MyDatepicker.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Datepicker/MyDatepicker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/LocationList/LocationList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/LocationList/LocationList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Nav/_Nav.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Nav/_Nav.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Admin/Admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/user.actions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Admin/Admin.styles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PrivateRoute/PrivateRoute.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Locations/Locations.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Locations/Locations.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Login/Login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Login/Login.styles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Dashboard/LocationsDashboard/LocationsDashboard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/SingleLocation/SingleLocation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/SingleLocation/SingleLocation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/booking.reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/booking.reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/store/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/store.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types/booking.types.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/booking.types.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,12 +33,13 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="CSS File" />
+        <option value="HTML File" />
         <option value="JavaScript File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../booking-server" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -50,10 +59,11 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../booking-server" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../redux-auth-hooks" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2021.3.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
@@ -64,8 +74,14 @@
       <recent name="C:\Dev\booking-server" />
     </key>
   </component>
-  <component name="RunManager" selected="Node.js.Locations.js">
+  <component name="RunManager" selected="Node.js.tasks.js">
+    <configuration name="transit.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/booking-music-room/transit.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
     <configuration name="Locations.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/src/pages/Locations/Locations.js" working-dir="$PROJECT_DIR$/src/pages/Locations">
+      <method v="2" />
+    </configuration>
+    <configuration name="tasks.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/../booking-server/tasks.js" working-dir="$PROJECT_DIR$/../booking-server">
       <method v="2" />
     </configuration>
     <configuration name="test.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/test.js" working-dir="$PROJECT_DIR$">
@@ -73,6 +89,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Node.js.tasks.js" />
+        <item itemvalue="JavaScript Debug.transit.html" />
         <item itemvalue="Node.js.Locations.js" />
         <item itemvalue="Node.js.test.js" />
       </list>
@@ -102,7 +120,19 @@
       <workItem from="1654254675648" duration="33292000" />
       <workItem from="1654520131306" duration="9648000" />
       <workItem from="1654606642066" duration="8780000" />
-      <workItem from="1654685568290" duration="19808000" />
+      <workItem from="1654685568290" duration="36664000" />
+      <workItem from="1654865085718" duration="13035000" />
+      <workItem from="1655241752837" duration="12520000" />
+      <workItem from="1655642724204" duration="17437000" />
+      <workItem from="1655908739421" duration="1867000" />
+      <workItem from="1656180386248" duration="452000" />
+      <workItem from="1656335991095" duration="10915000" />
+      <workItem from="1656763667826" duration="2006000" />
+      <workItem from="1656936144748" duration="40906000" />
+      <workItem from="1657112182435" duration="7922000" />
+      <workItem from="1657545469987" duration="21033000" />
+      <workItem from="1657890842962" duration="611000" />
+      <workItem from="1658221829481" duration="60499000" />
     </task>
     <servers />
   </component>
@@ -125,7 +155,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/Locations/Locations.js</url>
-          <line>106</line>
+          <line>83</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -134,9 +164,15 @@
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/pages/Locations/Locations.js</url>
-          <line>43</line>
-          <option name="timeStamp" value="16" />
+          <url>file://$PROJECT_DIR$/src/pages/LocationList/LocationList.js</url>
+          <line>17</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/components/Nav/_Nav.js</url>
+          <line>31</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="18" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -1,4 +1,5 @@
 import {createStore, applyMiddleware} from "redux";
+import thunkMiddleware from 'redux-thunk';
 import {composeWithDevTools} from "redux-devtools-extension";
 import {rootReducer} from "../reducers";
 import {loadState, saveState} from "../localStorage/localStorage";
@@ -10,7 +11,11 @@ const persistedState = loadState();
 export let store = createStore(
     rootReducer,
     persistedState,
-    composeWithDevTools());
+    composeWithDevTools(
+        applyMiddleware(
+            thunkMiddleware
+        )
+    ));
 
 store.subscribe(throttle(()=> {
     saveState({

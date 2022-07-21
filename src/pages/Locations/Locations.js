@@ -28,26 +28,9 @@ export const Locations = (props) => {
         async function getData() {
             try {
                 if (filtersStored.finishDate) {
-                    console.log('finish date updated');
+                    console.log('useEffect finish date updated');
                     const getFilters = await axios.get('http://localhost:5000/api');
                     setFilters(getFilters.data);
-                    // setFilters(locations.data);
-                    // let newObj = {};
-                    // for (let [key, value] of Object.entries(filtersStored)) {
-                    //     if (typeof value === 'object' && !Array.isArray(value)) {
-                    //         newObj[JSON.stringify(key)] = value.toString();
-                    //     } else {
-                    //         newObj[JSON.stringify(key)] = value;
-                    //     }
-                    // }
-                    // if (localStorage.getItem('filters') === null) {
-                    //     await localStorage.setItem('filters', JSON.stringify(filtersStored));
-                    // }
-                    // else {
-                    //     const storageFilters = JSON.parse(localStorage.getItem('filters'));
-                    //     console.log(storageFilters);
-                        //dispatch action change initialState to localstorage object
-                    // }
                 } else {
                     if (localStorage.getItem('filters') !== null) {
                         const getFilters = await JSON.parse(localStorage.getItem('filters'));
@@ -63,12 +46,6 @@ export const Locations = (props) => {
         }
 
         getData();
-
-        // return async ()=> {
-        //     if (filtersStored.finishDate) {
-        //         await localStorage.setItem('filters', JSON.stringify(filtersStored));
-        //     }
-        // }
     }, [filtersStored.finishDate]);
 
 

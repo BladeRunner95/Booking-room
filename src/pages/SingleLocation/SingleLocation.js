@@ -1,17 +1,20 @@
 import {useParams, useNavigate, Navigate, Link} from "react-router-dom";
 import {useState, useEffect} from "react";
 import {_Nav} from "../../components/Nav/_Nav";
-import drocher from '../../assets/lexshug.jpg'
+import drocher from '../../assets/lexshug.jpg';
 import './SingleLocation.css';
 import {useSelector} from "react-redux";
 import {Spinner} from "../../components/Spinner/Spinner";
 import axios from "axios";
+import {NotFound} from "../../components/NotFound/NotFound";
+import Cookies from "js-cookie";
 
 export const SingleLocation = (props) => {
   const {id} = useParams();
   const navigate = useNavigate();
   const goBack = () => navigate(-1);
   const booking = useSelector(state => state.myReducer);
+  const loggedIn = Cookies.get('access_token');
 
 
   const [ location, setLocation ] = useState(null);
@@ -23,7 +26,6 @@ export const SingleLocation = (props) => {
       try {
         const getLocation = await axios.get(`http://localhost:5000/api/locations/${id}`);
         setLocation(getLocation.data);
-        console.log(getLocation);
         if (localStorage.getItem('filters') !== null) {
           const getFilters = JSON.parse(localStorage.getItem('filters'));
           setFilters(getFilters.locations);
@@ -34,6 +36,10 @@ export const SingleLocation = (props) => {
     }
     getData();
   },[]);
+
+  if (!localStorage.getItem('filters')) {
+    return <NotFound/>
+  }
 
   const timeStampToDate = (timestamp) => {
     return new Date(timestamp);
@@ -196,7 +202,7 @@ export const SingleLocation = (props) => {
                                          rel="noopener noreferrer">View in Google Maps</a>
                                     </div>
                                   </div>
-                                  <div></div>
+                                  {/*<div></div>*/}
                                 </div>
                               </div>
                             </div>
@@ -225,7 +231,7 @@ export const SingleLocation = (props) => {
                                     </div>
                                   </div>
                                 </div>
-                                <Link className="paymentPayButton" to="">
+                                <Link className="paymentPayButton" to={loggedIn ? `/payment/${id}` : "/signin"}>
                                   <span>Book this studio</span>
                                 </Link>
                                 <div className="paymentCardsWrap">
