@@ -1,36 +1,31 @@
 import styles from './Login.module.css';
 import {_Nav} from "../../components/Nav/_Nav";
-import {Link} from "react-router-dom";
+import {Link, useNavigate, Navigate, useLocation} from "react-router-dom";
 import {useState} from "react";
-import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
 import {userActions} from "../../actions/user.actions";
+import {Spinner} from "../../components/Spinner/Spinner";
 
 export const Login = () => {
     const dispatch = useDispatch();
     const loggingIn = useSelector(state => state.userReducer.loggingIn);
+    const loggedIn = useSelector(state => state.userReducer.loggedIn);
+    const location = useLocation();
 
-    let [ inputs, setInputs ] = useState([
-        {
-            id: 1,
-            name: 'Email address',
-            value: undefined
-        },
-        {
-            id:2,
-            name: 'Password',
-            value: undefined
-        }
-    ]);
+    let [email, setEmail] = useState('');
+    let [password, setPassword] = useState('');
 
     const [submitted, setSubmitted] = useState(false);
-    const [ checkbox, setCheckbox ] = useState(false);
+    const [checkbox, setCheckbox] = useState(false);
 
     const handleInputsChange = (e, index) => {
-    setInputs(prev => {
-        prev[index].value = e.target.value;
-        return prev;
-    })};
+        if (index === 'email') {
+            setEmail(e.target.value)
+        }
+        if (index === 'password') {
+            setPassword(e.target.value)
+        }
+    };
 
     const handleCheckbox = () => {
         setCheckbox(prev => !prev);
@@ -40,24 +35,17 @@ export const Login = () => {
         e.preventDefault();
 
         setSubmitted(true);
-        if (inputs[0].value && inputs[1].value) {
-            const credentials = {
-                username: inputs[0].value,
-                password: inputs[1].value,
-            };
-            console.log('submitted with username and password');
-            // await axios.post('http://localhost:5000/api/auth/login', credentials, {withCredentials: true})
-            dispatch(userActions.login(inputs[0].value, inputs[1].value));
-            // get return url from location state or default to home page
-            // const { from } = location.state || { from: { pathname: "/" } };
-            // dispatch(userActions.login(inputs[0].value, inputs[1].value, from));
+        if (email && password) {
+            dispatch(userActions.login(email, password));
         }
     };
 
     return (
         <>
-        <_Nav />
-            {loggingIn ? <div>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa</div> :
+            <_Nav/>
+            {loggedIn ? location.state?.from ? <Navigate to={location.state.from} replace state={{from: location}}/> :
+                <Navigate to='/' replace/> : null}
+            {loggingIn ? <Spinner/> :
                 <div className={styles.mainWrapper}>
                     <div className={styles.mainInnerWrapper}>
                         <div className={styles.innerWrapper}>
@@ -67,26 +55,40 @@ export const Login = () => {
                                 </div>
                             </div>
                             <form noValidate onSubmit={handleSubmit}>
-                                {inputs.map((inpt, index) =>
-                                    <div key={inpt.id} className={styles.emailMainWrap}>
-                                        <div className={inpt.id === 2 ? styles.passwordWrap : null}>
-                                            <div className={styles.formInputInner}>
-                                                <label className={styles.formLabel} htmlFor="">{inpt.email}</label>
-                                                <input
-                                                    className={styles.formInput}
-                                                    type="text"
-                                                    id={inpt.name}
-                                                    key={inpt.name}
-                                                    name={inpt.name}
-                                                    placeholder={inpt.name + ' *'}
-                                                    value={inputs[index].value}
-                                                    onChange={e => handleInputsChange(e, index)}
-                                                    required
-                                                />
-                                            </div>
+                                <div className={styles.emailMainWrap}>
+                                    <div className={styles.formInputInner}>
+                                        <div>
+                                            <label className={styles.formLabel} htmlFor="">{email}</label>
+                                            <input
+                                                className={styles.formInput}
+                                                type="text"
+                                                name='email'
+                                                placeholder={'email *'}
+                                                value={email}
+                                                onChange={e => handleInputsChange(e, 'email')}
+                                                required
+                                            />
                                         </div>
                                     </div>
-                                )}
+                                </div>
+
+                                <div className={styles.emailMainWrap}>
+                                    <div className={styles.formInputInner}>
+                                        <div className={styles.passwordWrap}>
+                                            <label className={styles.formLabel} htmlFor="">{password}</label>
+                                            <input
+                                                className={styles.formInput}
+                                                type="password"
+                                                name='password'
+                                                placeholder={'password *'}
+                                                value={password}
+                                                onChange={e => handleInputsChange(e, 'password')}
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div className={styles.checkboxRowWrap}>
                                     <div>
                                         <div className={styles.rememberMeWrap}>

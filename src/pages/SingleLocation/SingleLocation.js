@@ -16,7 +16,6 @@ export const SingleLocation = (props) => {
   const booking = useSelector(state => state.myReducer);
   const loggedIn = Cookies.get('access_token');
 
-
   const [ location, setLocation ] = useState(null);
   const [ slide, setSlide ] = useState(false);
   const [ filters, setFilters ] = useState(null);
@@ -202,7 +201,6 @@ export const SingleLocation = (props) => {
                                          rel="noopener noreferrer">View in Google Maps</a>
                                     </div>
                                   </div>
-                                  {/*<div></div>*/}
                                 </div>
                               </div>
                             </div>
@@ -231,7 +229,7 @@ export const SingleLocation = (props) => {
                                     </div>
                                   </div>
                                 </div>
-                                <Link className="paymentPayButton" to={loggedIn ? `/payment/${id}` : "/signin"}>
+                                <Link className="paymentPayButton" to={`/payment/${id}`}>
                                   <span>Book this studio</span>
                                 </Link>
                                 <div className="paymentCardsWrap">

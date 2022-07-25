@@ -1,5 +1,8 @@
 import {actionTypes} from "../types/user.types";
 import axios from "axios";
+import { createBrowserHistory } from 'history';
+
+export const history = createBrowserHistory();
 
 export const userActions = {
     login,
@@ -20,15 +23,11 @@ function login(username, password, from) {
                     username,
                     password
                 }, {withCredentials: true}, {credentials: 'include'})
+
             dispatch(success(user));
-            //doesn't do it at the same time
-            window.location.replace('/');
-            console.log(user.headers);
         } catch (e) {
             dispatch(failure(e));
-            console.log(
-                'there was and error ' + e
-            )
+            console.log(e.response.data)
         }
         // userService.login(username, password)
         //     .then(

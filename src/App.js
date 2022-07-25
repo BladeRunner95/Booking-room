@@ -1,5 +1,5 @@
 import {Wrapper} from "./App.styles";
-import {Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes, useLocation, useNavigate} from "react-router-dom";
 import {Locations} from "./pages/Locations/Locations";
 import {Login} from "./pages/Login/Login";
 import {HomePage} from "./pages/Homepage/Homepage";
@@ -9,6 +9,7 @@ import {Payment} from "./pages/Payment/Payment";
 import {useEffect, useState} from "react";
 import {Dashboard} from "./pages/Dashboard/Dashboard";
 import {useSelector} from "react-redux";
+import ProtectedRoutes from "./components/PrivateRoute/PrivateRoute";
 
 
 const Message = ({ message }) => (
@@ -20,6 +21,7 @@ const Message = ({ message }) => (
 export default function App(props) {
     const admin = useSelector(state => state.userReducer);
     const user = useSelector(state => state.userReducer);
+    const location = useLocation();
     const [message, setMessage] = useState("");
     const localFilters = JSON.parse(localStorage.getItem('filters'));
     useEffect(() => {
@@ -43,12 +45,14 @@ export default function App(props) {
                 <Route path="/" element={<HomePage/>}/>
                 <Route path="/locations" element={<Locations title/>}/>
                 <Route path="/singleLocation/:id" element={<SingleLocation/>}/>
-                {!user.loggedIn &&
-                    <Route path="/signin" element={<Login/>}/>}
+                {/*{!user.loggedIn &&*/}
+                    <Route path="/signin" element={<Login/>} />
                 {/*private route for authenticated users*/}
-                {user.loggedIn &&
-                    <Route path="/payment/:id" element={ message ? (
-                    <Message message={message} />) : (<Payment />)} />}
+                {/*{user.loggedIn &&*/}
+                    <Route element={<ProtectedRoutes />}>
+                        <Route path="/payment/:id" element={ message ? (
+                            <Message message={message} />) : (<Payment />)} />
+                    </Route>
                 {/*private routes for admin*/}
                 {admin.loggedIn &&
                     <Route path="/dashboard/*" element={<Dashboard/>}/>}

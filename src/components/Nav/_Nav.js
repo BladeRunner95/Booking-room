@@ -1,7 +1,7 @@
 import Nav from 'react-bootstrap/Nav';
 import {Container, Navbar, NavDropdown, Button} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import './Nav.css'
 import {useDispatch, useSelector} from "react-redux";
 import {userActions} from "../../actions/user.actions";
@@ -12,9 +12,12 @@ export const _Nav = (props) => {
     const admin = useSelector(state => state.userReducer);
     const loggedIn = useSelector(state => state.userReducer);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleLogout = () => {
         dispatch(userActions.logout());
+        navigate('/', { replace: true });
+
     };
 
     return (
