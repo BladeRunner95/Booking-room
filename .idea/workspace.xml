@@ -2,15 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37aa10dd-2f46-4349-8f1c-a3aa6e31e09e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/actions/alert.actions.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/SignUp/SignUp.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/SignUp/SignUp.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reducers/alert.reducer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reducers/signup.reducer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/types/alert.types.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/actions/user.actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/user.actions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Nav/_Nav.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Nav/_Nav.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PrivateRoute/PrivateRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PrivateRoute/PrivateRoute.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/localStorage/localStorage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/localStorage/localStorage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Login/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/SingleLocation/SingleLocation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/SingleLocation/SingleLocation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/user.types.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/user.types.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../booking-server/controllers/usersController.js" beforeDir="false" afterPath="$PROJECT_DIR$/../booking-server/controllers/usersController.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -21,8 +24,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="CSS File" />
         <option value="HTML File" />
+        <option value="CSS File" />
         <option value="JavaScript File" />
       </list>
     </option>
@@ -124,7 +127,7 @@
       <workItem from="1657890842962" duration="611000" />
       <workItem from="1658221829481" duration="62495000" />
       <workItem from="1658646719391" duration="33549000" />
-      <workItem from="1658758537555" duration="1057000" />
+      <workItem from="1658758537555" duration="40456000" />
     </task>
     <servers />
   </component>
@@ -164,6 +167,12 @@
           <url>file://$PROJECT_DIR$/src/components/Nav/_Nav.js</url>
           <line>34</line>
           <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/pages/SignUp/SignUp.js</url>
+          <line>268</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="21" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

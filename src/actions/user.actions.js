@@ -1,13 +1,12 @@
 import {actionTypes} from "../types/user.types";
 import axios from "axios";
-import { createBrowserHistory } from 'history';
+import {alertActions} from "./alert.actions";
 
-export const history = createBrowserHistory();
 
 export const userActions = {
     login,
     logout,
-    // register,
+    register,
     // getUsers,
     // getUser,
     // updateUser,
@@ -29,17 +28,6 @@ function login(username, password, from) {
             dispatch(failure(e));
             console.log(e.response.data)
         }
-        // userService.login(username, password)
-        //     .then(
-        //         user => {
-        //             dispatch(success(user));
-        //             history.push(from);
-        //         },
-        //         error => {
-        //             dispatch(failure(error.toString()));
-        //             console.log(error.toString());
-        //         }
-        //     );
     };
 
     function request(user) { return { type: actionTypes.LOGIN_REQUEST, user } }
@@ -53,29 +41,38 @@ function logout() {
     return { type: actionTypes.LOGOUT };
 }
 
-// function register(user) {
-//     return dispatch => {
-//         dispatch(request(user));
-//
-//         userService.register(user)
-//             .then(
-//                 user => {
-//                     dispatch(success());
-//                     history.push('/login');
-//                     dispatch(alertActions.success('Registration successful'));
-//                 },
-//                 error => {
-//                     dispatch(failure(error));
-//                     dispatch(alertActions.error);
-//                 }
-//             );
-//     };
-//
-//     function request(user) { return { type: userConstants.REGISTER_REQUEST, user } }
-//     function success(user) { return { type: userConstants.REGISTER_SUCCESS, user } }
-//     function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
-// }
-//
+function register(user) {
+    return async dispatch => {
+        try {
+            dispatch(request(user));
+            const newUser = await axios.post('http://localhost:5000/api/auth/users', user);
+            dispatch(success(newUser));
+            console.log('Register success')
+        } catch (e) {
+            dispatch(failure(e));
+            console.log(e);
+            dispatch(alertActions.error(e.response.data));
+        }
+
+        // userService.register(user)
+        //     .then(
+        //         user => {
+        //             dispatch(success());
+        //             history.push('/login');
+        //             // dispatch(alertActions.success('Registration successful'));
+        //         },
+        //         error => {
+        //             dispatch(failure(error));
+        //             // dispatch(alertActions.error);
+        //         }
+        //     );
+    };
+
+    function request(user) { return { type: actionTypes.REGISTER_REQUEST, user } }
+    function success(user) { return { type: actionTypes.REGISTER_SUCCESS, user } }
+    function failure(error) { return { type: actionTypes.REGISTER_FAILURE, error } }
+}
+
 // function getAll() {
 //     return dispatch => {
 //         dispatch(request());

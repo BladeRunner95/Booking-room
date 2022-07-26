@@ -43,8 +43,6 @@ export const Login = () => {
     return (
         <>
             <_Nav/>
-            {loggedIn ? location.state?.from ? <Navigate to={location.state.from} replace state={{from: location}}/> :
-                <Navigate to='/' replace/> : null}
             {loggingIn ? <Spinner/> :
                 <div className={styles.mainWrapper}>
                     <div className={styles.mainInnerWrapper}>
