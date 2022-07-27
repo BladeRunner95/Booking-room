@@ -1,9 +1,10 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import {useSelector} from "react-redux";
+import Cookies from "js-cookie";
 
 const useAuth = () => {
-    const user = useSelector(state=> state.userReducer)
-    return user && user.loggedIn;
+    const user = Cookies.get('access_token');
+    return user;
 };
 
 const ProtectedRoutes = () => {

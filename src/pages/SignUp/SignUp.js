@@ -10,7 +10,6 @@ import {alertActions} from "../../actions/alert.actions";
 export const SignUp = () => {
     const dispatch = useDispatch();
     const location = useLocation();
-    const loggedIn = useSelector(state => state.userReducer.loggedIn);
     const registered = useSelector(state => state.signupReducer);
     const error = useSelector(state => state.alertReducer);
     let [inputs, setInputs] = useState({
@@ -26,10 +25,27 @@ export const SignUp = () => {
         repeatPas: false
     });
 
-    // useEffect(()=> {
-    //     dispatch(alertActions.clear());
-    //     console.log('aas');
-    //     }, [inputs])
+    useEffect(()=> {
+        // dispatch(alertActions.clear());
+
+        //update error message on changing first pass input with second filled
+        if (repeatPass.length > 0 && inputs.password !== repeatPass) {
+            const payload = {
+                type: 'repeatPass',
+                message: 'Password is not match'
+            }
+            dispatch(alertActions.error(payload));
+        }
+        else {
+            dispatch(alertActions.clear());
+        }
+        }, [inputs.password])
+
+
+    //redirect to login after signUp but you can't go to signUp until you refresh the page
+    if (registered.registered) {
+        return <Navigate to='/signin' replace/>;
+    }
 
     const handleInputChange = (e) => {
         setInputs(prev => {
@@ -70,15 +86,13 @@ export const SignUp = () => {
     };
 
     const handeSubmitDisabled = () => {
-        return !(inputs.username && inputs.email && inputs.password && repeatPass)
+        return !(inputs.username && inputs.email && inputs.password && repeatPass && (inputs.password === repeatPass))
         // return Object.values(inputs).some(inpt=> !Boolean(inpt))
     };
 
 
     return (
         <>
-            {registered.registered ? <Navigate to='/signin' replace/> :
-                <>
                     <_Nav/>
                     <div className={styles.wrapper}>
                         <div className={styles.innerWrapper}>
@@ -140,6 +154,7 @@ export const SignUp = () => {
                                                 onChange={handleInputChange}
                                                 required/>
                                             <button type="button"
+                                                    tabIndex="-1"
                                                     className={styles.passHideBtn}
                                                     onClick={() => handleShowPassword("password")}
                                                     disabled={!Boolean(inputs.password)}
@@ -211,6 +226,7 @@ export const SignUp = () => {
                                                     required/>
 
                                                 <button type="button"
+                                                        tabIndex="-1"
                                                         className={styles.passHideBtn}
                                                         onClick={() => handleShowPassword('repeatPas')}
                                                         disabled={!Boolean(repeatPass)}
@@ -278,8 +294,6 @@ export const SignUp = () => {
                             </div>
                         </div>
                     </div>
-                </>
-            }
         </>
     )
 };

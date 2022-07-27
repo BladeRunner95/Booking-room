@@ -13,13 +13,13 @@ export const userActions = {
     // delete: _delete
 }
 
-function login(username, password, from) {
+function login(email, password, from) {
     return async dispatch => {
         try {
-            dispatch(request({username}));
+            dispatch(request({email}));
             const user = await axios.post('http://localhost:5000/api/auth/login',
                 {
-                    username,
+                    email,
                     password
                 }, {withCredentials: true}, {credentials: 'include'})
 
@@ -27,6 +27,7 @@ function login(username, password, from) {
         } catch (e) {
             dispatch(failure(e));
             console.log(e.response.data)
+            dispatch(alertActions.error(e.response.data));
         }
     };
 

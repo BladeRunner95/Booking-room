@@ -253,6 +253,7 @@
     color: rgb(191, 191, 191);
     border-color: transparent;
     background-color: transparent;
+    cursor: unset;
 }
 
 .eyeWrapper {

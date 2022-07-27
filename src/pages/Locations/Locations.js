@@ -87,7 +87,9 @@ export const Locations = (props) => {
 
     const handleClickedDropdown = (inputId) => {
         if (inputId === opened.index) {
-            setOpened({index: null, open: false});
+            setOpened(prev=> ({
+                ...prev, index: null, open: false
+            }));
         } else {
             setOpened({index: inputId, open: true});
         }
