@@ -75,19 +75,37 @@ export const SignUp = () => {
         });
     };
 
+    const validForm = (email, password, inputs) => {
+        if (!/\S+@\S+\.\S+/.test(email)) {
+            dispatch(alertActions.error({
+                type: 'email',
+                message: 'Please enter a valid email address'
+            }));
+            return;
+        }
+        if (password.length < 5 || !password.trim()) {
+            dispatch(alertActions.error({
+                type: 'password',
+                message: 'Please enter a valid password (more than 5 symbols)'
+            }));
+        } else {
+            dispatch(userActions.register(inputs));
+        }
+    }
+
     const handleSubmitSignIn = (e) => {
         e.preventDefault();
         if (inputs.username && inputs.email && inputs.password && repeatPass && (inputs.password === repeatPass)) {
-            console.log('everything validated')
-            dispatch(userActions.register(inputs));
+            console.log('everything validated');
+            validForm(inputs.email, inputs.password, inputs);
+            // dispatch(userActions.register(inputs));
         } else {
             console.log('Some input wrong');
         }
     };
 
     const handeSubmitDisabled = () => {
-        return !(inputs.username && inputs.email && inputs.password && repeatPass && (inputs.password === repeatPass))
-        // return Object.values(inputs).some(inpt=> !Boolean(inpt))
+        return !(inputs.username && inputs.email && inputs.password && repeatPass && (inputs.password === repeatPass));
     };
 
 
@@ -209,6 +227,8 @@ export const SignUp = () => {
                                                     </svg>
                                                 </div>
                                             </button>
+                                            {(error.message?.type === 'password') &&
+                                                <div className={styles.danger}>{error.message.message}</div>}
                                         </div>
                                         <div className={styles.inputWrapper}>
                                             <div className={styles.passRelative}>

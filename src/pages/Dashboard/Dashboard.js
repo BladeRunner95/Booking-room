@@ -1,9 +1,11 @@
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {Admin, Resource, ListGuesser, EditGuesser} from "react-admin";
+import {Admin, Resource, ListGuesser, EditGuesser, fetchUtils, CustomRoutes } from "react-admin";
 import jsonServerProvider from 'ra-data-json-server';
 import {UsersDashboard, UsersEdit, UserCreate} from "./UsersDashboard/UsersDashboard";
 import {LocationCreate, LocationEdit, LocationsDashboard} from "./LocationsDashboard/LocationsDashboard";
+import Cookies from "js-cookie";
+import {HomePage} from "../Homepage/Homepage";
 
 
 // const httpClient = (url, options= {}) => {
@@ -14,10 +16,25 @@ import {LocationCreate, LocationEdit, LocationsDashboard} from "./LocationsDashb
 //     return fetchUtils.fetchJson(url, options);
 // }
 
-const dataProvider = jsonServerProvider('http://localhost:5000/api');
+const httpClient = async (url, options = {}) => {
+    if (!options.headers) {
+        options.headers = new Headers({ Accept: 'application/json' });
+    }
+    const loggedIn = Cookies.get('access_token');
+    options.headers.set('Authorization', `Bearer ${loggedIn}`);
+    options.credentials = 'include';
+    let pipi = await fetchUtils.fetchJson(url, options);
+    console.log(pipi);
+    // need to redirect if error
+    // if (pipi.status === 200)
+    return fetchUtils.fetchJson(url, options);
+};
+
+const dataProvider = jsonServerProvider('http://localhost:5000/api', httpClient);
+
 
 export const Dashboard = () => {
-
+    const navigate = useNavigate();
     const [boardOpen, setBoardOpen] = useState(false);
 
     useEffect(() => {
@@ -30,9 +47,13 @@ export const Dashboard = () => {
 
     return (
         <>
+            <div>wefwefwefewf</div>
             <Admin basename="/dashboard" dataProvider={dataProvider}>
                 <Resource name="posts" list={LocationsDashboard} edit={LocationEdit} create={LocationCreate}/>
                 <Resource name="auth/users" options={{ label: 'Users' }} list={UsersDashboard} edit={UsersEdit} create={UserCreate}/>
+                {/*<CustomRoutes>*/}
+                {/*    Route path="/" element={<HomePage />} />*/}
+                {/*</CustomRoutes>*/}
                 {/*<Resource name="users" list={ListGuesser}/>*/}
             </Admin>
         </>
