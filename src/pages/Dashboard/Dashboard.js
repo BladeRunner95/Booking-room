@@ -6,15 +6,8 @@ import {UsersDashboard, UsersEdit, UserCreate} from "./UsersDashboard/UsersDashb
 import {LocationCreate, LocationEdit, LocationsDashboard} from "./LocationsDashboard/LocationsDashboard";
 import Cookies from "js-cookie";
 import {HomePage} from "../Homepage/Homepage";
+// import {fetchJson} from "./httpError";
 
-
-// const httpClient = (url, options= {}) => {
-//     if (!options.headers) {
-//         options.headers = new Headers({ Accept: 'application/json' });
-//     }
-//     options.headers.set('X-Custom-Header', 'foobar');
-//     return fetchUtils.fetchJson(url, options);
-// }
 
 const httpClient = async (url, options = {}) => {
     if (!options.headers) {
@@ -24,10 +17,10 @@ const httpClient = async (url, options = {}) => {
     options.headers.set('Authorization', `Bearer ${loggedIn}`);
     options.credentials = 'include';
     let pipi = await fetchUtils.fetchJson(url, options);
-    console.log(pipi);
+    // console.log(pipi);
     // need to redirect if error
     // if (pipi.status === 200)
-    return fetchUtils.fetchJson(url, options);
+    return pipi;
 };
 
 const dataProvider = jsonServerProvider('http://localhost:5000/api', httpClient);
@@ -47,9 +40,8 @@ export const Dashboard = () => {
 
     return (
         <>
-            <div>wefwefwefewf</div>
             <Admin basename="/dashboard" dataProvider={dataProvider}>
-                <Resource name="posts" list={LocationsDashboard} edit={LocationEdit} create={LocationCreate}/>
+                <Resource name="locations" list={LocationsDashboard} edit={LocationEdit} create={LocationCreate}/>
                 <Resource name="auth/users" options={{ label: 'Users' }} list={UsersDashboard} edit={UsersEdit} create={UserCreate}/>
                 {/*<CustomRoutes>*/}
                 {/*    Route path="/" element={<HomePage />} />*/}

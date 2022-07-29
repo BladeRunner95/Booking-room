@@ -185,8 +185,8 @@ export const SingleLocation = (props) => {
                                           </svg>
                                         </div>
                                         <div className="ps-1">
-                                          <h4 className="singleLocaDetailEquipTitle">{location.details[2].title}</h4>
-                                          <div className="singleLocaDetailEquipText">{location.details[2].title}</div>
+                                          <h4 className="singleLocaDetailEquipTitle">{location.details[2]?.title}</h4>
+                                          <div className="singleLocaDetailEquipText">{location.details[2]?.title}</div>
                                         </div>
                                       </div>
                                     </div>

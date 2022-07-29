@@ -2,13 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37aa10dd-2f46-4349-8f1c-a3aa6e31e09e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/helpers/validationForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/Dashboard/CustomLayout/MyLayout.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/Dashboard/httpError.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Nav/_Nav.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Nav/_Nav.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Dashboard/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Dashboard/Dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/SignUp/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/SignUp/SignUp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Dashboard/LocationsDashboard/LocationsDashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Dashboard/LocationsDashboard/LocationsDashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/LocationList/LocationList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/LocationList/LocationList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/SingleLocation/SingleLocation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/SingleLocation/SingleLocation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../booking-server/controllers/locationsController.js" beforeDir="false" afterPath="$PROJECT_DIR$/../booking-server/controllers/locationsController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../booking-server/controllers/usersController.js" beforeDir="false" afterPath="$PROJECT_DIR$/../booking-server/controllers/usersController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../booking-server/middleware/verifyToken.js" beforeDir="false" afterPath="$PROJECT_DIR$/../booking-server/middleware/verifyToken.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../booking-server/routes/getUsers.js" beforeDir="false" afterPath="$PROJECT_DIR$/../booking-server/routes/getUsers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../booking-server/routes/getLocations.js" beforeDir="false" afterPath="$PROJECT_DIR$/../booking-server/routes/getLocations.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +29,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../booking-server" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -122,7 +126,7 @@
       <workItem from="1657890842962" duration="611000" />
       <workItem from="1658221829481" duration="62495000" />
       <workItem from="1658646719391" duration="33549000" />
-      <workItem from="1658758537555" duration="79292000" />
+      <workItem from="1658758537555" duration="106488000" />
     </task>
     <servers />
   </component>
@@ -150,24 +154,25 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/LocationList/LocationList.js</url>
-          <line>92</line>
+          <line>93</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/LocationList/LocationList.js</url>
-          <line>17</line>
+          <line>18</line>
           <option name="timeStamp" value="17" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/components/Nav/_Nav.js</url>
-          <line>34</line>
-          <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/SignUp/SignUp.js</url>
           <line>304</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/pages/SingleLocation/SingleLocation.js</url>
+          <line>80</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="22" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

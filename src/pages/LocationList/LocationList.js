@@ -14,7 +14,8 @@ export const LocationList = () => {
             try {
                 if (filtersStored.finishDate) {
                     console.log('finish date updated');
-                    const locations = await axios.get(`http://localhost:5000/api/locations/byName/${filtersStored.location[0]}`);
+                    // const locations = await axios.get(`http://localhost:5000/api/locations/byName/${filtersStored.location[0]}`);
+                    const locations = await axios.get(`http://localhost:5000/api/locations/byName/${["Holon"]}`);
                     setSelectedLocations(locations.data);
                 }
             } catch (error) {

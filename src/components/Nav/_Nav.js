@@ -31,9 +31,6 @@ export const _Nav = (props) => {
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="ms-auto">
                         {/*make dashboard only for admin*/}
-                        {admin.loggedIn &&
-                            <Nav.Link as={Link} to={"/dashboard"} href="/dashboard">Dashboard</Nav.Link>
-                        }
                         <Nav.Link as={Link} to={"/locations"} href="/locations">Book A Studio</Nav.Link>
                         <NavDropdown title="En" id="collasible-nav-dropdown" className="pe-1">
                             <NavDropdown.Item href="#action/3.1">En</NavDropdown.Item>
