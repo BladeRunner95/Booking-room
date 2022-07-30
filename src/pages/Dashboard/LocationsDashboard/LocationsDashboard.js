@@ -2,36 +2,34 @@ import {
     List,
     Datagrid,
     TextField,
-    ReferenceField,
     EditButton,
     Edit,
     Create,
     SimpleForm,
-    ReferenceInput,
-    SelectInput,
-    TextInput, ArrayField, UrlField, ChipField, SingleFieldList, SimpleFormIterator, ArrayInputContext, ArrayInput, Labeled, DateField, DateInput, WrapperField
+    TextInput,
+    SimpleFormIterator,
+    ArrayInput,
+    Labeled,
+    DateField,
+    WrapperField, useNotify, required
 } from 'react-admin';
 
+import {validatePrice, validateRequired} from '../validateInputs';
 
-const myRowStyled = (record, index) => {
-    // console.log(record);
-    return { backgroundColor: record._doc.title === "Holon" ? '#efe' : null}}
 
-const formStyled = (record) => {
-    return {
-        alignItems: 'stretch'
-    }
+const myRowStyled = (record) => {
+    return {backgroundColor: record.confirmedBookings.length > 0 && '#efe'}
 }
 
 export const LocationsDashboard = props => (
     <List>
         <Datagrid rowClick="edit" rowStyle={myRowStyled}>
             <TextField source="id"/>
-            <TextField source="_doc.title" label='City'/>
-            <TextField source="_doc.name" label='Name'/>
-            <TextField source="_doc.price" label='Price'/>
-            <TextField source="_doc.capacity" label="Capacity"/>
-            <DateField source="_doc.confirmedBookings" label="Bookings"/>
+            <TextField source="title" label='City'/>
+            <TextField source="name" label='Name'/>
+            <TextField source="price" label='Price'/>
+            <TextField source="capacity" label="Capacity"/>
+            <DateField source="confirmedBookings" label="Bookings"/>
             <EditButton/>
         </Datagrid>
     </List>
@@ -39,69 +37,71 @@ export const LocationsDashboard = props => (
 
 export const LocationEdit = () => (
     <Edit>
-        <SimpleForm sx={formStyled} label="shavbl">
-            <TextInput sx={formStyled} disabled source="id"/>
-            {/*<ReferenceInput source="userId" reference="users">*/}
-            {/*    <SelectInput optionText="name"/>*/}
-            {/*</ReferenceInput>*/}
-            <TextInput source="title" label="City"/>
-            <TextInput source="name" multiline label="Name"/>
-            <TextInput source="price" label="Price"/>
-            <TextInput source="capacity" label="Capacity"/>
-            {/*<tr/>*/}
+        <SimpleForm label="edit location">
+            <TextInput disabled source="id"/>
+            <TextInput source="title" label="City" validate={validateRequired}/>
+            <TextInput source="name" multiline label="Name" validate={validateRequired}/>
+            <TextInput source="price" label="Price" validate={validatePrice}/>
+            <TextInput source="capacity" label="Capacity" validate={validatePrice}/>
             <Labeled label="Images">
                 <WrapperField>
-            <ArrayInput source="images" label={false}>
-                <SimpleFormIterator disableReordering>
-                    <TextInput />
-                </SimpleFormIterator>
-            </ArrayInput>
+                    <ArrayInput source="images" label={false}>
+                        <SimpleFormIterator disableReordering>
+                            <TextInput/>
+                        </SimpleFormIterator>
+                    </ArrayInput>
                 </WrapperField>
             </Labeled>
 
             <Labeled label="Details">
                 <WrapperField>
-            <ArrayInput source="details" label={false}>
-                <SimpleFormIterator disableReordering>
-                    <TextInput multiline source="title" />
-                    <TextInput multiline rows={2} source="description" />
-                </SimpleFormIterator>
-            </ArrayInput>
+                    <ArrayInput source="details" label={false}>
+                        <SimpleFormIterator disableReordering>
+                            <TextInput multiline source="title"/>
+                            <TextInput multiline rows={2} source="description"/>
+                        </SimpleFormIterator>
+                    </ArrayInput>
                 </WrapperField>
-                </Labeled>
+            </Labeled>
 
             <Labeled label="confirmedBookings">
                 <WrapperField>
-            <ArrayInput source="confirmedBookings" label={false}>
-                <SimpleFormIterator disableReordering>
-                    <TextInput multiline/>
-                </SimpleFormIterator>
-            </ArrayInput>
+                    <ArrayInput source="confirmedBookings" label={false}>
+                        <SimpleFormIterator disableReordering>
+                            <TextInput multiline/>
+                        </SimpleFormIterator>
+                    </ArrayInput>
                 </WrapperField>
             </Labeled>
         </SimpleForm>
     </Edit>
 );
 
-export const LocationCreate = props => (
-    <Create title="Create location" {...props}>
+export const LocationCreate = props => {
+const notify = useNotify();
+    const onError = () => {
+        notify(`Missing required fields`, { type: 'error'}); // default message is 'ra.notification.updated'
+    };
+
+return (
+    <Create mutationOptions={{ onError }} title="Create location" {...props}>
         <SimpleForm>
-            <TextInput source="title" label="City"/>
-            <TextInput source="name" label="Name"/>
-            <TextInput source="price" label="Price"/>
-            <TextInput source="capacity" label="Capacity"/>
+            <TextInput source="title" label="City" validate={validateRequired}/>
+            <TextInput source="name" label="Name" validate={validateRequired}/>
+            <TextInput source="price" label="Price" validate={validatePrice}/>
+            <TextInput source="capacity" label="Capacity" validate={validatePrice}/>
             <ArrayInput source="images" label="Images">
                 <SimpleFormIterator disableReordering>
-                    <TextInput />
+                    <TextInput/>
                 </SimpleFormIterator>
             </ArrayInput>
             <ArrayInput source="details">
                 <SimpleFormIterator disableReordering>
-                    <TextInput source="title" />
-                    <TextInput source="description" />
+                    <TextInput source="title"/>
+                    <TextInput source="description"/>
                 </SimpleFormIterator>
             </ArrayInput>
-            {/*<DateInput label="published" source="publishedAt"/>*/}
         </SimpleForm>
     </Create>
-);
+)
+}

@@ -5,37 +5,50 @@ import {
     EmailField,
     BooleanField,
     ArrayField,
-    ReferenceField,
     SimpleForm,
-    TextInput, ReferenceInput, SelectInput, Edit, Create, EditButton, DeleteButton
+    TextInput,
+    Edit,
+    Create,
+    EditButton,
+    DeleteButton,
+    SimpleFormIterator,
+    ArrayInput,
+    PasswordInput,
+    BooleanInput,
+    WrapperField, Labeled
 } from 'react-admin';
+import {validateEmail, validatePassword, validateRequired} from '../validateInputs';
 
-export const UsersDashboard = () => (
+export const UsersDashboard = (props) => (
     <List>
         <Datagrid rowClick="edit">
-            <TextField source="id" />
-            <TextField label="Username" source="_doc.username" />
-            <EmailField label="Email" source="_doc.email" />
-            <BooleanField label="Admin" source="_doc.isAdmin" />
-            <ArrayField label="Bookings" source="_doc.bookings">
-                <ReferenceField label="User" source="user_id" reference="users">
-                    <TextField source="name" />
-                </ReferenceField>
-            </ArrayField>
+            <TextField source="id" sortBy="id"/>
+            <TextField label="Username" source="username" sortByOrder="DESC"/>
+            <EmailField label="Email" source="email" />
+            <BooleanField label="Admin" source="isAdmin" />
+            <ArrayField source="bookings" label="Bookings"/>
             <EditButton basepath='/users' />
             <DeleteButton basepath='/users' />
         </Datagrid>
     </List>
 );
 
-export const UsersEdit = props => (
+export const UsersEdit = () => (
     <Edit>
         <SimpleForm>
             <TextInput disabled source="id"/>
-            <ReferenceInput source="id" reference="users">
-                <SelectInput optionText="name"/>
-            </ReferenceInput>
-            <TextInput source="title"/>
+            <TextInput source="username" validate={validateRequired}/>
+            <TextInput source="email" validate={validateEmail}/>
+            <BooleanInput source="isAdmin"/>
+            <Labeled label="confirmedBookings">
+                <WrapperField>
+                    <ArrayInput source="bookings" label={false}>
+                        <SimpleFormIterator disableReordering>
+                            <TextInput multiline/>
+                        </SimpleFormIterator>
+                    </ArrayInput>
+                </WrapperField>
+            </Labeled>
         </SimpleForm>
     </Edit>
 )
@@ -43,8 +56,9 @@ export const UsersEdit = props => (
 export const UserCreate = props => (
     <Create {...props}>
         <SimpleForm>
-            <TextInput source="title"/>
-            <TextInput multiline source="body"/>
+            <TextInput source="username" validate={validateRequired}/>
+            <TextInput source="email" validate={validateEmail}/>
+            <PasswordInput source="password" validate={validatePassword}/>
         </SimpleForm>
     </Create>
 );
