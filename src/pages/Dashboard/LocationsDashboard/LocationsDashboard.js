@@ -11,7 +11,7 @@ import {
     ArrayInput,
     Labeled,
     DateField,
-    WrapperField, useNotify, required
+    WrapperField, useNotify
 } from 'react-admin';
 
 import {validatePrice, validateRequired} from '../validateInputs';
@@ -21,7 +21,8 @@ const myRowStyled = (record) => {
     return {backgroundColor: record.confirmedBookings.length > 0 && '#efe'}
 }
 
-export const LocationsDashboard = props => (
+export const LocationsDashboard = props => {
+    return (
     <List>
         <Datagrid rowClick="edit" rowStyle={myRowStyled}>
             <TextField source="id"/>
@@ -34,6 +35,7 @@ export const LocationsDashboard = props => (
         </Datagrid>
     </List>
 );
+}
 
 export const LocationEdit = () => (
     <Edit>
@@ -78,7 +80,8 @@ export const LocationEdit = () => (
 );
 
 export const LocationCreate = props => {
-const notify = useNotify();
+    const notify = useNotify();
+
     const onError = () => {
         notify(`Missing required fields`, { type: 'error'}); // default message is 'ra.notification.updated'
     };
