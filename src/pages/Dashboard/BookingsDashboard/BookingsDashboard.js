@@ -62,15 +62,7 @@ export const BookingCreate = props => {
             .then(({ data }) => {
                 setUser(data);
                 setLoading(false);
-                let spreadArr = [];
-                data.map(obj=> {
-                    spreadArr.push({
-                        id: obj._id,
-                        name: obj.username
-                    });
-                })
-
-                setSelectUsers(spreadArr);
+                setSelectUsers(data);
             })
             .catch(error => {
                 setError(error);
@@ -89,14 +81,17 @@ export const BookingCreate = props => {
 
     return (
         <Create mutationOptions={{onError}} title="Create booking" {...props}>
-            {/*{users? <div>{users}</div> :<div>ssd</div>}*/}
             <SimpleForm>
                 <TextInput source="startDate" label="Start" validate={validatePrice}/>
                 <TextInput source="finishDate" label="End" validate={validatePrice}/>
                 <TextInput source="location" label="Location" validate={validateRequired}/>
                 <TextInput source="cost" label="Cost" />
-                {selectUsers ? <SelectInput source="user" choices={selectUsers}/>: <div>Loading users</div>}
-                {/*<TextInput source="user" label="User" validate={validateRequired}/>*/}
+                {selectUsers ? <SelectInput source="user"
+                                            choices={selectUsers}
+                                            optionValue="_id"
+                                            optionText="username"
+                    />
+                    : <div>Loading users</div>}
             </SimpleForm>
         </Create>
     )

@@ -37,53 +37,61 @@ export const LocationsDashboard = props => {
 );
 }
 
-export const LocationEdit = () => (
-    <Edit>
-        <SimpleForm label="edit location">
-            <TextInput disabled source="id"/>
-            <TextInput source="title" label="City" validate={validateRequired}/>
-            <TextInput source="name" multiline label="Name" validate={validateRequired}/>
-            <TextInput source="price" label="Price" validate={validatePrice}/>
-            <TextInput source="capacity" label="Capacity" validate={validatePrice}/>
-            <Labeled label="Images">
-                <WrapperField>
-                    <ArrayInput source="images" label={false}>
-                        <SimpleFormIterator disableReordering>
-                            <TextInput/>
-                        </SimpleFormIterator>
-                    </ArrayInput>
-                </WrapperField>
-            </Labeled>
+export const LocationEdit = (props) => {
+    // use of useRecordContext causes unexpected warnings
+    // const responseProps = useRecordContext();
+    const notify = useNotify();
+    // console.log(responseProps.json);
+    const onError = () => {
+        notify(props.myresponse.json.message, { type: 'error'}); // default message is 'ra.notification.updated'
+    };
+    return (
+        <Edit mutationOptions={{ onError }} {...props}>
+            <SimpleForm label="edit location">
+                <TextInput disabled source="id"/>
+                <TextInput source="title" label="City" validate={validateRequired}/>
+                <TextInput source="name" multiline label="Name" validate={validateRequired}/>
+                <TextInput source="price" label="Price" validate={validatePrice}/>
+                <TextInput source="capacity" label="Capacity"/>
+                <Labeled label="Images">
+                    <WrapperField>
+                        <ArrayInput source="images" label={false}>
+                            <SimpleFormIterator disableReordering>
+                                <TextInput/>
+                            </SimpleFormIterator>
+                        </ArrayInput>
+                    </WrapperField>
+                </Labeled>
 
-            <Labeled label="Details">
-                <WrapperField>
-                    <ArrayInput source="details" label={false}>
-                        <SimpleFormIterator disableReordering>
-                            <TextInput multiline source="title"/>
-                            <TextInput multiline rows={2} source="description"/>
-                        </SimpleFormIterator>
-                    </ArrayInput>
-                </WrapperField>
-            </Labeled>
+                <Labeled label="Details">
+                    <WrapperField>
+                        <ArrayInput source="details" label={false}>
+                            <SimpleFormIterator disableReordering>
+                                <TextInput multiline source="title"/>
+                                <TextInput multiline rows={2} source="description"/>
+                            </SimpleFormIterator>
+                        </ArrayInput>
+                    </WrapperField>
+                </Labeled>
 
-            <Labeled label="confirmedBookings">
-                <WrapperField>
-                    <ArrayInput source="confirmedBookings" label={false}>
-                        <SimpleFormIterator disableReordering>
-                            <TextInput multiline/>
-                        </SimpleFormIterator>
-                    </ArrayInput>
-                </WrapperField>
-            </Labeled>
-        </SimpleForm>
-    </Edit>
-);
+                <Labeled label="confirmedBookings">
+                    <WrapperField>
+                        <ArrayInput source="confirmedBookings" label={false}>
+                            <SimpleFormIterator disableReordering>
+                                <TextInput multiline/>
+                            </SimpleFormIterator>
+                        </ArrayInput>
+                    </WrapperField>
+                </Labeled>
+            </SimpleForm>
+        </Edit>
+    );
+}
 
 export const LocationCreate = props => {
     const notify = useNotify();
-
     const onError = () => {
-        notify(`Missing required fields`, { type: 'error'}); // default message is 'ra.notification.updated'
+        notify(props.myresponse.json.message, { type: 'error'}); // default message is 'ra.notification.updated'
     };
 
 return (
@@ -92,7 +100,7 @@ return (
             <TextInput source="title" label="City" validate={validateRequired}/>
             <TextInput source="name" label="Name" validate={validateRequired}/>
             <TextInput source="price" label="Price" validate={validatePrice}/>
-            <TextInput source="capacity" label="Capacity" validate={validatePrice}/>
+            <TextInput source="capacity" label="Capacity"/>
             <ArrayInput source="images" label="Images">
                 <SimpleFormIterator disableReordering>
                     <TextInput/>

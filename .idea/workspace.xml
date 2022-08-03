@@ -2,16 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37aa10dd-2f46-4349-8f1c-a3aa6e31e09e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/pages/Dashboard/BookingsDashboard/BookingsDashboard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Nav/_Nav.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Nav/_Nav.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Dashboard/BookingsDashboard/BookingsDashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Dashboard/BookingsDashboard/BookingsDashboard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Dashboard/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Dashboard/Dashboard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Dashboard/LocationsDashboard/LocationsDashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Dashboard/LocationsDashboard/LocationsDashboard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Dashboard/httpError.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Dashboard/httpError.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/SingleLocation/SingleLocation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/SingleLocation/SingleLocation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../booking-server/controllers/bookingsController.js" beforeDir="false" afterPath="$PROJECT_DIR$/../booking-server/controllers/bookingsController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../booking-server/controllers/locationsController.js" beforeDir="false" afterPath="$PROJECT_DIR$/../booking-server/controllers/locationsController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../booking-server/models/bookingModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/../booking-server/models/bookingModel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../booking-server/routes/getBookings.js" beforeDir="false" afterPath="$PROJECT_DIR$/../booking-server/routes/getBookings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../booking-server/controllers/usersController.js" beforeDir="false" afterPath="$PROJECT_DIR$/../booking-server/controllers/usersController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../booking-server/middleware/responseMiddleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/../booking-server/middleware/responseMiddleware.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +125,8 @@
       <workItem from="1657890842962" duration="611000" />
       <workItem from="1658221829481" duration="62495000" />
       <workItem from="1658646719391" duration="33549000" />
-      <workItem from="1658758537555" duration="169236000" />
+      <workItem from="1658758537555" duration="170671000" />
+      <workItem from="1659519288243" duration="19486000" />
     </task>
     <servers />
   </component>
@@ -164,19 +165,16 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/SignUp/SignUp.js</url>
           <line>304</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="21" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/SingleLocation/SingleLocation.js</url>
           <line>96</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/SingleLocation/SingleLocation.js</url>
           <line>50</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="24" />
         </line-breakpoint>
       </breakpoints>
