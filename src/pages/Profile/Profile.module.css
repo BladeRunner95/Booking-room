@@ -1,0 +1,123 @@
+
+.mainWrapper {
+    padding-top: 55px;
+}
+
+.mainInner {
+    max-width: 60rem;
+    padding-bottom: 1.75rem;
+    margin: auto;
+}
+
+.flowWrapper {
+    margin-top: 1rem;
+    margin-bottom: auto;
+}
+
+@media screen and (min-width: 576px) {
+    .flowWrapper {
+        margin-bottom: 0.875rem;
+        margin-top: 1.5rem;
+    }
+}
+
+.headWrapper {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    display: flex;
+}
+
+@media screen and (min-width: 576px) {
+    .headWrapper {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+.helloWrapper {
+    -webkit-box-align: center;
+    align-items: center;
+    display: flex;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.helloText {
+    margin: 0;
+    color: rgb(0, 0, 0);
+    font-size: 3rem;
+    font-weight: bold;
+    letter-spacing: -2px;
+    line-height: 2.5rem;
+    text-transform: uppercase;
+}
+
+.profileIconWrapper {
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+    display: flex;
+}
+
+.profileIconLink {
+    -webkit-box-align: center;
+    align-items: center;
+    background-color: rgb(0, 0, 0);
+    border-radius: 32px;
+    bottom: 2px;
+    cursor: pointer;
+    display: flex;
+    height: 64px;
+    position: relative;
+    -webkit-box-pack: center;
+    justify-content: center;
+    width: 64px;
+    text-decoration: none;
+    color: unset;
+}
+
+@media (min-width: 768px) {
+    .profileIconLink {
+        width: 80px;
+        height: 80px;
+        border-radius: 40px;
+    }
+}
+
+svg {
+    fill: rgb(255, 255, 255);
+    stroke: rgb(255, 255, 255);
+    width: 25px;
+    height: 27px;
+}
+
+@media (min-width: 768px) {
+    svg {
+        width: 31px;
+        height: 33.5px;
+    }
+}
+
+.bookingsWrapper {
+    border: 1px solid black;
+    margin: 1.5rem auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    text-align: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+
+    align-items: flex-start;
+}
+
+@media screen and (min-width: 576px) {
+    .bookingsWrapper {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}

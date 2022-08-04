@@ -12,6 +12,7 @@ import {Dashboard} from "./pages/Dashboard/Dashboard";
 import {useSelector} from "react-redux";
 import ProtectedRoutes from "./components/PrivateRoute/PrivateRoute";
 import Cookies from "js-cookie";
+import {Profile} from "./pages/Profile/Profile";
 
 
 const Message = ({message}) => (
@@ -63,6 +64,7 @@ export default function App(props) {
                     <Route path="/payment/:id" element={message ? (
                         <Message message={message}/>) : (<Payment/>)}/>
                 </Route>
+                {loggedIn && <Route path="/myProfile/:id" element={<Profile/>}/>}
                 {/*private routes for admin*/}
                 {admin.loggedIn &&
                     <Route path="/dashboard/*" element={<Dashboard/>}/>}

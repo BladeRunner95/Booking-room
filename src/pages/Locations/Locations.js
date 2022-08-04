@@ -125,7 +125,7 @@ export const Locations = (props) => {
                     {filters ?
                         <div className="myDropdownButton">
                             {filters.map((input, index) => (
-                                <div key={input.id} className="myButtonWrapper">
+                                <div key={input._id} className="myButtonWrapper">
 
                                     {input.title === "Location" ?
                                         <div className="timepickerInputWrapper">
