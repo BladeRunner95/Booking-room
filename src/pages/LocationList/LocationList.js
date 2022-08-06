@@ -3,7 +3,7 @@ import {useNavigate, Routes, Route, Link} from "react-router-dom";
 import {useCallback, useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
-import {Spinner} from "../../components/Spinner/Spinner";
+import {Loading} from "../../components/Spinner/Spinner";
 
 export const LocationList = () => {
     const [selectedLocations, setSelectedLocations] = useState(null);

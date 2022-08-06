@@ -23,7 +23,8 @@ function login(email, password, from) {
                     password
                 }, {withCredentials: true}, {credentials: 'include'})
 
-            dispatch(success(user));
+            dispatch(success(user.data));
+            localStorage.setItem('user', user.data._id);
         } catch (e) {
             dispatch(failure(e));
             console.log(e.response.data)
@@ -39,6 +40,7 @@ function login(email, password, from) {
 
 function logout() {
     document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    localStorage.removeItem('user');
     return { type: actionTypes.LOGOUT };
 }
 

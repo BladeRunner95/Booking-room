@@ -1,5 +1,5 @@
-import "./Spinner.css";
+import Spinner from 'react-bootstrap/Spinner';
 
-export const Spinner = () => (
-    <div className="Loader">Loading...</div>
-);
+export function Loading() {
+    return <Spinner animation="border" />;
+}

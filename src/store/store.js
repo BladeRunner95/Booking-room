@@ -19,6 +19,7 @@ export let store = createStore(
 
 store.subscribe(throttle(()=> {
     saveState({
-        locations: store.getState().myReducer
+        locations: store.getState().myReducer,
+        // user: store.getState().userReducer
     })
 }, 1000));

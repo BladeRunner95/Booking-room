@@ -7,7 +7,7 @@ import {LocationList} from "../LocationList/LocationList";
 import {useSelector, useDispatch} from "react-redux";
 import {allActions} from "../../actions/booking.actions";
 import axios from "axios";
-import {Spinner} from "../../components/Spinner/Spinner";
+import {Loading} from "../../components/Spinner/Spinner";
 
 
 export const Locations = (props) => {
@@ -34,8 +34,7 @@ export const Locations = (props) => {
                 } else {
                     if (localStorage.getItem('filters') !== null) {
                         const getFilters = await JSON.parse(localStorage.getItem('filters'));
-                        console.log(getFilters);
-                        fullUpdateState(getFilters.locations);
+                        fullUpdateState(getFilters);
                     }
                         const getFilters = await axios.get('http://localhost:5000/api');
                         setFilters(getFilters.data);
@@ -242,7 +241,7 @@ export const Locations = (props) => {
                                 </div>
                             ))
                             }
-                        </div> : <Spinner/>
+                        </div> : <Loading/>
                     }
                 </div>
                 <button onClick={() =>

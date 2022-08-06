@@ -26,7 +26,6 @@ export default function App(props) {
     const loggedIn = Cookies.get('access_token');
     const location = useLocation();
     const [message, setMessage] = useState("");
-    const localFilters = JSON.parse(localStorage.getItem('filters'));
     const isLoggedIn = (component) => {
         return loggedIn ? location.state?.from ?
             <Navigate to={location.state.from} replace state={{from: location}}/> :

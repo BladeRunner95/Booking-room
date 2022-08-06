@@ -101,6 +101,12 @@ svg {
     }
 }
 
+.tableWrapper {
+    text-align: center;
+    vertical-align: middle;
+    margin-top: 20px;
+}
+
 .bookingsWrapper {
     border: 1px solid black;
     margin: 1.5rem auto;

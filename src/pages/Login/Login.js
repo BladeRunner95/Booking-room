@@ -4,7 +4,7 @@ import {Link, useNavigate, Navigate, useLocation} from "react-router-dom";
 import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {userActions} from "../../actions/user.actions";
-import {Spinner} from "../../components/Spinner/Spinner";
+import {Loading} from "../../components/Spinner/Spinner";
 import {alertTypes} from "../../types/alert.types";
 import {alertActions} from "../../actions/alert.actions";
 
@@ -79,7 +79,7 @@ export const Login = () => {
                                     <h1 className={styles.welcomeText}>WELCOME</h1>
                                 </div>
                             </div>
-                            {/*{loggingIn ? <Spinner/> :*/}
+                            {/*{loggingIn ? <Loading/> :*/}
                                 <form noValidate onSubmit={handleSubmit}>
                                     <div className={styles.emailMainWrap}>
                                         <div className={styles.formInputInner}>

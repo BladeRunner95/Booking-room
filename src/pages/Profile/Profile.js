@@ -3,15 +3,13 @@ import styles from './Profile.module.css';
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {useParams} from "react-router-dom";
-import Cookies from "js-cookie";
-import {Table} from "react-bootstrap";
+import {Table, Button} from "react-bootstrap";
 
 
 export const Profile = () => {
     const {id} = useParams();
     let [myData, setMyData] = useState(null);
     let [error, setError] = useState(null);
-    const loggedIn = Cookies.get('access_token');
 
     useEffect(()=> {
 
@@ -19,17 +17,11 @@ export const Profile = () => {
             try {
                 const user = await axios.get(`http://localhost:5000/api/auth/users/${id}` , {
                     withCredentials: true
-                    // headers: {
-                    //     'Authorization': `Bearer ${loggedIn}`,
-                    //     'Credentials' : 'include'
-                    //     // options.credentials = 'include';
-                    // }
                 });
                 setMyData(user.data);
             } catch (e) {
                 setError(e.response.data);
             }
-            console.log(myData)
         }
         getUser();
     }, []);
@@ -49,7 +41,7 @@ export const Profile = () => {
                     <div className={styles.flowWrapper}>
                         <div className={styles.headWrapper}>
                             <div className={styles.helloWrapper}>
-                                <h1 className={styles.helloText}>Hello {myData.username}</h1>
+                                <h1 className={styles.helloText}>Hello<br />{myData.username}</h1>
                             </div>
                             <div className={styles.profileIconWrapper}>
                                 <a href="" className={styles.profileIconLink}>
@@ -73,12 +65,12 @@ export const Profile = () => {
                         </div>
 
                         <div>
-                            {/*<div className={styles.bookingsWrapper}>*/}
                             {myData ?
-                                <Table className="mt-3" striped bordered hover variant="dark">
+                                <Table className={styles.tableWrapper}>
                                     <thead>
                                     <tr>
                                         <th>#</th>
+                                        <th>Location</th>
                                         <th>Start</th>
                                         <th>Finish</th>
                                         <th>Cost</th>
@@ -86,21 +78,19 @@ export const Profile = () => {
                                     </thead>
                                     <tbody>
                                     {myData.bookings.map((booking, index) => (
-                                        <tr key={booking._id}>
+                                        <tr key={booking.index}>
                                             <td>{index}</td>
+                                            <td>{booking.location}</td>
                                             <td>{booking.startDate || new Date().toDateString()}</td>
                                             <td>{booking.finishDate || new Date().toDateString()}</td>
                                             <td>{booking.cost || Math.round(Math.random())}</td>
+                                            <td><Button variant="dark">Refund</Button></td>
                                         </tr>
                                     ))}
                                     </tbody>
-                                {/*    myData.bookings.map(booking => {*/}
-                                {/*    return <div key={booking}>{booking}</div>*/}
-                                {/*})*/}
                                 </Table> :
                                 <div>Nothing get from the server</div>
                             }
-                            {/*</div>*/}
                         </div>
                     </div>
                 </div>
