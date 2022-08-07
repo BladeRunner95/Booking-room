@@ -4,6 +4,7 @@ import {useCallback, useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
 import {Loading} from "../../components/Spinner/Spinner";
+import {getTimeRange} from "../../helpers/timeRange";
 
 export const LocationList = () => {
     const [selectedLocations, setSelectedLocations] = useState(null);
@@ -14,8 +15,12 @@ export const LocationList = () => {
             try {
                 if (filtersStored.finishDate) {
                     console.log('finish date updated');
-                    // const locations = await axios.get(`http://localhost:5000/api/locations/byName/${filtersStored.location[0]}`);
-                    const locations = await axios.get(`http://localhost:5000/api/locations/byName/${["Holon"]}`);
+                    const sendTimeRange = getTimeRange(filtersStored.startDate, filtersStored.finishDate);
+                    const data = {
+                        timeRange: sendTimeRange
+                    };
+
+                    const locations = await axios.post(`http://localhost:5000/api/locations/byName/${["Holon"]}`, data);
                     setSelectedLocations(locations.data);
                 }
             } catch (error) {
