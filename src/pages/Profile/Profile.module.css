@@ -87,7 +87,7 @@
     }
 }
 
-svg {
+.profileSvg {
     fill: rgb(255, 255, 255);
     stroke: rgb(255, 255, 255);
     width: 25px;
@@ -95,7 +95,7 @@ svg {
 }
 
 @media (min-width: 768px) {
-    svg {
+    .profileSvg {
         width: 31px;
         height: 33.5px;
     }

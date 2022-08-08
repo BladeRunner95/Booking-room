@@ -46,7 +46,7 @@ export const Profile = () => {
                             <div className={styles.profileIconWrapper}>
                                 <a href="" className={styles.profileIconLink}>
                                     <div>
-                                        <svg width="50" height="50" overflow="visible" viewBox="0 0 14 14"
+                                        <svg className={styles.profileSvg} width="50" height="50" overflow="visible" viewBox="0 0 14 14"
                                              preserveAspectRatio="xMinYMin meet" fill="" stroke="#808080"
                                              strokeWidth="4">
                                             <path stroke="none"

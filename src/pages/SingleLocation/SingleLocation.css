@@ -130,12 +130,13 @@ a {
 .singleLocaInfoWrapper {
     width: 100%;
     max-width: 48rem;
-    padding-right: 1.5rem;
+    padding: 0;
 }
 
 @media screen and (min-width: 576px) {
     .singleLocaInfoWrapper {
         width: 100%;
+        padding-right: 1.5rem;
     }
 }
 
@@ -181,11 +182,25 @@ a {
     bottom: 0;
 }
 
-/*Here goes carousel hell*/
 .singleLocaCarouselImagesWrapper {
     width: 100%;
     position: relative;
     overflow: hidden;
+}
+
+.carouselNoImages {
+    display: flex;
+    height: 300px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+}
+
+.carouselPlaceholder {
+    width: 100%;
+    max-width: 450px;
 }
 
 .singleLocaCarouselList {
@@ -201,15 +216,21 @@ a {
 }
 
 .singleLocaCarouselOne {
-    width: 200%;
+    width: calc(100% * 3);
     transform: translateX(0%) translateX(0px);
     flex-direction: row;
 }
 
 /*Move transform to styles*/
 .singleLocaCarouselTwo {
-    width: 200%;
-    transform: translateX(-50%) translateX(0px);
+    width: 300%;
+    transform: translateX(-33.3%) translateX(0px);
+    flex-direction: row;
+}
+
+.singleLocaCarouselThree {
+    width: 300%;
+    transform: translateX(-66.6%) translateX(0px);
     flex-direction: row;
 }
 
@@ -221,8 +242,6 @@ a {
     margin: 0;
     list-style-type: none;
     float: left;
-    width: 50%;
-    padding-bottom: 34.5455%;
 }
 
 .singleLocaCarouselImageInner {
@@ -658,6 +677,7 @@ a {
     display: flex;
     flex-wrap: nowrap;
     margin-bottom: 1rem;
+    justify-content: center;
 }
 
 @media (min-width: 768px) {
@@ -676,7 +696,7 @@ a {
 .paymentCardsIcon {
     width: 100%;
     margin-right: 0.875rem;
-    max-width: 70px;
+    max-width: 250px;
 }
 
 @media (min-width: 768px) {

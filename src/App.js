@@ -54,7 +54,11 @@ export default function App(props) {
             <Routes>
                 <Route path="/" element={<HomePage/>}/>
                 <Route path="/locations" element={<Locations title/>}/>
+
+                <Route element={<ProtectedRoutes/>}>
                 <Route path="/singleLocation/:id" element={<SingleLocation/>}/>
+                </Route>
+
                 <Route path="/signin" element={isLoggedIn(<Login/>)}/>
                 <Route path="/signup" element={isLoggedIn(<SignUp/>)}/>
                 {/*private route for authenticated users*/}
