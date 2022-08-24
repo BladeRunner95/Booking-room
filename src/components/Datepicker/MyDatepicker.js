@@ -15,7 +15,7 @@ export const MyDatepicker = (props) => {
                 }
                 props.onClick()
             }}
-            placeholder={props.value}
+            placeholder={props}
             className={props.className ? props.className : className}
         >
             <div className="myButtonInner">

@@ -12,6 +12,7 @@
     "js-cookie": "^3.0.1",
     "localstorage": "^1.0.1",
     "lodash.throttle": "^4.1.1",
+    "moment": "^2.29.4",
     "prop-types": "^15.8.1",
     "ra-data-json-server": "^4.2.3",
     "react": "^18.1.0",

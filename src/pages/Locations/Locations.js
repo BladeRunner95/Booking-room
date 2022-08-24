@@ -1,4 +1,4 @@
-import {_Nav} from "../../components/Nav/_Nav";
+import {MyNav} from "../../components/Nav/MyNav";
 import "./Locations.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {useState, useEffect, useRef} from "react";
@@ -6,38 +6,37 @@ import {MyDatepicker} from "../../components/Datepicker/MyDatepicker";
 import {LocationList} from "../LocationList/LocationList";
 import {useSelector, useDispatch} from "react-redux";
 import {allActions} from "../../actions/booking.actions";
-import axios from "axios";
 import {Loading} from "../../components/Spinner/Spinner";
+import {finishTimestampToDate, inFifteenMinutes, startTimestampToDate, toAmPm} from "../../helpers/dateCalculations";
+import {timePrefix, times, timeDuration} from "../../helpers/dateCalculations";
+import Cookies from "js-cookie";
+import moment from "moment";
 
 
 export const Locations = (props) => {
     const wrapperRef = useRef(null);
     let filtersStored = useSelector(state => state.myReducer);
     const dispatch = useDispatch();
-    const [filters, setFilters] = useState(null);
-
-    const startTimestampToDate = (timestamp) => {
-      return new Date(timestamp.startDate);
-    };
-
-    const finishTimestampToDate = (timestamp) => {
-        return new Date(timestamp.finishDate);
-    };
+    const filtersNames = [
+        {
+            title: 'Location',
+            value: 'Tel-Aviv'
+        },
+        {
+            title: 'Date'
+        },
+        {
+            title: 'Time'
+        }
+    ];
 
     useEffect(() => {
         async function getData() {
             try {
+
                 if (filtersStored.finishDate) {
-                    console.log('useEffect finish date updated');
-                    const getFilters = await axios.get('http://localhost:5000/api');
-                    setFilters(getFilters.data);
-                } else {
-                    if (localStorage.getItem('filters') !== null) {
-                        const getFilters = await JSON.parse(localStorage.getItem('filters'));
-                        fullUpdateState(getFilters);
-                    }
-                        const getFilters = await axios.get('http://localhost:5000/api');
-                        setFilters(getFilters.data);
+                    await Cookies.set('filters', JSON.stringify(filtersStored), {expires: inFifteenMinutes});
+                    fullUpdateState(filtersStored);
                 }
             } catch (error) {
                 console.log(error);
@@ -47,6 +46,14 @@ export const Locations = (props) => {
         getData();
     }, [filtersStored.finishDate]);
 
+    // useEffect(()=> {
+    //     const outsideTimepicker = (ref) => {
+    //         if (ref.current && !ref.current.contains())
+    //         console.log(e)
+    //     }
+    //     document.addEventListener("click", handleClickOutside)
+    //     outsideTimepicker(wrapperRef);
+    // }, [wrapperRef])
 
 
     const fullUpdateState = (newState) => {
@@ -77,16 +84,16 @@ export const Locations = (props) => {
             timeInside: false
         });
 
+    // const [calendarOpened, setCalendarOpened] = useState(false);
+    // const [timepickerOpened, setTimepickerOpened] = useState(false);
 
-    const times = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
-    const timeDuration = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 24];
-    const timePrefix = (hour) => ((hour + 11) % 12 + 1) + (hour >= 12 ? "pm" : "am");
     // useOutsideClick(wrapperRef);
 
 
     const handleClickedDropdown = (inputId) => {
+        // setCalendarOpened(prev=> !prev);
         if (inputId === opened.index) {
-            setOpened(prev=> ({
+            setOpened(prev => ({
                 ...prev, index: null, open: false
             }));
         } else {
@@ -94,12 +101,16 @@ export const Locations = (props) => {
         }
     };
 
+    // const handleClickedTimepicker = () => {
+    //     setTimepickerOpened(prev => !prev);
+    // }
+
+
     const handleDateSelect = (selectedDate) => {
         if (filtersStored.finishDate === undefined) {
             dispatch(allActions.setStartDate(selectedDate));
         } else {
             dispatch(allActions.setStartFinishDate(selectedDate));
-            // localStorage.setItem();
         }
 
     };
@@ -118,25 +129,25 @@ export const Locations = (props) => {
 
     return (
         <>
-            {props.title ? <_Nav/> : null}
+            {props.title ? <MyNav/> : null}
             <div className="mainWrap">
                 <div className="mb-5 mt-5 myContainer">
-                    {filters ?
+                    {filtersNames ?
                         <div className="myDropdownButton">
-                            {filters.map((input, index) => (
-                                <div key={input._id} className="myButtonWrapper">
+                            {filtersNames.map((input, index) => (
+                                <div key={input.title} className="myButtonWrapper">
 
                                     {input.title === "Location" ?
                                         <div className="timepickerInputWrapper">
                                             <div onClick={() => {
-                                                handleClickedDropdown(index);
+                                                // handleClickedDropdown(index);
                                             }}
                                                  className="myButton">
                                                 <div className="myButtonInner">
                                                     <div>
                                                         <label htmlFor="input" className="myLabel">{input.title}</label>
                                                         <input placeholder="location"
-                                                               value={input.value[0]}
+                                                               value={input.value}
                                                                className="myInput"
                                                                type="text"
                                                                readOnly/>
@@ -168,8 +179,7 @@ export const Locations = (props) => {
                                         />
                                         : null}
 
-                                    {input.title === "Time" ?
-                                        //in other case return regular div with dropdown
+                                    {input.title === "Time" &&
                                         <div ref={wrapperRef} className="timepickerInputWrapper">
                                             <div onClick={() => {
                                                 handleClickedDropdown(index);
@@ -184,8 +194,9 @@ export const Locations = (props) => {
                                                     <div>
                                                         <label htmlFor="input" className="myLabel">{input.title}</label>
                                                         <input placeholder="choose time and duration"
-                                                               value={timePrefix(filtersStored.time) + (filtersStored.finishDate ? ' - ' +
-                                                                   timePrefix(finishTimestampToDate(filtersStored).getHours()) : "")}
+                                                               value={toAmPm(filtersStored.startDate) + (filtersStored.finishDate ? ' - ' +
+                                                                   toAmPm(filtersStored.finishDate)
+                                                                   : "" )}
                                                                className="myInput"
                                                                type="text"
                                                                readOnly/>
@@ -203,7 +214,7 @@ export const Locations = (props) => {
                                                             <div className="timepickerTimeContainer">
                                                                 {times.map(time =>
                                                                     <label key={time}
-                                                                           className={`${filtersStored.time === time ?
+                                                                           className={`${toAmPm(filtersStored.startDate) === timePrefix(time).toString() ?
                                                                                "timepickerTime timepickerTimeSelected" : "timepickerTime"}`}>
                                                                         <input key={time}
                                                                                onClick={() => handleTimeSelect(time)}
@@ -236,7 +247,7 @@ export const Locations = (props) => {
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div> : null
+                                        </div>
                                     }
                                 </div>
                             ))
@@ -247,7 +258,8 @@ export const Locations = (props) => {
                 <button onClick={() =>
                     console.log(`start: ${startTimestampToDate(filtersStored)}, finish:  ${finishTimestampToDate(filtersStored)}, total cost: ${filtersStored.totalCost}`)}
                         type="button">
-                    Show logs</button>
+                    Show logs
+                </button>
                 <LocationList/>
             </div>
         </>

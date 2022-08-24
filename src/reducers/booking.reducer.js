@@ -1,11 +1,14 @@
 import {actionTypes} from "../types/booking.types";
+import Cookies from "js-cookie";
+import moment from "moment";
 
 
-export let initialState = {
-    startDate: 1654336800000,
+const filters = Cookies.get('filters') && JSON.parse(Cookies.get('filters'))
+
+export let initialState = filters? filters: {
+    startDate: moment().valueOf(),
     finishDate: undefined,
-    totalCost: null,
-    time: 13,
+    // totalCost: null,
     timeDuration: null,
     location: ["Tel-Aviv"]
 }

@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {userActions} from "../../actions/user.actions";
 
 
-export const _Nav = (props) => {
+export const MyNav = (props) => {
 
     const admin = useSelector(state => state.userReducer);
     const loggedIn = useSelector(state => state.userReducer);

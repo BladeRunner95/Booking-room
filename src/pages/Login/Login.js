@@ -1,5 +1,5 @@
 import styles from './Login.module.css';
-import {_Nav} from "../../components/Nav/_Nav";
+import {MyNav} from "../../components/Nav/MyNav";
 import {Link, useNavigate, Navigate, useLocation} from "react-router-dom";
 import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
@@ -70,7 +70,7 @@ export const Login = () => {
 
     return (
         <>
-            <_Nav/>
+            <MyNav/>
                 <div className={styles.mainWrapper}>
                     <div className={styles.mainInnerWrapper}>
                         <div className={styles.innerWrapper}>

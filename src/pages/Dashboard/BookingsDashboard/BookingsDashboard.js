@@ -1,5 +1,7 @@
 import {
     List,
+    DateTimeInput,
+    DateField,
     Datagrid,
     TextField,
     EditButton,
@@ -12,20 +14,24 @@ import {
 import {validatePrice, validateRequired} from '../validateInputs';
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
+import {dateToTimestamp} from "../dashboardHelpers";
 
-export const BookingsDashboard = () => (
+export const BookingsDashboard = () => {
+
+    return (
     <List>
         <Datagrid rowClick="edit">
             <TextField source="id"/>
             <TextField source="user" label="userId"/>
-            <TextField source="startDate" label='start'/>
-            <TextField source="finishDate" label='end'/>
+            <DateField  source="startDate" label='start'/>
+            <DateField source="finishDate" label='end'/>
             <TextField source="location" label="Location" aria-multiline={true}/>
             <TextField source="cost" label='Cost'/>
             <EditButton/>
         </Datagrid>
     </List>
 );
+}
 
 export const BookingsEdit = (props) => {
     const notify = useNotify();
@@ -38,8 +44,8 @@ export const BookingsEdit = (props) => {
         <Edit mutationOptions={{onSuccess}} {...props}>
             <SimpleForm label="edit booking">
                 <TextInput disabled source="id"/>
-                <TextInput source="startDate" label="Start" validate={validatePrice}/>
-                <TextInput source="finishDate" label="End" validate={validatePrice}/>
+                <DateTimeInput source="startDate" label="Start" validate={validatePrice}/>
+                <DateTimeInput source="finishDate" label="End" validate={validatePrice}/>
                 <TextInput source="cost" label="Cost" validate={validatePrice}/>
             </SimpleForm>
         </Edit>
@@ -52,6 +58,7 @@ export const BookingCreate = props => {
     const [selectUsers, setSelectUsers] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState();
+    const [locations, setLocations] = useState(null);
     const notify = useNotify();
 
     useEffect(() => {
@@ -70,8 +77,23 @@ export const BookingCreate = props => {
             })
     }, []);
 
+
+    useEffect(() => {
+        dataProvider.getList('locations', {
+            pagination: {page: 1, perPage:10 },
+            sort: { order: 'DESC' }
+        })
+            .then(({ data }) => {
+                setLocations(data);
+                setLoading(false);
+            })
+            .catch(error => {
+                setError(error);
+                setLoading(false);
+            })
+    }, []);
+
     const onError = () => {
-        console.log(props.myresponse);
         notify(`Missing required fields`, {type: 'error'}); // default message is 'ra.notification.updated'
     };
 
@@ -82,14 +104,22 @@ export const BookingCreate = props => {
     return (
         <Create mutationOptions={{onError}} title="Create booking" {...props}>
             <SimpleForm>
-                <TextInput source="startDate" label="Start" validate={validatePrice}/>
-                <TextInput source="finishDate" label="End" validate={validatePrice}/>
-                <TextInput source="location" label="Location" validate={validateRequired}/>
-                <TextInput source="cost" label="Cost" />
-                {selectUsers ? <SelectInput source="user"
+                <DateTimeInput source="startDate" label="Start" parse={dateToTimestamp} validate={validateRequired}/>
+                <DateTimeInput  source="finishDate" label="End" parse={dateToTimestamp} validate={validateRequired} />
+                {locations ? <SelectInput source="location"
+                                          choices={locations}
+                                          optionValue="_id"
+                                          optionText="title"
+                                          validate={validateRequired}
+                /> :
+                    <div>Loading locations</div>
+                }
+                <TextInput source="cost" label="Cost" validate={validatePrice}/>
+                {users ? <SelectInput source="user"
                                             choices={selectUsers}
                                             optionValue="_id"
                                             optionText="username"
+                                      validate={validateRequired}
                     />
                     : <div>Loading users</div>}
             </SimpleForm>

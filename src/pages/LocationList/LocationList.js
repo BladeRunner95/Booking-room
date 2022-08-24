@@ -4,7 +4,7 @@ import {useCallback, useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
 import {Loading} from "../../components/Spinner/Spinner";
-import {getTimeRange} from "../../helpers/timeRange";
+import {getTimeRange} from "../../helpers/dateCalculations";
 
 export const LocationList = () => {
     const [selectedLocations, setSelectedLocations] = useState(null);

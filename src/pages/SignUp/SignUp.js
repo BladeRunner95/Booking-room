@@ -1,6 +1,6 @@
 import {Navigate, useLocation} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {_Nav} from "../../components/Nav/_Nav";
+import {MyNav} from "../../components/Nav/MyNav";
 import styles from './SignUp.module.css';
 import {useEffect, useState} from "react";
 import {userActions} from "../../actions/user.actions";
@@ -111,7 +111,7 @@ export const SignUp = () => {
 
     return (
         <>
-                    <_Nav/>
+                    <MyNav/>
                     <div className={styles.wrapper}>
                         <div className={styles.innerWrapper}>
                             <div>

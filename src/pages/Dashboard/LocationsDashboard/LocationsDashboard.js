@@ -5,16 +5,19 @@ import {
     EditButton,
     Edit,
     Create,
+    SingleFieldList,
     SimpleForm,
     TextInput,
     SimpleFormIterator,
     ArrayInput,
+    DateTimeInput,
     Labeled,
     DateField,
-    WrapperField, useNotify
+    WrapperField, useNotify, ArrayField, ReferenceArrayField
 } from 'react-admin';
 
 import {validatePrice, validateRequired} from '../validateInputs';
+import {dateToTimestamp} from "../dashboardHelpers";
 
 
 const myRowStyled = (record) => {
@@ -30,7 +33,7 @@ export const LocationsDashboard = props => {
             <TextField source="name" label='Name'/>
             <TextField source="price" label='Price'/>
             <TextField source="capacity" label="Capacity"/>
-            <DateField source="confirmedBookings" label="Bookings"/>
+            <TextField source="confirmedBookings.length" label="Confirmed bookings"/>
             <EditButton/>
         </Datagrid>
     </List>
@@ -73,12 +76,11 @@ export const LocationEdit = (props) => {
                         </ArrayInput>
                     </WrapperField>
                 </Labeled>
-
                 <Labeled label="confirmedBookings">
                     <WrapperField>
                         <ArrayInput source="confirmedBookings" label={false}>
                             <SimpleFormIterator disableReordering>
-                                <TextInput multiline/>
+                                <DateTimeInput parse={dateToTimestamp}/>
                             </SimpleFormIterator>
                         </ArrayInput>
                     </WrapperField>

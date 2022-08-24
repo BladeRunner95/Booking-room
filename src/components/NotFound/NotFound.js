@@ -1,4 +1,4 @@
-import {_Nav} from "../Nav/_Nav";
+import {MyNav} from "../Nav/MyNav";
 import './NotFound.css';
 
 
@@ -6,7 +6,7 @@ export const NotFound = () => {
 
     return (
         <>
-            <_Nav />
+            <MyNav />
         <div className="wrongPageWrapper">
             <div className="wrongPageInnerWrapper">
                 <div className="wrongPageInner">

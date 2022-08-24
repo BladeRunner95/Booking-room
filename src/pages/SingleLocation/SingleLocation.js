@@ -1,6 +1,6 @@
 import {useParams, useNavigate, Link} from "react-router-dom";
 import {useState, useEffect, useMemo} from "react";
-import {_Nav} from "../../components/Nav/_Nav";
+import {MyNav} from "../../components/Nav/MyNav";
 // import drocher from '../../assets/lexshug.jpg';
 import noImg from '../../assets/noImage.jpg';
 import weAccept from '../../assets/weAccept.png';
@@ -10,7 +10,7 @@ import {Loading} from "../../components/Spinner/Spinner";
 import axios from "axios";
 import {NotFound} from "../../components/NotFound/NotFound";
 import Cookies from "js-cookie";
-import {getTimeRange} from "../../helpers/timeRange";
+import {getTimeRange} from "../../helpers/dateCalculations";
 
 export const SingleLocation = (props) => {
     const {id} = useParams();
@@ -30,8 +30,8 @@ export const SingleLocation = (props) => {
                 const getLocation = await axios.get(`http://localhost:5000/api/locations/${id}`);
                 setLocation(getLocation.data);
                 // setSlide(getLocation.data.images.length);
-                if (localStorage.getItem('filters') !== null) {
-                    const getFilters = JSON.parse(localStorage.getItem('filters'));
+                if (Cookies.get('filters')) {
+                    const getFilters = JSON.parse(Cookies.get('filters'));
                     setFilters(getFilters);
                 }
             } catch (e) {
@@ -42,7 +42,7 @@ export const SingleLocation = (props) => {
         getData();
     }, []);
 
-    if (!localStorage.getItem('filters')) {
+    if (!Cookies.get('filters')) {
         return <NotFound/>
     }
 
@@ -148,7 +148,7 @@ export const SingleLocation = (props) => {
 
     return (
         <>
-            <_Nav/>
+            <MyNav/>
             <div className="singleLocaWrapper">
                 <div>
                     <div>

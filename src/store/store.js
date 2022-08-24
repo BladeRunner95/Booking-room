@@ -6,20 +6,20 @@ import {loadState, saveState} from "../localStorage/localStorage";
 import throttle from 'lodash.throttle';
 
 
-const persistedState = loadState();
+// const persistedState = loadState();
 
 export let store = createStore(
     rootReducer,
-    persistedState,
+    // persistedState,
     composeWithDevTools(
         applyMiddleware(
             thunk
         )
     ));
 
-store.subscribe(throttle(()=> {
-    saveState({
-        locations: store.getState().myReducer,
-        // user: store.getState().userReducer
-    })
-}, 1000));
+// store.subscribe(throttle(()=> {
+//     saveState({
+//         filters: store.getState().myReducer,
+//         // user: store.getState().userReducer
+//     })
+// }, 1000));
