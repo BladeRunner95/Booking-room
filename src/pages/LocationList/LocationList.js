@@ -37,7 +37,7 @@ export const LocationList = () => {
 
     return (
         <>
-            {selectedLocations ?
+            {selectedLocations &&
                 <>
                     <div className="locationsCountWrapper">
                         <div>{selectedLocations.length > 0 ? `Showing ${selectedLocations.length} available studios` : "We're fully booked at this time"}
@@ -83,7 +83,7 @@ export const LocationList = () => {
                                                                 <div
                                                                     className="locationPricePerHour">₪{loca.price} /hr
                                                                 </div>
-                                                                <h4 className="locationPrice">₪{loca.price}</h4>
+                                                                <h4 className="locationPrice">₪{loca.price * filtersStored.timeDuration}</h4>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -98,7 +98,7 @@ export const LocationList = () => {
                             ))}
                         </div>
                     </div>
-                </> :null
+                </>
             }
         </>
     )

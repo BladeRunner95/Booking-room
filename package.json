@@ -13,6 +13,7 @@
     "localstorage": "^1.0.1",
     "lodash.throttle": "^4.1.1",
     "moment": "^2.29.4",
+    "moment-range": "^4.0.2",
     "prop-types": "^15.8.1",
     "ra-data-json-server": "^4.2.3",
     "react": "^18.1.0",

@@ -4,6 +4,8 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {useParams} from "react-router-dom";
 import {Table, Button} from "react-bootstrap";
+import moment from "moment";
+import {toAmPm} from "../../helpers/dateCalculations";
 
 
 export const Profile = () => {
@@ -46,13 +48,9 @@ export const Profile = () => {
         getMyBookings();
     }, [userStorage, id]);
 
-    const timeStampToDate = (timestamp) => {
-        return new Date(timestamp);
-    };
-
-    if (myBookings) {
-        console.log(myBookings)
-    }
+    // if (myBookings) {
+    //     console.log(myBookings)
+    // }
 
     if (error) {
         return <div>You are not authenticated</div>
@@ -109,8 +107,8 @@ export const Profile = () => {
                                             <tr key={booking._id}>
                                                 <td>{index}</td>
                                                 <td>{booking.location}</td>
-                                                <td>{timeStampToDate(booking.startDate).toDateString()}</td>
-                                                <td>{timeStampToDate(booking.finishDate + 1).toLocaleString()}</td>
+                                                <td>{moment(booking.startDate).format('DD.MM.YYYY')} - {toAmPm(booking.startDate)}</td>
+                                                <td>{moment(booking.finishDate).format('DD.MM.YYYY')} - {toAmPm(booking.finishDate + 1)}</td>
                                                 <td>{booking.cost || Math.round(Math.random())}</td>
                                                 <td><Button variant="dark">Refund</Button></td>
                                             </tr>

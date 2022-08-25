@@ -7,8 +7,8 @@ import {LocationList} from "../LocationList/LocationList";
 import {useSelector, useDispatch} from "react-redux";
 import {allActions} from "../../actions/booking.actions";
 import {Loading} from "../../components/Spinner/Spinner";
-import {finishTimestampToDate, inFifteenMinutes, startTimestampToDate, toAmPm} from "../../helpers/dateCalculations";
-import {timePrefix, times, timeDuration} from "../../helpers/dateCalculations";
+import {hoursInDay, inFifteenMinutes, toAmPm} from "../../helpers/dateCalculations";
+import {timeDuration} from "../../helpers/dateCalculations";
 import Cookies from "js-cookie";
 import moment from "moment";
 
@@ -110,21 +110,25 @@ export const Locations = (props) => {
         if (filtersStored.finishDate === undefined) {
             dispatch(allActions.setStartDate(selectedDate));
         } else {
-            dispatch(allActions.setStartFinishDate(selectedDate));
+            const updatedFinishDate = (moment(selectedDate).clone().add(filtersStored.timeDuration, 'hours')).valueOf();
+            dispatch(allActions.setStartFinishDate(selectedDate.valueOf(), updatedFinishDate));
+            console.log('startFinish date working');
         }
 
     };
 
     const handleTimeSelect = (selectedTime) => {
         if (filtersStored.finishDate === undefined) {
-            dispatch(allActions.setTimeStart(selectedTime));
+            dispatch(allActions.setStartDate(selectedTime.valueOf()))
         } else {
-            dispatch(allActions.changeStartFinishTime(selectedTime));
+            const updatedFinishDate = (moment(selectedTime).clone().add(filtersStored.timeDuration, 'hours')).valueOf();
+            dispatch(allActions.setStartFinishDate(selectedTime.valueOf(), updatedFinishDate));
         }
     };
 
     const handleDurationSelect = (selectedDuration) => {
-        dispatch(allActions.setDuration(selectedDuration));
+        const newFinishDate = (moment(filtersStored.startDate).clone().add(selectedDuration, 'hours')).valueOf();
+        dispatch(allActions.setFinishDate(newFinishDate, selectedDuration));
     }
 
     return (
@@ -168,11 +172,11 @@ export const Locations = (props) => {
 
                                     {input.title === "Date" ?
                                         <MyDatepicker
-                                            value={startTimestampToDate(filtersStored)}
+                                            value={filtersStored.startDate}
                                             onClose={() => handleClickedDropdown(index)}
                                             calendarOpened={opened.index === index}
                                             onClick={() => handleClickedDropdown(index)}
-                                            placeholder={startTimestampToDate(filtersStored)}
+                                            placeholder="choose date"
                                             className="myButton"
                                             title={input.title}
                                             onChange={(date) => handleDateSelect(date.getTime())}
@@ -212,16 +216,16 @@ export const Locations = (props) => {
                                                         <div className="timepickerColumnContainer">
                                                             <strong><span>Start Time</span></strong>
                                                             <div className="timepickerTimeContainer">
-                                                                {times.map(time =>
-                                                                    <label key={time}
-                                                                           className={`${toAmPm(filtersStored.startDate) === timePrefix(time).toString() ?
+                                                                {hoursInDay(moment(filtersStored.startDate)).map(time =>
+                                                                    <label key={time.format('ha')}
+                                                                           className={`${time.isSame(filtersStored.startDate, 'hour') ?
                                                                                "timepickerTime timepickerTimeSelected" : "timepickerTime"}`}>
-                                                                        <input key={time}
+                                                                        <input
                                                                                onClick={() => handleTimeSelect(time)}
-                                                                               value={time}
+                                                                               // value={time}
                                                                                className={"timepickerInput"}
                                                                                type="radio"/>
-                                                                        {timePrefix(time)}
+                                                                        {time.format('ha')}
                                                                     </label>
                                                                 )}
                                                             </div>
@@ -256,7 +260,8 @@ export const Locations = (props) => {
                     }
                 </div>
                 <button onClick={() =>
-                    console.log(`start: ${startTimestampToDate(filtersStored)}, finish:  ${finishTimestampToDate(filtersStored)}, total cost: ${filtersStored.totalCost}`)}
+                    console.log(`start: ${moment(filtersStored.startDate).format('DD.MM.YYYY ha')}, finish: ${
+                        moment(filtersStored.finishDate).format('DD.MM.YYYY ha')}, total cost: ${filtersStored.totalCost}`)}
                         type="button">
                     Show logs
                 </button>

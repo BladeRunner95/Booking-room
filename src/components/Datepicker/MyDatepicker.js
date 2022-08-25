@@ -2,6 +2,7 @@ import {forwardRef} from "react";
 import DatePicker, {CalendarContainer} from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
 import "./MyDatepicker.css";
+import moment from "moment";
 
 
 export const MyDatepicker = (props) => {
@@ -22,7 +23,7 @@ export const MyDatepicker = (props) => {
                 <div>
                     <label htmlFor="input" className="myLabel">{props.title}</label>
                     <input
-                        value={new Date(props.value).toDateString()}
+                        value={moment(props.value).format('ddd MMM DD, YYYY')}
                         className="myInput"
                         type="text"
                         readOnly/>
@@ -48,6 +49,8 @@ export const MyDatepicker = (props) => {
                     customInput={<MyCustomInput/>}
                     calendarContainer = {MyContainer}
                     popperClassName="popperPlacement"
+                    dayClassName={(date) => moment(date).isBefore(moment(), 'days')&& 'disabledDate'}
+                    disabledKeyboardNavigation
         />
     )
 };

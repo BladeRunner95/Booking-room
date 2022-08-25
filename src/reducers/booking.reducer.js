@@ -15,9 +15,6 @@ export let initialState = filters? filters: {
 
 export const myReducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.GETBOOKINGDETAILS:
-            return {...state};
-
         case actionTypes.SETSTARTDATE:
             return {
                 ...state,
@@ -25,42 +22,21 @@ export const myReducer = (state = initialState, action) => {
             };
 
         case actionTypes.SETSTARTFINISHDATE:
-            const getStartDate = new Date(action.selectedDate);
-            const calculateFinishDate = new Date(getStartDate.setHours((getStartDate.getHours() + state.timeDuration))).getTime();
             return {
                 ...state,
                 startDate: action.selectedDate,
-                finishDate: calculateFinishDate
+                finishDate: action.newFinishDate
             }
 
-        case actionTypes.SETTIMESTART:
-            return {
-                ...state,
-                startDate: new Date(new Date(state.startDate).setHours(action.selectedTime)).getTime(),
-                time: action.selectedTime
-            };
 
-        case actionTypes.SETDURATION:
-            // 39: might be redundant
-            const startDateCloned = new Date(state.startDate);
-            const newFinishDate = new Date(startDateCloned.setHours((startDateCloned.getHours() + action.selectedDuration))).getTime();
-            const updateTotalCost = action.selectedDuration * 125;
+        case actionTypes.SETFINISHDATE:
+            // const updateTotalCost = action.selectedDuration * 125;
             return {
                 ...state,
-                finishDate: newFinishDate,
-                totalCost: updateTotalCost,
+                finishDate: action.startDate,
+                // totalCost: updateTotalCost,
                 timeDuration: action.selectedDuration
             };
-
-        case actionTypes.CHANGESTARTFINISHTIME:
-            const newStartDate = new Date(new Date(state.startDate).setHours(action.selectedTime)).getTime();
-            const updatedFinishDate = new Date(new Date(newStartDate).setHours((action.selectedTime + state.timeDuration))).getTime();
-            return {
-                ...state,
-                startDate: newStartDate,
-                finishDate: updatedFinishDate,
-                time: action.selectedTime
-            }
 
         case actionTypes.FULLUPDATESTATE:
             return {
@@ -68,7 +44,6 @@ export const myReducer = (state = initialState, action) => {
                 startDate: action.newState.startDate,
                 finishDate: action.newState.finishDate,
                 totalCost: action.newState.totalCost,
-                time: action.newState.time,
                 timeDuration: action.newState.timeDuration,
             }
         default :

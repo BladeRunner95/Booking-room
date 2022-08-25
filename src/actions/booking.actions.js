@@ -3,9 +3,7 @@ import {actionTypes} from "../types/booking.types";
 export const allActions = {
     setStartDate,
     setStartFinishDate,
-    setTimeStart,
-    changeStartFinishTime,
-    setDuration,
+    setFinishDate,
     fullUpdateState
 }
 
@@ -15,20 +13,12 @@ function setStartDate(selectedDate) {
 }
 
 
-function setStartFinishDate(selectedDate) {
-    return {type: actionTypes.SETSTARTFINISHDATE, selectedDate}
+function setStartFinishDate(selectedDate, newFinishDate) {
+    return {type: actionTypes.SETSTARTFINISHDATE, selectedDate, newFinishDate}
 }
 
-function setTimeStart(selectedTime) {
-    return {type: actionTypes.SETTIMESTART, selectedTime}
-}
-
-function setDuration(selectedDuration) {
-    return { type: actionTypes.SETDURATION, selectedDuration}
-}
-
-function changeStartFinishTime(selectedTime) {
-    return { type: actionTypes.CHANGESTARTFINISHTIME, selectedTime}
+function setFinishDate(startDate, selectedDuration) {
+    return { type: actionTypes.SETFINISHDATE, startDate, selectedDuration}
 }
 
 function fullUpdateState(newState) {
