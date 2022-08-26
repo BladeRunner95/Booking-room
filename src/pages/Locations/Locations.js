@@ -58,7 +58,7 @@ export const Locations = (props) => {
 
     const fullUpdateState = (newState) => {
         dispatch(allActions.fullUpdateState(newState));
-        console.log('full state update1!!!!!!!!!!!!!!!')
+        // console.log('full state update1!!!!!!!!!!!!!!!')
     };
     //click outside hook
     // const useOutsideClick = (ref) => {
@@ -141,7 +141,7 @@ export const Locations = (props) => {
                             {filtersNames.map((input, index) => (
                                 <div key={input.title} className="myButtonWrapper">
 
-                                    {input.title === "Location" ?
+                                    {input.title === "Location" &&
                                         <div className="timepickerInputWrapper">
                                             <div onClick={() => {
                                                 // handleClickedDropdown(index);
@@ -168,9 +168,10 @@ export const Locations = (props) => {
                                                 {/*    </div>*/}
                                                 {/*</div>*/}
                                             </div>
-                                        </div> : null}
+                                        </div>
+                                    }
 
-                                    {input.title === "Date" ?
+                                    {input.title === "Date" &&
                                         <MyDatepicker
                                             value={filtersStored.startDate}
                                             onClose={() => handleClickedDropdown(index)}
@@ -181,7 +182,7 @@ export const Locations = (props) => {
                                             title={input.title}
                                             onChange={(date) => handleDateSelect(date.getTime())}
                                         />
-                                        : null}
+                                    }
 
                                     {input.title === "Time" &&
                                         <div ref={wrapperRef} className="timepickerInputWrapper">

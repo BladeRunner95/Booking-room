@@ -8,7 +8,6 @@ const filters = Cookies.get('filters') && JSON.parse(Cookies.get('filters'))
 export let initialState = filters? filters: {
     startDate: moment().valueOf(),
     finishDate: undefined,
-    // totalCost: null,
     timeDuration: null,
     location: ["Tel-Aviv"]
 }
@@ -30,7 +29,6 @@ export const myReducer = (state = initialState, action) => {
 
 
         case actionTypes.SETFINISHDATE:
-            // const updateTotalCost = action.selectedDuration * 125;
             return {
                 ...state,
                 finishDate: action.startDate,

@@ -9,10 +9,11 @@ import {NotFound} from "./components/NotFound/NotFound";
 import {Payment} from "./pages/Payment/Payment";
 import {useEffect, useState} from "react";
 import {Dashboard} from "./pages/Dashboard/Dashboard";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import ProtectedRoutes from "./components/PrivateRoute/PrivateRoute";
 import Cookies from "js-cookie";
 import {Profile} from "./pages/Profile/Profile";
+import {userActions} from "./actions/user.actions";
 
 
 const Message = ({message}) => (
@@ -23,6 +24,7 @@ const Message = ({message}) => (
 
 export default function App(props) {
     const admin = useSelector(state => state.userReducer);
+    const dispatch = useDispatch();
     const loggedIn = Cookies.get('access_token');
     const location = useLocation();
     const [message, setMessage] = useState("");
@@ -49,15 +51,25 @@ export default function App(props) {
         // let isAdmin = await axios.get(`http://localhost:5000/api/auth/checkadmin/${}`)
     }, []);
 
+    useEffect(()=> {
+        const cookieExpired = () => {
+            if (!loggedIn) {
+                dispatch(userActions.logout());
+                console.log('i was logged out');
+            }
+        }
+        cookieExpired();
+    },[dispatch]);
+
     return (
         <Wrapper>
             <Routes>
                 <Route path="/" element={<HomePage/>}/>
                 <Route path="/locations" element={<Locations title/>}/>
 
-                <Route element={<ProtectedRoutes/>}>
+                {/*<Route element={<ProtectedRoutes/>}>*/}
                 <Route path="/singleLocation/:id" element={<SingleLocation/>}/>
-                </Route>
+                {/*</Route>*/}
 
                 <Route path="/signin" element={isLoggedIn(<Login/>)}/>
                 <Route path="/signup" element={isLoggedIn(<SignUp/>)}/>

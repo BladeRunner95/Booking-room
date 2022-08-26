@@ -4,13 +4,15 @@ import {MyNav} from "../../components/Nav/MyNav";
 // import drocher from '../../assets/lexshug.jpg';
 import noImg from '../../assets/noImage.jpg';
 import weAccept from '../../assets/weAccept.png';
-import './SingleLocation.css';
+import './SingleLocation.module.css';
 import {useSelector} from "react-redux";
 import {Loading} from "../../components/Spinner/Spinner";
 import axios from "axios";
 import {NotFound} from "../../components/NotFound/NotFound";
 import Cookies from "js-cookie";
 import {getTimeRange} from "../../helpers/dateCalculations";
+import moment from "moment";
+import styles from './SingleLocation.module.css';
 
 export const SingleLocation = (props) => {
     const {id} = useParams();
@@ -23,13 +25,13 @@ export const SingleLocation = (props) => {
     const [slide, setSlide] = useState(0);
     const [filters, setFilters] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [openEdit, setOpenEdit] = useState(false);
 
     useEffect(() => {
         async function getData() {
             try {
                 const getLocation = await axios.get(`http://localhost:5000/api/locations/${id}`);
                 setLocation(getLocation.data);
-                // setSlide(getLocation.data.images.length);
                 if (Cookies.get('filters')) {
                     const getFilters = JSON.parse(Cookies.get('filters'));
                     setFilters(getFilters);
@@ -45,10 +47,6 @@ export const SingleLocation = (props) => {
     if (!Cookies.get('filters')) {
         return <NotFound/>
     }
-
-    const timeStampToDate = (timestamp) => {
-        return new Date(timestamp);
-    };
 
     // need to memorize this value. useMemo doesn't work with conditional statements
     const memoized = location?.images && 100 / location.images.length;
@@ -100,7 +98,11 @@ export const SingleLocation = (props) => {
         }
     };
 
-    if ((!location && !filters) || loading) return <div className="SingleLocloading"><Loading/></div>
+    const handleOpenEdit = () => {
+      setOpenEdit(prev=> !prev);
+    };
+
+    if ((!location && !filters) || loading) return <div className={styles.SingleLocloading}><Loading/></div>
 
 
     const svgs = [
@@ -149,35 +151,35 @@ export const SingleLocation = (props) => {
     return (
         <>
             <MyNav/>
-            <div className="singleLocaWrapper">
+            <div className={styles.singleLocaWrapper}>
                 <div>
                     <div>
-                        <div className="singleLocaInnerWrapper">
-                            <div className="singleLocaInner">
-                                <div className="singleLocaInnerPad">
-                                    <ul className="singleLocaFilters">
-                                        <li className="singleLocaFilter">
-                                            <Link className="singleLocaFilterLink" to={goBack} onClick={goBack}>Back to
+                        <div className={styles.singleLocaInnerWrapper}>
+                            <div className={styles.singleLocaInner}>
+                                <div className={styles.singleLocaInnerPad}>
+                                    <ul className={styles.singleLocaFilters}>
+                                        <li className={styles.singleLocaFilter}>
+                                            <Link className={styles.singleLocaFilterLink} to={goBack} onClick={goBack}>Back to
                                                 all studios</Link>
                                         </li>
-                                        <span className="singleLocaFilterSlash">/</span>
-                                        <li className="singleLocaFilter secondFilter">
+                                        <span className={styles.singleLocaFilterSlash}>/</span>
+                                        <li className={`${styles.singleLocaFilter} ${styles.secondFilter}`}>
                                             <span>{location.name}</span>
                                         </li>
-                                        <span className="singleLocaFilterSlash filterGreyText">/</span>
-                                        <li className="singleLocaFilter filterGreyText">{location.capacity} people</li>
+                                        <span className={`${styles.singleLocaFilterSlash} ${styles.filterGreyText}`}>/</span>
+                                        <li className={`${styles.singleLocaFilter} ${styles.filterGreyText}`}>{location.capacity} people</li>
                                     </ul>
-                                    <div className="singleLocaInfoMainSection">
-                                        <div className="singleLocaInfoWrapper">
-                                            <div className="singleLocaSliderWrapper">
+                                    <div className={styles.singleLocaInfoMainSection}>
+                                        <div className={styles.singleLocaInfoWrapper}>
+                                            <div className={styles.singleLocaSliderWrapper}>
                                                 {location.images.length > 0 ?
-                                                <a className="singleLocaSliderLink">
-                                                    <div className="singleLocaSliderInnerWrapper">
-                                                        <div className="singleLocaCarouselWrapper">
-                                                            <div className="singleLocaCarouselInner">
-                                                                <div className="singleLocaCarouselImagesWrapper">
+                                                <a className={styles.singleLocaSliderLink}>
+                                                    <div className={styles.singleLocaSliderInnerWrapper}>
+                                                        <div className={styles.singleLocaCarouselWrapper}>
+                                                            <div className={styles.singleLocaCarouselInner}>
+                                                                <div className={styles.singleLocaCarouselImagesWrapper}>
                                                                     <div>
-                                                                        <ul className={`singleLocaCarouselList`}
+                                                                        <ul className={styles.singleLocaCarouselList}
                                                                             style={{
                                                                                 width: `calc(100% * ${location.images.length})`,
                                                                                 transform: `translateX(${slide}%) translateX(0px)`
@@ -185,15 +187,15 @@ export const SingleLocation = (props) => {
                                                                         >
                                                                             {location.images.map(singleImage => (
                                                                                 <li key={singleImage}
-                                                                                    className="singleLocaCarouselImageWrapper"
+                                                                                    className={styles.singleLocaCarouselImageWrapper}
                                                                                     style={{
                                                                                         width: `calc(100%/ ${location.images.length})`,
                                                                                         paddingBottom: `calc(69%/ ${location.images.length})`
                                                                                     }}
                                                                                 >
-                                                                                    <div className="singleLocaCarouselImageInner">
+                                                                                    <div className={styles.singleLocaCarouselImageInner}>
                                                                                         <img
-                                                                                            className="singleLocaCarouselImage"
+                                                                                            className={styles.singleLocaCarouselImage}
                                                                                             src={singleImage}
                                                                                             alt={location.name}/>
                                                                                     </div>
@@ -202,11 +204,11 @@ export const SingleLocation = (props) => {
                                                                         </ul>
                                                                     </div>
                                                                 </div>
-                                                                <div className="singleLocaSliderBottomShadow"/>
+                                                                <div className={styles.singleLocaSliderBottomShadow}/>
                                                                 <button
                                                                     onClick={handleSlideLeft}
-                                                                    className="singleLocaCarouselLeftButtonWrapper">
-                                                                    <div className="singleLocaCarouselLeftButtonInner">
+                                                                    className={styles.singleLocaCarouselLeftButtonWrapper}>
+                                                                    <div className={styles.singleLocaCarouselLeftButtonInner}>
                                                                         <svg width="24" height="24" overflow="visible"
                                                                              preserveAspectRatio="xMinYMin meet"
                                                                              strokeWidth="0"
@@ -218,8 +220,8 @@ export const SingleLocation = (props) => {
                                                                 </button>
                                                                 <button
                                                                     onClick={handleSlideImageRight}
-                                                                    className="singleLocaCarouselLeftButtonWrapper carouselRightButton">
-                                                                    <div className="singleLocaCarouselLeftButtonInner">
+                                                                    className={`${styles.singleLocaCarouselLeftButtonWrapper} ${styles.carouselRightButton}`}>
+                                                                    <div className={styles.singleLocaCarouselLeftButtonInner}>
                                                                         <svg width="24" height="24" overflow="visible"
                                                                              preserveAspectRatio="xMinYMin meet"
                                                                              strokeWidth="0"
@@ -229,7 +231,7 @@ export const SingleLocation = (props) => {
                                                                         </svg>
                                                                     </div>
                                                                 </button>
-                                                                <div className="singleLocaCarouselCapacity">
+                                                                <div className={styles.singleLocaCarouselCapacity}>
                                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                                          height="16" viewBox="0 0 16 16" fill="none">
                                                                         <path fillRule="evenodd" clipRule="evenodd" d="M4.66667 4.66667C4.66667 2.82572
@@ -242,47 +244,47 @@ export const SingleLocation = (props) => {
                                                                               fill="white"/>
                                                                     </svg>
                                                                     <span
-                                                                        className="singleLocaCapacityNumber">{location.capacity}</span>
+                                                                        className={styles.singleLocaCapacityNumber}>{location.capacity}</span>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </a>
-                                                    : <div className="carouselNoImages">
-                                                        <img className="carouselPlaceholder" src={noImg} alt="no im"/>
+                                                    : <div className={styles.carouselNoImages}>
+                                                        <img className={styles.carouselPlaceholder} src={noImg} alt="no im"/>
                                                     </div> }
                                             </div>
 
-                                            <div className="singleLocaInfoDetails">
-                                                <div className="singleLocaInfoDetailsInner">
-                                                    <div className="singleLocaDetailsEquipWrapper">
-                                                        <h3 className="singleLocaDetailsTitle">Equipment</h3>
-                                                        <div className="singleLocaDetailsEquipInner">
+                                            <div className={styles.singleLocaInfoDetails}>
+                                                <div className={styles.singleLocaInfoDetailsInner}>
+                                                    <div className={styles.singleLocaDetailsEquipWrapper}>
+                                                        <h3 className={styles.singleLocaDetailsTitle}>Equipment</h3>
+                                                        <div className={styles.singleLocaDetailsEquipInner}>
                                                             {location.details.map((detailObj, index) => (
-                                                                <div className="singleLocaDetailEquipItem">
-                                                                    <div className="singleLocaDetailEquipIcon">
+                                                                <div key={detailObj.title} className={styles.singleLocaDetailEquipItem}>
+                                                                    <div className={styles.singleLocaDetailEquipIcon}>
                                                                         {svgs[index]}
                                                                     </div>
                                                                     <div className="ps-1">
-                                                                        <h4 className="singleLocaDetailEquipTitle">{detailObj.title}</h4>
+                                                                        <h4 className={styles.singleLocaDetailEquipTitle}>{detailObj.title}</h4>
                                                                         <div
-                                                                            className="singleLocaDetailEquipText">{detailObj.description}</div>
+                                                                            className={styles.singleLocaDetailEquipText}>{detailObj.description}</div>
                                                                     </div>
                                                                 </div>
                                                                 )
                                                             )}
                                                         </div>
                                                     </div>
-                                                    <div className="singleLocaDetailsLocationWrap">
-                                                        <h3 className="singleLocaDetailsTitle">Location</h3>
-                                                        <h4 className="singleLocaDetailEquipTitle">Address: </h4>
+                                                    <div className={styles.singleLocaDetailsLocationWrap}>
+                                                        <h3 className={styles.singleLocaDetailsTitle}>Location</h3>
+                                                        <h4 className={styles.singleLocaDetailEquipTitle}>Address: </h4>
                                                         <div
-                                                            className="singleLocaDetailEquipText singleLocaAddress">Herzl
+                                                            className={`${styles.singleLocaDetailEquipText} ${styles.singleLocaAddress}`}>Herzl
                                                             60, Ramat Gan
                                                         </div>
-                                                        <div className="singleLocaGmaps">
-                                                            <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Pirate.com,+London%20N15%204ND"
-                                                               target="_blank" className="track_studioInfo_googleMaps"
+                                                        <div className={styles.singleLocaGmaps}>
+                                                            <a href="https://goo.gl/maps/8TeFEL1nM75Htuxp7"
+                                                               target="_blank" className={styles.track_studioInfo_googleMaps}
                                                                rel="noopener noreferrer">View in Google Maps</a>
                                                         </div>
                                                     </div>
@@ -290,55 +292,96 @@ export const SingleLocation = (props) => {
                                             </div>
                                         </div>
 
-                                        <div className="paymentColumn">
-                                            <div className="paymentColumnInner">
-                                                <div className="paymentTitleWrap">
-                                                    <h2 className="paymentTitle">{location.name}</h2>
+                                        <div className={styles.paymentColumn}>
+                                            <div className={styles.paymentColumnInner}>
+                                                <div className={styles.paymentTitleWrap}>
+                                                    <h2 className={styles.paymentTitle}>{location.name}</h2>
                                                 </div>
-                                                <div className="paymentColumnCity"><span>{location.title}</span></div>
-                                                <div className="paymentColumnDate">
-                                                    {timeStampToDate(filters.startDate).toDateString()}
+                                                <div className={styles.paymentColumnCity}><span>{location.title}</span></div>
+                                                <div className={styles.paymentColumnDate}>
+                                                    {moment(filters.startDate).format('dddd DD MMMM YYYY')}
                                                 </div>
-                                                <div className="paymentColumnTimeWrap">
-                                                    <div className="paymentColumnTimeWrap">
+                                                <div className={styles.paymentColumnTimeWrap}>
+                                                    {/*<div className={styles.}paymentColumnTimeWrap}>*/}
                                                         {
-                                                            timeStampToDate(filters.startDate).toLocaleString('en-US', {
-                                                                hour: 'numeric',
-                                                                hour12: true
-                                                            })
+                                                            moment(filters.startDate).format('hA')
                                                         } - {
-                                                        timeStampToDate(filters.finishDate).toLocaleString('en-US', {
-                                                            hour: 'numeric',
-                                                            hour12: true
-                                                        })
+                                                        moment(filters.finishDate).format('hA')
                                                     } ({filters.timeDuration} {filters.timeDuration === 1 ? 'hr': 'hrs'})
-                                                    </div>
-                                                    <button className="paymentEditButton"><span>Edit</span></button>
+                                                    <button onClick={handleOpenEdit} className={styles.paymentEditButton}><span>Edit</span></button>
                                                 </div>
-                                                <div className="paymentColumnTotal">
-                                                    <div className="paymentColumnTotalInner">
-                                                        <h3 className="paymentColumnTotalText">total</h3>
-                                                        <div className="paymentColumnTotalAmount">
+                                                {openEdit &&
+                                                    <div className={styles.editContainer}>
+                                                        <form className={styles.editInputsWrap}>
+                                                            <div className={styles.dateInputWrap}>
+                                                                <div className={styles.dateInputInner}>
+                                                                    <label className={styles.editTitle}>Date</label>
+                                                                    <div className={styles.dateInputPre}>
+                                                                        <input className={styles.dateInput} type="text"/>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div className={styles.dateInputWrap}>
+                                                                <div className={styles.smallInputWrap}>
+                                                                    <label className={styles.editTitle}>Start</label>
+                                                                    <div className={styles.smallInputInner}>
+                                                                        <div className={styles.smallInputPre}>
+                                                                            <select className={styles.selectContainer}>
+                                                                                {/*map*/}
+                                                                                <option value="0">12am</option>
+                                                                                <option value="1">1am</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <span className={styles.dropdownIcon}>▼</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div className={styles.emptyContainer}/>
+                                                                <div className={styles.smallInputWrap}>
+                                                                    <div className={styles.smallInputWrap}>
+                                                                        <label className={styles.editTitle}>Duration</label>
+                                                                        <div className={styles.smallInputInner}>
+                                                                            <div className={styles.smallInputPre}>
+                                                                                <select className={styles.selectContainer}>
+                                                                                    {/*map*/}
+                                                                                    <option value="0">1 hour</option>
+                                                                                    <option value="1">2 hours</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <span className={styles.dropdownIcon}>▼</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                        <div></div>
+                                                    </div>
+                                                }
+
+                                                <div className={styles.paymentColumnTotal}>
+                                                    <div className={styles.paymentColumnTotalInner}>
+                                                        <h3 className={styles.paymentColumnTotalText}>total</h3>
+                                                        <div className={styles.paymentColumnTotalAmount}>
                                                             <span
-                                                                className="paymentTotalAmountSpan">₪{filters.totalCost}</span>
+                                                                className={styles.paymentTotalAmountSpan}>₪{location.price * filters.timeDuration}</span>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                {/*<Link className="paymentPayButton" to={`/payment/${id}`}>*/}
+                                                {/*<Link className={styles.paymentPayButton} to={`/payment/${id}`}>*/}
                                                 {/*  <span>Book this studio</span>*/}
                                                 {/*</Link>*/}
-                                                <button className="paymentPayButton" onClick={handleSetBooking}>
+                                                <button className={styles.paymentPayButton} onClick={handleSetBooking}>
                                                     <span>Book this studio</span>
                                                 </button>
-                                                <div className="paymentCardsWrap">
-                                                    <div className="paymentAcceptText">We accept</div>
+                                                <div className={styles.paymentCardsWrap}>
+                                                    <div className={styles.paymentAcceptText}>We accept</div>
                                                 </div>
-                                                <div className="paymentCardsIcons">
-                                                    <img className="paymentCardsIcon"
+                                                <div className={styles.paymentCardsIcons}>
+                                                    <img className={styles.paymentCardsIcon}
                                                          src={weAccept}
                                                          alt="payment icons"/>
                                                 </div>
-                                                <div className="paymentPowered">
+                                                <div className={styles.paymentPowered}>
                                                     <img
                                                         src="https://book.pirate.com/static/media/powered-by-stripe-logo.90abdeaa.svg"
                                                         alt="Powered by Stripe"/>

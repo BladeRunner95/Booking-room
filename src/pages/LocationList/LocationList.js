@@ -4,6 +4,7 @@ import {useCallback, useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
 import {Loading} from "../../components/Spinner/Spinner";
+import noImg from '../../assets/noImage.jpg';
 import {getTimeRange} from "../../helpers/dateCalculations";
 
 export const LocationList = () => {
@@ -51,7 +52,7 @@ export const LocationList = () => {
                                         <div className="locationImageWrapper">
                                             <Link to={`/singleLocation/${loca._id}`}
                                                   className="locationImageInner">
-                                                <img className="locationImage" src={loca.images[0]} alt={loca.name}/>
+                                                <img className="locationImage" src={loca.images.length >0 ? loca.images[0] : noImg } alt={loca.name}/>
                                             </Link>
                                         </div>
                                         <div className="locationInfoWrapper">

@@ -538,14 +538,154 @@ a {
     justify-content: space-between;
     display: flex;
     margin-bottom: 1rem;
-}
-
-.paymentColumnTimeWrap {
     font-size: 1rem;
     letter-spacing: 0;
     line-height: 1.25rem;
     color: rgb(0, 0, 0);
     font-weight: bold;
+}
+
+.editContainer {
+    padding: 0;
+}
+
+.editInputsWrap {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    margin-top: 0.5rem;
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    color: rgb(0, 0, 0);
+}
+
+.dateInputWrap {
+    display: flex;
+    flex-direction: row;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 100%;
+}
+
+.dateInputInner {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.editTitle {
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    margin-bottom: 0.063rem;
+}
+
+.dateInputPre {
+    display: flex;
+    flex-direction: row;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 100%;
+}
+
+.dateInput {
+    cursor: pointer;
+    user-select: none;
+    background-color: white;
+    width: 100%;
+    border-radius: 0;
+    border: 1px solid rgb(0, 0, 0);
+    font-size: 1rem;
+    padding: 14px 5px;
+    outline: none;
+}
+
+@media (min-width: 768px) {
+    .dateInput {
+        padding: 14px 34px 14px 20px;
+    }
+}
+
+.smallInputWrap {
+    width: 100%;
+}
+
+.emptyContainer {
+    width: 10%;
+}
+
+.smallInputInner {
+    display: block;
+    position: relative;
+    min-width: 25%;
+}
+
+.smallInputPre {
+    display: inline-block;
+    border: 1px solid rgb(0, 0, 0);
+    cursor: pointer;
+    width: 100%;
+    font-size: 1rem;
+}
+
+.selectContainer {
+    -webkit-box-align: center;
+    align-items: center;
+    appearance: none;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 0;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    padding: 14px 34px 14px 5px;
+    width: 100%;
+    outline: none;
+}
+
+@media (min-width: 768px) {
+    .selectContainer {
+        padding: 14px 34px 14px 20px;
+    }
+}
+
+.dropdownIcon {
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    width: 12px;
+    height: 12px;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    pointer-events: none;
+}
+
+@media (min-width: 768px) {
+    .dropdownIcon {
+        top: 10px;
+        right: 7px;
+        width: 30px;
+        height: 30px;
+    }
 }
 
 .paymentColumnTotal {
