@@ -27,3 +27,5 @@ export const timePrefix = (hour) => ((hour + 11) % 12 + 1) + (hour >= 12 ? "pm" 
 export const inFifteenMinutes = new Date(new Date().getTime() + 30 * 60 * 1000);
 
 export const toAmPm = (date) => moment(date).format('ha');
+
+export const addToTimestamp = (selectedTime, duration) => selectedTime + (duration * 3600000);

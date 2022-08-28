@@ -592,7 +592,9 @@ a {
 }
 
 .dateInputPre {
+    position: relative;
     display: flex;
+    border: 1px solid black;
     flex-direction: row;
     -webkit-box-pack: start;
     justify-content: flex-start;
@@ -657,6 +659,7 @@ a {
     padding: 14px 34px 14px 5px;
     width: 100%;
     outline: none;
+
 }
 
 @media (min-width: 768px) {

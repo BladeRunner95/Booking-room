@@ -48,10 +48,6 @@ export const Profile = () => {
         getMyBookings();
     }, [userStorage, id]);
 
-    // if (myBookings) {
-    //     console.log(myBookings)
-    // }
-
     if (error) {
         return <div>You are not authenticated</div>
     }
@@ -107,8 +103,8 @@ export const Profile = () => {
                                             <tr key={booking._id}>
                                                 <td>{index}</td>
                                                 <td>{booking.location}</td>
-                                                <td>{moment(booking.startDate).format('DD.MM.YYYY')} - {toAmPm(booking.startDate)}</td>
-                                                <td>{moment(booking.finishDate).format('DD.MM.YYYY')} - {toAmPm(booking.finishDate + 1)}</td>
+                                                <td>{moment(booking.startDate).format('ddd DD.MM.YY')} - {toAmPm(booking.startDate)}</td>
+                                                <td>{moment(booking.finishDate).format('ddd DD.MM.YY')} - {toAmPm(booking.finishDate + 1)}</td>
                                                 <td>{booking.cost || Math.round(Math.random())}</td>
                                                 <td><Button variant="dark">Refund</Button></td>
                                             </tr>

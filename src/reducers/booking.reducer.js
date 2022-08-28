@@ -36,6 +36,12 @@ export const myReducer = (state = initialState, action) => {
                 timeDuration: action.selectedDuration
             };
 
+        case actionTypes.SETTOTALCOST:
+            return {
+                ...state,
+                totalCost: action.totalCost
+            };
+
         case actionTypes.FULLUPDATESTATE:
             return {
                 ...state,
@@ -43,7 +49,14 @@ export const myReducer = (state = initialState, action) => {
                 finishDate: action.newState.finishDate,
                 totalCost: action.newState.totalCost,
                 timeDuration: action.newState.timeDuration,
-            }
+            };
+
+            case actionTypes.DEFAULT:
+                return {
+                    startDate: moment().valueOf(),
+                    location: ["Tel-Aviv"]
+
+                };
         default :
             return state;
     }

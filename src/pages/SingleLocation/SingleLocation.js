@@ -5,19 +5,22 @@ import {MyNav} from "../../components/Nav/MyNav";
 import noImg from '../../assets/noImage.jpg';
 import weAccept from '../../assets/weAccept.png';
 import './SingleLocation.module.css';
-import {useSelector} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
 import {Loading} from "../../components/Spinner/Spinner";
 import axios from "axios";
 import {NotFound} from "../../components/NotFound/NotFound";
 import Cookies from "js-cookie";
-import {getTimeRange} from "../../helpers/dateCalculations";
+import {addToTimestamp, getTimeRange, handleTimeSelect, hoursInDay, timeDuration} from "../../helpers/dateCalculations";
 import moment from "moment";
 import styles from './SingleLocation.module.css';
+import {MyDatepicker} from "../../components/Datepicker/MyDatepicker";
+import {allActions} from "../../actions/booking.actions";
 
 export const SingleLocation = (props) => {
     const {id} = useParams();
     const navigate = useNavigate();
     const goBack = () => navigate(-1);
+    const dispatch = useDispatch();
     const booking = useSelector(state => state.myReducer);
     const loggedIn = Cookies.get('access_token');
     const userId = localStorage.getItem('user');
@@ -26,6 +29,7 @@ export const SingleLocation = (props) => {
     const [filters, setFilters] = useState(null);
     const [loading, setLoading] = useState(false);
     const [openEdit, setOpenEdit] = useState(false);
+    const [calOpened, setCalOpened] = useState(false);
 
     useEffect(() => {
         async function getData() {
@@ -35,6 +39,9 @@ export const SingleLocation = (props) => {
                 if (Cookies.get('filters')) {
                     const getFilters = JSON.parse(Cookies.get('filters'));
                     setFilters(getFilters);
+                } else {
+                    dispatch(allActions.defaultState());
+                    navigate('/');
                 }
             } catch (e) {
                 console.log(e);
@@ -42,11 +49,13 @@ export const SingleLocation = (props) => {
         }
 
         getData();
-    }, []);
+    }, [Cookies.get('filters')]);
 
-    if (!Cookies.get('filters')) {
-        return <NotFound/>
-    }
+    useEffect(() => {
+        if (filters && location) {
+            dispatch(allActions.setTotalCost(location.price * filters.timeDuration));
+        }
+    },[filters, location])
 
     // need to memorize this value. useMemo doesn't work with conditional statements
     const memoized = location?.images && 100 / location.images.length;
@@ -99,7 +108,40 @@ export const SingleLocation = (props) => {
     };
 
     const handleOpenEdit = () => {
+        // if (!openEdit && !Cookies.get('filters')) {
+        //     dispatch(allActions.defaultState());
+        //     navigate('/');
+        // }
       setOpenEdit(prev=> !prev);
+    };
+
+    const handleTimeSelect = (e) => {
+        const selectedTime = Number(e.target.value);
+        if (booking.finishDate === undefined) {
+            dispatch(allActions.setStartDate(selectedTime));
+        } else {
+            const updatedFinishDate = addToTimestamp(selectedTime, booking.timeDuration)
+            // const updatedFinishDate = (moment(selectedTime).clone().add(booking.timeDuration, 'hours')).valueOf();
+            dispatch(allActions.setStartFinishDate(selectedTime, updatedFinishDate));
+        }
+    };
+
+    const handleDurationSelect = (e) => {
+        const selectedDuration = e.target.value;
+        const newFinishDate = addToTimestamp(booking.startDate, selectedDuration);
+        // const newFinishDate = (moment(booking.startDate).clone().add(selectedDuration, 'hours')).valueOf();
+        dispatch(allActions.setFinishDate(newFinishDate, selectedDuration));
+    }
+
+
+    const handleDateSelect = (selectedDate) => {
+        if (booking.finishDate === undefined) {
+            dispatch(allActions.setStartDate(selectedDate));
+        } else {
+            const updatedFinishDate = (moment(selectedDate).clone().add(booking.timeDuration, 'hours')).valueOf();
+            dispatch(allActions.setStartFinishDate(selectedDate.valueOf(), updatedFinishDate));
+        }
+
     };
 
     if ((!location && !filters) || loading) return <div className={styles.SingleLocloading}><Loading/></div>
@@ -151,6 +193,7 @@ export const SingleLocation = (props) => {
     return (
         <>
             <MyNav/>
+            {filters &&
             <div className={styles.singleLocaWrapper}>
                 <div>
                     <div>
@@ -310,6 +353,7 @@ export const SingleLocation = (props) => {
                                                     } ({filters.timeDuration} {filters.timeDuration === 1 ? 'hr': 'hrs'})
                                                     <button onClick={handleOpenEdit} className={styles.paymentEditButton}><span>Edit</span></button>
                                                 </div>
+
                                                 {openEdit &&
                                                     <div className={styles.editContainer}>
                                                         <form className={styles.editInputsWrap}>
@@ -317,7 +361,17 @@ export const SingleLocation = (props) => {
                                                                 <div className={styles.dateInputInner}>
                                                                     <label className={styles.editTitle}>Date</label>
                                                                     <div className={styles.dateInputPre}>
-                                                                        <input className={styles.dateInput} type="text"/>
+                                                                        {/*<div className={styles.dateInput}>*/}
+                                                                        <MyDatepicker
+                                                                            editPage
+                                                                            value={booking.startDate}
+                                                                            onClose={() => setCalOpened(!calOpened)}
+                                                                            onClick={()=> setCalOpened(!calOpened)}
+                                                                            calendarOpened={calOpened}
+                                                                            placeholder="choose date"
+                                                                            onChange={(date) => handleDateSelect(date.getTime())}
+                                                                        />
+
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -327,10 +381,16 @@ export const SingleLocation = (props) => {
                                                                     <label className={styles.editTitle}>Start</label>
                                                                     <div className={styles.smallInputInner}>
                                                                         <div className={styles.smallInputPre}>
-                                                                            <select className={styles.selectContainer}>
-                                                                                {/*map*/}
-                                                                                <option value="0">12am</option>
-                                                                                <option value="1">1am</option>
+                                                                            <select onChange={handleTimeSelect}
+                                                                                    value={booking.startDate}
+                                                                                    className={styles.selectContainer}>
+                                                                                {hoursInDay(moment(filters.startDate)).map(time =>
+                                                                                    <option
+                                                                                        key={time.format('ha')}
+                                                                                        value={time.valueOf()}>
+                                                                                        {time.format('ha')}
+                                                                                    </option>
+                                                                                )}
                                                                             </select>
                                                                         </div>
                                                                         <span className={styles.dropdownIcon}>▼</span>
@@ -342,10 +402,15 @@ export const SingleLocation = (props) => {
                                                                         <label className={styles.editTitle}>Duration</label>
                                                                         <div className={styles.smallInputInner}>
                                                                             <div className={styles.smallInputPre}>
-                                                                                <select className={styles.selectContainer}>
-                                                                                    {/*map*/}
-                                                                                    <option value="0">1 hour</option>
-                                                                                    <option value="1">2 hours</option>
+                                                                                <select
+                                                                                    onChange={handleDurationSelect}
+                                                                                    value={booking.timeDuration}
+                                                                                    className={styles.selectContainer}>
+                                                                                    {timeDuration.map(duration =>
+                                                                                        <option
+                                                                                            key={duration}
+                                                                                            value={duration}>{duration} {duration === 1? 'hour': 'hours'}</option>
+                                                                                        )}
                                                                                 </select>
                                                                             </div>
                                                                             <span className={styles.dropdownIcon}>▼</span>
@@ -363,7 +428,7 @@ export const SingleLocation = (props) => {
                                                         <h3 className={styles.paymentColumnTotalText}>total</h3>
                                                         <div className={styles.paymentColumnTotalAmount}>
                                                             <span
-                                                                className={styles.paymentTotalAmountSpan}>₪{location.price * filters.timeDuration}</span>
+                                                                className={styles.paymentTotalAmountSpan}>₪{booking.totalCost}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -395,6 +460,7 @@ export const SingleLocation = (props) => {
                     </div>
                 </div>
             </div>
+                }
         </>
     )
 };

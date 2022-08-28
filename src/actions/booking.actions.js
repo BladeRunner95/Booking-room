@@ -4,7 +4,9 @@ export const allActions = {
     setStartDate,
     setStartFinishDate,
     setFinishDate,
-    fullUpdateState
+    setTotalCost,
+    fullUpdateState,
+    defaultState
 }
 
 
@@ -21,6 +23,14 @@ function setFinishDate(startDate, selectedDuration) {
     return { type: actionTypes.SETFINISHDATE, startDate, selectedDuration}
 }
 
+function setTotalCost(totalCost) {
+    return { type: actionTypes.SETTOTALCOST, totalCost}
+}
+
 function fullUpdateState(newState) {
     return { type: actionTypes.FULLUPDATESTATE, newState}
+}
+
+function defaultState() {
+    return { type: actionTypes.DEFAULT}
 }

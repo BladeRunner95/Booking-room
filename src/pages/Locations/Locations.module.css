@@ -123,15 +123,6 @@ button {
     }
 }
 
-.myDropdownDate {
-    position: absolute;
-    will-change: transform;
-    top: 100%;
-    left: 10%;
-    width: 300px;
-    z-index: 6;
-}
-
 .myDropdownLocation {
     position: absolute;
     will-change: transform;

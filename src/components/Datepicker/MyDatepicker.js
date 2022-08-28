@@ -2,10 +2,38 @@ import {forwardRef} from "react";
 import DatePicker, {CalendarContainer} from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
 import "./MyDatepicker.css";
+import styles from "./MyDatepicker.module.css"
 import moment from "moment";
+import {useEffect} from "react";
+import Cookies from "js-cookie";
+import {inFifteenMinutes} from "../../helpers/dateCalculations";
+import {useDispatch, useSelector} from "react-redux";
+import {allActions} from "../../actions/booking.actions";
 
 
 export const MyDatepicker = (props) => {
+
+    const filtersStored = useSelector(state => state.myReducer);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        async function getData() {
+            try {
+                if (props.editPage && !Cookies.get('filters')) return;
+                if (filtersStored.finishDate) {
+                    await Cookies.set('filters', JSON.stringify(filtersStored), {expires: inFifteenMinutes});
+                    fullUpdateState(filtersStored);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        getData();
+    }, [filtersStored.finishDate]);
+
+    const fullUpdateState = (newState) => {
+        dispatch(allActions.fullUpdateState(newState));
+    };
     //input editing
     const MyCustomInput = forwardRef(({onClick, className}, ref) => (
         //forward input inside MyDatepicker component with following props
@@ -19,12 +47,12 @@ export const MyDatepicker = (props) => {
             placeholder={props}
             className={props.className ? props.className : className}
         >
-            <div className="myButtonInner">
+            <div className={styles.myButtonInner}>
                 <div>
-                    <label htmlFor="input" className="myLabel">{props.title}</label>
+                    <label htmlFor="input" className={styles.myLabel}>{props.title}</label>
                     <input
                         value={moment(props.value).format('ddd MMM DD, YYYY')}
-                        className="myInput"
+                        className={props.editPage? styles.myInputEdit : styles.myInput}
                         type="text"
                         readOnly/>
                 </div>
@@ -35,8 +63,8 @@ export const MyDatepicker = (props) => {
     //Container editing
     const MyContainer = ({ className, children }) => {
         return (
-                <CalendarContainer className="myDropdownDate">
-                    <div className="DateTimeWrapper">{children}</div>
+                <CalendarContainer className={props.editPage ? styles.myDropdownDateEdit : styles.myDropdownDate}>
+                    <div className={styles.dateTimeWrapper}>{children}</div>
                 </CalendarContainer>
         );
     };
@@ -48,7 +76,7 @@ export const MyDatepicker = (props) => {
                     onCalendarClose={() => props.onClose()}
                     customInput={<MyCustomInput/>}
                     calendarContainer = {MyContainer}
-                    popperClassName="popperPlacement"
+                    popperClassName={styles.popperPlacement}
                     dayClassName={(date) => moment(date).isBefore(moment(), 'days')&& 'disabledDate'}
                     disabledKeyboardNavigation
         />
