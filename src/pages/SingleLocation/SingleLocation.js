@@ -15,8 +15,10 @@ import moment from "moment";
 import styles from './SingleLocation.module.css';
 import {MyDatepicker} from "../../components/Datepicker/MyDatepicker";
 import {allActions} from "../../actions/booking.actions";
+import {useTranslation} from "react-i18next";
 
 export const SingleLocation = (props) => {
+    const { t } = useTranslation();
     const {id} = useParams();
     const navigate = useNavigate();
     const goBack = () => navigate(-1);
@@ -202,15 +204,14 @@ export const SingleLocation = (props) => {
                                 <div className={styles.singleLocaInnerPad}>
                                     <ul className={styles.singleLocaFilters}>
                                         <li className={styles.singleLocaFilter}>
-                                            <Link className={styles.singleLocaFilterLink} to={goBack} onClick={goBack}>Back to
-                                                all studios</Link>
+                                            <Link className={styles.singleLocaFilterLink} to={goBack} onClick={goBack}>{t('back-to-studios')}</Link>
                                         </li>
                                         <span className={styles.singleLocaFilterSlash}>/</span>
                                         <li className={`${styles.singleLocaFilter} ${styles.secondFilter}`}>
                                             <span>{location.name}</span>
                                         </li>
                                         <span className={`${styles.singleLocaFilterSlash} ${styles.filterGreyText}`}>/</span>
-                                        <li className={`${styles.singleLocaFilter} ${styles.filterGreyText}`}>{location.capacity} people</li>
+                                        <li className={`${styles.singleLocaFilter} ${styles.filterGreyText}`}>{location.capacity} {t('people')}</li>
                                     </ul>
                                     <div className={styles.singleLocaInfoMainSection}>
                                         <div className={styles.singleLocaInfoWrapper}>

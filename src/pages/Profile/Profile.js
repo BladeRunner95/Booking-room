@@ -6,9 +6,11 @@ import {useParams} from "react-router-dom";
 import {Table, Button} from "react-bootstrap";
 import moment from "moment";
 import {toAmPm} from "../../helpers/dateCalculations";
+import {useTranslation} from "react-i18next";
 
 
 export const Profile = () => {
+    const { t } = useTranslation();
     const {id} = useParams();
     let [myData, setMyData] = useState(null);
     let [myBookings, setMyBookings] = useState(null);
@@ -63,7 +65,7 @@ export const Profile = () => {
                     <div className={styles.flowWrapper}>
                         <div className={styles.headWrapper}>
                             <div className={styles.helloWrapper}>
-                                <h1 className={styles.helloText}>Hello<br />{myData.username}</h1>
+                                <h1 className={styles.helloText}>{t('hello')}<br />{myData.username}</h1>
                             </div>
                             <div className={styles.profileIconWrapper}>
                                 <a href="" className={styles.profileIconLink}>
@@ -92,10 +94,10 @@ export const Profile = () => {
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Location</th>
-                                        <th>Start</th>
-                                        <th>Finish</th>
-                                        <th>Cost</th>
+                                        <th>{t('location')}</th>
+                                        <th>{t('start')}</th>
+                                        <th>{t('finish')}</th>
+                                        <th>{t('cost')}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -106,13 +108,13 @@ export const Profile = () => {
                                                 <td>{moment(booking.startDate).format('ddd DD.MM.YY')} - {toAmPm(booking.startDate)}</td>
                                                 <td>{moment(booking.finishDate).format('ddd DD.MM.YY')} - {toAmPm(booking.finishDate + 1)}</td>
                                                 <td>{booking.cost || Math.round(Math.random())}</td>
-                                                <td><Button variant="dark">Refund</Button></td>
+                                                <td><Button variant="dark">{t('refund')}</Button></td>
                                             </tr>
                                         ))
                                     }
                                     </tbody>
                                 </Table>
-                                : <div className={styles.noBookings}>Nothing get from the server</div>
+                                : <div className={styles.noBookings}>{t('no-bookings')}</div>
                             }
                         </div>
                     </div>

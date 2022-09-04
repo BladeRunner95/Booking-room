@@ -11,22 +11,24 @@ import {hoursInDay, inFifteenMinutes, toAmPm, handleTimeSelect, addToTimestamp} 
 import {timeDuration} from "../../helpers/dateCalculations";
 import Cookies from "js-cookie";
 import moment from "moment";
+import {useTranslation} from "react-i18next";
 
 
 export const Locations = (props) => {
+    const { t } = useTranslation();
     const wrapperRef = useRef(null);
     let filtersStored = useSelector(state => state.myReducer);
     const dispatch = useDispatch();
     const filtersNames = [
         {
-            title: 'Location',
+            title: t('location'),
             value: 'Tel-Aviv'
         },
         {
-            title: 'Date'
+            title: t('date')
         },
         {
-            title: 'Time'
+            title: t('time')
         }
     ];
 
@@ -122,7 +124,7 @@ export const Locations = (props) => {
                             {filtersNames.map((input, index) => (
                                 <div key={input.title} className={styles.myButtonWrapper}>
 
-                                    {input.title === "Location" &&
+                                    {input.title === t('location') &&
                                         <div className={styles.timepickerInputWrapper}>
                                             <div onClick={() => {
                                                 // handleClickedDropdown(index);
@@ -153,7 +155,7 @@ export const Locations = (props) => {
                                         </div>
                                     }
 
-                                    {input.title === "Date" &&
+                                    {input.title === t('date') &&
                                         <MyDatepicker
                                             value={filtersStored.startDate}
                                             onClose={() => handleClickedDropdown(index)}
@@ -166,7 +168,7 @@ export const Locations = (props) => {
                                         />
                                     }
 
-                                    {input.title === "Time" &&
+                                    {input.title === t('time') &&
                                         <div ref={wrapperRef} className={styles.timepickerInputWrapper}>
                                             <div onClick={() => {
                                                 handleClickedDropdown(index);
@@ -198,7 +200,7 @@ export const Locations = (props) => {
                                                 <div className={styles.DateTimeWrapper}>
                                                     <div className={styles.timepickerContainer}>
                                                         <div className={styles.timepickerColumnContainer}>
-                                                            <strong><span>Start Time</span></strong>
+                                                            <strong><span>{t('start-time')}</span></strong>
                                                             <div className={styles.timepickerTimeContainer}>
                                                                 {hoursInDay(moment(filtersStored.startDate)).map(time =>
                                                                     <label key={time.format('ha')}
@@ -216,7 +218,7 @@ export const Locations = (props) => {
                                                             </div>
                                                         </div>
                                                         <div className={styles.timepickerColumnContainer}>
-                                                            <strong><span>Duration</span></strong>
+                                                            <strong><span>{t('duration')}</span></strong>
                                                             <div className={styles.timepickerTimeContainer}>
                                                                 {timeDuration.map(duration =>
                                                                     <label
@@ -229,7 +231,7 @@ export const Locations = (props) => {
                                                                             value={duration}
                                                                             className={styles.timepickerInput}
                                                                             type="radio"/>
-                                                                        {duration + ' ' + (duration === 1 ? "hr" : "hrs")}
+                                                                        {duration + ' ' + (duration === 1 ? t('hour') : t('hours'))}
                                                                     </label>
                                                                 )}
                                                             </div>

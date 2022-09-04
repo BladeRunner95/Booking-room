@@ -1,26 +1,30 @@
 import {actionTypes} from "../types/user.types";
 import axios from "axios";
 import {alertActions} from "./alert.actions";
+import {alertTypes} from "../types/alert.types";
 
 
 export const userActions = {
     login,
     logout,
     register,
+    forgot,
+    resetPas,
     // getUsers,
     // getUser,
     // updateUser,
     // delete: _delete
 }
 
-function login(email, password, from) {
+function login(email, password, remember= false, from) {
     return async dispatch => {
         try {
             dispatch(request({email}));
             const user = await axios.post('http://localhost:5000/api/auth/login',
                 {
                     email,
-                    password
+                    password,
+                    remember
                 }, {withCredentials: true}, {credentials: 'include'})
 
             dispatch(success(user.data));
@@ -74,6 +78,56 @@ function register(user) {
     function request(user) { return { type: actionTypes.REGISTER_REQUEST, user } }
     function success(user) { return { type: actionTypes.REGISTER_SUCCESS, user } }
     function failure(error) { return { type: actionTypes.REGISTER_FAILURE, error } }
+}
+
+
+
+function forgot(email, from) {
+    return async dispatch => {
+        try {
+            dispatch(request({email}));
+            const user = await axios.post('http://localhost:5000/api/auth/forgot',
+                {
+                    email
+                })
+            //send res.message to forgot password screen and disable input
+            dispatch(success());
+            dispatch(alertActions.success(user.data.message));
+        } catch (e) {
+            dispatch(failure());
+            if (e.response.status === 400 || 422) {
+                dispatch(alertActions.error(e.response.data));
+            }
+        }
+    };
+
+    function request() { return { type: actionTypes.FORGOT_REQUEST }}
+    function success() { return { type: actionTypes.FORGOT_SUCCESS }}
+    function failure() { return { type: actionTypes.FORGOT_FAILURE }}
+}
+
+function resetPas(password, id, from) {
+    return async dispatch => {
+        try {
+            dispatch(request({password, id}));
+            const user = await axios.post(`http://localhost:5000/api/auth/resetPas/${id}`,
+                {
+                    password
+                }, {withCredentials: true}, {credentials: 'include'})
+            //send res.message to forgot password screen and disable input
+            dispatch(success(user));
+            localStorage.setItem('user', user.data._id);
+        } catch (e) {
+            dispatch(failure(e));
+            if (e.response.status === 400 || 422) {
+                dispatch(alertActions.error(e.response.data));
+            }
+        }
+    };
+
+    function request(user) { return { type: actionTypes.RESET_REQUEST, user } }
+    function success(user) { return { type: actionTypes.RESET_SUCCESS, user } }
+    function failure(error) { return { type: actionTypes.RESET_FAILURE, error } }
 }
 
 // function getAll() {

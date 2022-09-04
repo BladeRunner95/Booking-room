@@ -132,6 +132,21 @@
     }
 }
 
+.welcomeTextForgot {
+    transform: scale( 1.6, 2);
+    font-size: 2em;
+    text-align: center;
+    max-width: 100%;
+    margin: 0;
+}
+
+@media screen and (max-width: 576px) {
+    .welcomeTextForgot {
+        font-size: 1em;
+    }
+}
+
+
 .emailMainWrap {
     margin-bottom: 0.5rem;
 }
@@ -161,7 +176,7 @@ input {
 .formInput {
     caret-color: rgb(0, 0, 0);
     font-size: 1rem;
-    line-height: 1.25rem;
+    line-height: 100%;
     transition: all 0.2s ease-in-out 0s;
     padding: 0.875rem 1rem;
     min-width: 100%;

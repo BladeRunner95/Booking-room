@@ -5,10 +5,13 @@ import {Link, useNavigate} from "react-router-dom";
 import './Nav.css'
 import {useDispatch, useSelector} from "react-redux";
 import {userActions} from "../../actions/user.actions";
+import { useTranslation } from 'react-i18next';
 
 
 export const MyNav = (props) => {
 
+    const { t } = useTranslation();
+    const { i18n } = useTranslation();
     const admin = useSelector(state => state.userReducer);
     const loggedIn = useSelector(state => state.userReducer);
     const dispatch = useDispatch();
@@ -19,6 +22,10 @@ export const MyNav = (props) => {
         dispatch(userActions.logout());
         navigate('/', {replace: true});
 
+    };
+
+    const handleSwitchLang = (e) => {
+        i18n.changeLanguage(e.target.value);
     };
 
     return (
@@ -34,19 +41,19 @@ export const MyNav = (props) => {
                             {
                                 loggedIn.loggedIn &&
                                 //add dynamic user id (example from localStorage)
-                                <Nav.Link as={Link} to={`/myProfile/${userStorage}`} href={`/myProfile/${userStorage}`}>Profile</Nav.Link>
+                                <Nav.Link as={Link} to={`/myProfile/${userStorage}`} href={`/myProfile/${userStorage}`}>{t('profile')}</Nav.Link>
                             }
-                            <Nav.Link as={Link} to={"/dashboard"} href="/dashboard">Dashboard</Nav.Link>
-                            <Nav.Link as={Link} to={"/locations"} href="/locations">Book A Studio</Nav.Link>
-                            <NavDropdown title="En" id="collasible-nav-dropdown" className="pe-1">
-                                <NavDropdown.Item href="#action/3.1">En</NavDropdown.Item>
+                            <Nav.Link as={Link} to={"/dashboard"} href="/dashboard">{t('dashboard')}</Nav.Link>
+                            <Nav.Link as={Link} to={"/locations"} href="/locations">{t('toBook')}</Nav.Link>
+                            <NavDropdown title={t('lang')} id="collasible-nav-dropdown" className="pe-1">
+                                <Button variant="outline-dark" onClick={handleSwitchLang} className="w-100" value='en'>En</Button>
                                 <NavDropdown.Divider/>
-                                <NavDropdown.Item href="#action/3.4">He</NavDropdown.Item>
+                                <Button variant="outline-dark" onClick={handleSwitchLang} value='he'>He</Button>
                             </NavDropdown>
                             {loggedIn.loggedIn ?
-                                <Button className="button" onClick={handleLogout} variant="danger">Log out
+                                <Button className="button" onClick={handleLogout} variant="danger">{t('logout')}
                                 </Button> :
-                                <Button className="button" as={Link} to={"/signin"} variant="danger">Sign In
+                                <Button className="button" as={Link} to={"/signin"} variant="danger">{t('signIn')}
                                 </Button>
                             }
                         </Nav>

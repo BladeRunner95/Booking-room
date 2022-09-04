@@ -1,9 +1,10 @@
 import {MyNav} from "../Nav/MyNav";
 import './NotFound.css';
+import {useTranslation} from "react-i18next";
 
 
 export const NotFound = () => {
-
+    const { t } = useTranslation();
     return (
         <>
             <MyNav />
@@ -11,8 +12,8 @@ export const NotFound = () => {
             <div className="wrongPageInnerWrapper">
                 <div className="wrongPageInner">
                     <h1 className="wrongPageError">404</h1>
-                    <h2 className="wrongPageTitle">We can't find the page you're looking for</h2>
-                    <span className="wrongPageText">You may have mistyped the address or the page may have moved</span>
+                    <h2 className="wrongPageTitle">{t('not-found')}</h2>
+                    <span className="wrongPageText">{t('mistyped')}</span>
                 </div>
             </div>
         </div>

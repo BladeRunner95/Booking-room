@@ -7,8 +7,10 @@ import {userActions} from "../../actions/user.actions";
 import {Loading} from "../../components/Spinner/Spinner";
 import {alertTypes} from "../../types/alert.types";
 import {alertActions} from "../../actions/alert.actions";
+import {useTranslation} from "react-i18next";
 
 export const Login = () => {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const loggingIn = useSelector(state => state.userReducer.loggingIn);
     const error = useSelector(state => state.alertReducer);
@@ -39,6 +41,7 @@ export const Login = () => {
     };
 
     //validate form
+    //move to helpers
     const validForm = (email, password) => {
         if (!/\S+@\S+\.\S+/.test(email)) {
             dispatch(alertActions.error({
@@ -53,7 +56,7 @@ export const Login = () => {
                 message: 'Please enter a valid password (more than 5 symbols)'
             }));
         } else {
-            dispatch(userActions.login(email, password));
+            dispatch(userActions.login(email, password, checkbox));
         }
     }
 
@@ -76,7 +79,7 @@ export const Login = () => {
                         <div className={styles.innerWrapper}>
                             <div className={styles.welcomeWrapper}>
                                 <div className={styles.welcomeInner}>
-                                    <h1 className={styles.welcomeText}>WELCOME</h1>
+                                    <h1 className={styles.welcomeText}>{t('welcome')}</h1>
                                 </div>
                             </div>
                             {/*{loggingIn ? <Loading/> :*/}
@@ -89,7 +92,7 @@ export const Login = () => {
                                                     className={styles.formInput}
                                                     type="text"
                                                     name='email'
-                                                    placeholder={'email *'}
+                                                    placeholder={t('email')}
                                                     value={email}
                                                     onChange={e => handleInputsChange(e, 'email')}
                                                     required
@@ -108,7 +111,7 @@ export const Login = () => {
                                                     className={styles.formInput}
                                                     type="password"
                                                     name='password'
-                                                    placeholder={'password *'}
+                                                    placeholder={t('password')}
                                                     value={password}
                                                     onChange={e => handleInputsChange(e, 'password')}
                                                     required
@@ -136,10 +139,10 @@ export const Login = () => {
                                                     </svg>
                                                 </div>
                                                 <label className={styles.checkboxLabel} onClick={() => handleCheckbox()}
-                                                       htmlFor="remember-me">Remember me</label>
+                                                       htmlFor="remember-me">{t('remember')}</label>
                                             </div>
                                         </div>
-                                        <a className={styles.forgotPassword} href="">Forgot password</a>
+                                        <Link className={styles.forgotPassword} to="/forgot">{t('forgot')}</Link>
                                     </div>
                                     <div className={styles.loginWrap}>
 
@@ -147,13 +150,13 @@ export const Login = () => {
                                             className={styles.loginButton}
                                             disabled={handeSubmitDisabled()}
                                         >
-                                            <span>Log in</span>
+                                            <span>{t('login')}</span>
                                         </button>
                                         {(error.message?.type === 'credentials') &&
-                                            <div className={styles.invalidLogIn}>Invalid log in</div>}
+                                            <div className={styles.invalidLogIn}>{t('invalid_login')}</div>}
                                     </div>
                                     <Link className={styles.createAccount} to={'/signup'}>
-                                        <span>Create Account</span>
+                                        <span>{t('create-account')}</span>
                                     </Link>
                                 </form>
                         {/*    */}

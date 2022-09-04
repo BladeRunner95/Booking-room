@@ -5,9 +5,11 @@ import styles from './SignUp.module.css';
 import {useEffect, useState} from "react";
 import {userActions} from "../../actions/user.actions";
 import {alertActions} from "../../actions/alert.actions";
+import {useTranslation} from "react-i18next";
 
 
 export const SignUp = () => {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const location = useLocation();
     const registered = useSelector(state => state.signupReducer);
@@ -116,11 +118,11 @@ export const SignUp = () => {
                         <div className={styles.innerWrapper}>
                             <div>
                                 <div className={styles.title}>
-                                    <h2 className={styles.titleText}>Create new account</h2>
+                                    <h2 className={styles.titleText}>{t('create-account')}</h2>
                                 </div>
                                 <form onSubmit={handleSubmitSignIn} noValidate action="">
                                     <div className={styles.formWrapper}>
-                                        <h3 className={styles.account}>Account</h3>
+                                        {/*<h3 className={styles.account}>Account</h3>*/}
                                         <div id="username" className={styles.inputWrapper}>
                                             <div>
                                                 <div className={styles.inputInnerWrap}>
@@ -130,7 +132,7 @@ export const SignUp = () => {
                                                            name="username"
                                                            type="text"
                                                            aria-label="Username"
-                                                           placeholder="Username *"
+                                                           placeholder={t('username')}
                                                            required
                                                            value={inputs.username}
                                                            onChange={handleInputChange}
@@ -149,7 +151,7 @@ export const SignUp = () => {
                                                         name="email"
                                                         type="email"
                                                         aria-label="Email"
-                                                        placeholder="Email *"
+                                                        placeholder={t('email')}
                                                         value={inputs.email}
                                                         onChange={handleInputChange}
                                                         required
@@ -167,7 +169,7 @@ export const SignUp = () => {
                                                 id="password"
                                                 name="password"
                                                 aria-label="Password (8 characters or more)"
-                                                placeholder="Password *"
+                                                placeholder={t('password')}
                                                 value={inputs.password}
                                                 onChange={handleInputChange}
                                                 required/>
@@ -240,7 +242,7 @@ export const SignUp = () => {
                                                     id="repPassword"
                                                     name="passwordDoubled"
                                                     aria-label="Repeat password"
-                                                    placeholder="Repeat password *"
+                                                    placeholder={t('repeat-password')}
                                                     value={repeatPass}
                                                     onChange={handleRepeatPassword}
                                                     required/>
@@ -307,7 +309,7 @@ export const SignUp = () => {
                                         </div>
                                         <button aria-label="Continue" className={styles.continue}
                                                 disabled={handeSubmitDisabled()}>
-                                            <span>Continue</span>
+                                            <span>{t('continue')}</span>
                                         </button>
                                     </div>
                                 </form>

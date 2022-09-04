@@ -14,6 +14,9 @@ import ProtectedRoutes from "./components/PrivateRoute/PrivateRoute";
 import Cookies from "js-cookie";
 import {Profile} from "./pages/Profile/Profile";
 import {userActions} from "./actions/user.actions";
+import {ForgotPas} from "./pages/Login/ForgotPas";
+import {ResetPassword} from "./pages/Login/ResetPassword";
+import axios from "axios";
 
 
 const Message = ({message}) => (
@@ -43,11 +46,8 @@ export default function App(props) {
         }
 
         if (query.get("canceled")) {
-            setMessage(
-                "Order canceled -- continue to shop around and checkout when you're ready."
-            );
+            setMessage("Order canceled -- continue to shop around and checkout when you're ready.");
         }
-
         // let isAdmin = await axios.get(`http://localhost:5000/api/auth/checkadmin/${}`)
     }, []);
 
@@ -73,6 +73,13 @@ export default function App(props) {
 
                 <Route path="/signin" element={isLoggedIn(<Login/>)}/>
                 <Route path="/signup" element={isLoggedIn(<SignUp/>)}/>
+
+                {
+                    !loggedIn && <Route path="/forgot" element={<ForgotPas/>}/>
+                }
+                {
+                    !loggedIn && <Route path="/reset/:id" element={<ResetPassword/>}/>
+                }
                 {/*private route for authenticated users*/}
                 {/*{user.loggedIn &&*/}
                 <Route element={<ProtectedRoutes/>}>
