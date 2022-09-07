@@ -35,7 +35,6 @@ export const Dashboard = (props) => {
             setMyProvider(fetched)
         }
         dataProvider();
-        console.log(myResponse);
     }, [myResponse])
 
     return (

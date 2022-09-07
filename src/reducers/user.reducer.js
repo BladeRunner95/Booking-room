@@ -32,6 +32,11 @@ export const userReducer = (state = initialState, action) => {
             };
         case actionTypes.FORGOT_FAILURE:
             return {};
+        case actionTypes.RESET_SUCCESS:
+            return {
+                loggedIn: true,
+                user: action.user
+            };
         default :
             return state;
     }

@@ -77,9 +77,7 @@ export default function App(props) {
                 {
                     !loggedIn && <Route path="/forgot" element={<ForgotPas/>}/>
                 }
-                {
-                    !loggedIn && <Route path="/reset/:id" element={<ResetPassword/>}/>
-                }
+                <Route path="/reset/:id" element={isLoggedIn(<ResetPassword/>)}/>
                 {/*private route for authenticated users*/}
                 {/*{user.loggedIn &&*/}
                 <Route element={<ProtectedRoutes/>}>

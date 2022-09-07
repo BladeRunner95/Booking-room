@@ -1,22 +1,21 @@
 import {MyNav} from "../../components/Nav/MyNav";
 import styles from "./Locations.module.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {useState, useEffect, useRef} from "react";
+import {useState, useRef} from "react";
 import {MyDatepicker} from "../../components/Datepicker/MyDatepicker";
 import {LocationList} from "../LocationList/LocationList";
 import {useSelector, useDispatch} from "react-redux";
 import {allActions} from "../../actions/booking.actions";
 import {Loading} from "../../components/Spinner/Spinner";
-import {hoursInDay, inFifteenMinutes, toAmPm, handleTimeSelect, addToTimestamp} from "../../helpers/dateCalculations";
+import {hoursInDay, toAmPm, handleTimeSelect, addToTimestamp} from "../../helpers/dateCalculations";
 import {timeDuration} from "../../helpers/dateCalculations";
-import Cookies from "js-cookie";
 import moment from "moment";
 import {useTranslation} from "react-i18next";
+import {DropdownLink} from "../../components/Dropdown/Dropdown";
 
 
 export const Locations = (props) => {
     const { t } = useTranslation();
-    const wrapperRef = useRef(null);
     let filtersStored = useSelector(state => state.myReducer);
     const dispatch = useDispatch();
     const filtersNames = [
@@ -31,61 +30,10 @@ export const Locations = (props) => {
             title: t('time')
         }
     ];
-
-    // useEffect(()=> {
-    //     const outsideTimepicker = (ref) => {
-    //         if (ref.current && !ref.current.contains())
-    //         console.log(e)
-    //     }
-    //     document.addEventListener("click", handleClickOutside)
-    //     outsideTimepicker(wrapperRef);
-    // }, [wrapperRef])
-
-
-    //click outside hook
-    // const useOutsideClick = (ref) => {
-    //     useEffect(() => {
-    //         function handleClickOutside(event) {
-    //             if (ref.current && !ref.current.contains(event.target)) {
-    //                 setOutsideClick({...outsideClick, outside: false, inside: false});
-    //             }
-    //         }
-    //
-    //         document.addEventListener("click", handleClickOutside);
-    //         return () => {
-    //             document.removeEventListener("click", handleClickOutside);
-    //         };
-    //     }, [ref]);
-    // }
-
-    const [opened, setOpened] = useState(
-        {
-            index: null,
-            open: false,
-            timeOutside: false,
-            timeInside: false
-        });
-
-    // const [calendarOpened, setCalendarOpened] = useState(false);
-    // const [timepickerOpened, setTimepickerOpened] = useState(false);
-
-    // useOutsideClick(wrapperRef);
-
-
-    const handleClickedDropdown = (inputId) => {
-        // setCalendarOpened(prev=> !prev);
-        if (inputId === opened.index) {
-            setOpened(prev => ({
-                ...prev, index: null, open: false
-            }));
-        } else {
-            setOpened({index: inputId, open: true});
-        }
-    };
-
-    // const handleClickedTimepicker = () => {
-    //     setTimepickerOpened(prev => !prev);
-    // }
+    const [timepickerOpened, setTimepickerOpened] = useState(false);
+    const handleClickedTimepicker = () => {
+        setTimepickerOpened(prev => !prev);
+    }
 
 
     const handleDateSelect = (selectedDate) => {
@@ -127,7 +75,6 @@ export const Locations = (props) => {
                                     {input.title === t('location') &&
                                         <div className={styles.timepickerInputWrapper}>
                                             <div onClick={() => {
-                                                // handleClickedDropdown(index);
                                             }}
                                                  className={styles.myButton}>
                                                 <div className={styles.myButtonInner}>
@@ -143,8 +90,8 @@ export const Locations = (props) => {
                                                     <span>▼</span>
                                                 </div>
                                             </div>
-                                            <div
-                                                className={opened.index === index ? styles.myDropdownLocation : styles.dropHidden}>
+                                            <div>
+                                                 {/*className={opened.index === index ? styles.myDropdownLocation : styles.dropHidden}>*/}
                                                 {/*<div className="myDropdownInnerWrapper">*/}
                                                 {/*    <div className="myDropdownInner">*/}
                                                 {/*        {input.value.map((dropdownItem,index) => <div key={index}
@@ -158,9 +105,6 @@ export const Locations = (props) => {
                                     {input.title === t('date') &&
                                         <MyDatepicker
                                             value={filtersStored.startDate}
-                                            onClose={() => handleClickedDropdown(index)}
-                                            calendarOpened={opened.index === index}
-                                            onClick={() => handleClickedDropdown(index)}
                                             placeholder="choose date"
                                             className={styles.myButton}
                                             title={input.title}
@@ -169,22 +113,17 @@ export const Locations = (props) => {
                                     }
 
                                     {input.title === t('time') &&
-                                        <div ref={wrapperRef} className={styles.timepickerInputWrapper}>
-                                            <div onClick={() => {
-                                                handleClickedDropdown(index);
-                                                setOpened({
-                                                    ...opened,
-                                                    timeOutside: true,
-                                                    timeInside: !opened.timeInside
-                                                });
-                                            }}
+                                        <DropdownLink disabled={timepickerOpened} stateChanger={setTimepickerOpened}>
+                                        <div className={styles.timepickerInputWrapper}>
+                                            <div onClick={handleClickedTimepicker}
                                                  className={styles.myButton}>
                                                 <div className={styles.myButtonInner}>
                                                     <div>
                                                         <label htmlFor="input"
                                                                className={styles.myLabel}>{input.title}</label>
                                                         <input placeholder="choose time and duration"
-                                                               value={toAmPm(filtersStored.startDate) + (filtersStored.finishDate ? ' - ' +
+                                                               value={toAmPm(filtersStored.startDate) +
+                                                                   (filtersStored.finishDate ? ' - ' +
                                                                    toAmPm(filtersStored.finishDate)
                                                                    : "")}
                                                                className={styles.myInput}
@@ -196,7 +135,7 @@ export const Locations = (props) => {
                                             </div>
 
                                             <div
-                                                className={opened.timeInside && opened.timeOutside ? styles.myDropdownTime : styles.dropHidden}>
+                                                className={timepickerOpened? styles.myDropdownTime : styles.dropHidden}>
                                                 <div className={styles.DateTimeWrapper}>
                                                     <div className={styles.timepickerContainer}>
                                                         <div className={styles.timepickerColumnContainer}>
@@ -240,6 +179,7 @@ export const Locations = (props) => {
                                                 </div>
                                             </div>
                                         </div>
+                                        </DropdownLink>
                                     }
                                 </div>
                             ))

@@ -31,7 +31,6 @@ export const SingleLocation = (props) => {
     const [filters, setFilters] = useState(null);
     const [loading, setLoading] = useState(false);
     const [openEdit, setOpenEdit] = useState(false);
-    const [calOpened, setCalOpened] = useState(false);
 
     useEffect(() => {
         async function getData() {
@@ -366,9 +365,6 @@ export const SingleLocation = (props) => {
                                                                         <MyDatepicker
                                                                             editPage
                                                                             value={booking.startDate}
-                                                                            onClose={() => setCalOpened(!calOpened)}
-                                                                            onClick={()=> setCalOpened(!calOpened)}
-                                                                            calendarOpened={calOpened}
                                                                             placeholder="choose date"
                                                                             onChange={(date) => handleDateSelect(date.getTime())}
                                                                         />

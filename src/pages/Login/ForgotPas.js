@@ -10,7 +10,7 @@ import {useTranslation} from "react-i18next";
 
 export const ForgotPas = () => {
     const { t } = useTranslation();
-    const error = useSelector(state => state.alertReducer);
+    const notification = useSelector(state => state.alertReducer);
     const emailSent = useSelector(state => state.userReducer);
     const dispatch = useDispatch();
 
@@ -72,8 +72,8 @@ export const ForgotPas = () => {
                                         />
                                     </div>
                                 </div>
-                                {error.type &&
-                                    <div className={`alert ${error.type}`}>{error.message}</div>}
+                                {notification.type &&
+                                    <div className={notification.type}>{notification.message}</div>}
                             </div>
 
                             <div className={styles.loginWrap}>

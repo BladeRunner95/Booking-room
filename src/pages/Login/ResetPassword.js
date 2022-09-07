@@ -11,6 +11,7 @@ import {Loading} from "../../components/Spinner/Spinner";
 
 export const ResetPassword = () => {
     const error = useSelector(state => state.alertReducer);
+    const loggedIn = useSelector(state => state.userReducer.loggedIn);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const {id} = useParams();
@@ -30,7 +31,9 @@ export const ResetPassword = () => {
             }
         getResetRequest();
         },[id]);
+
     if (!activeReset) return <Loading/>
+    if (loggedIn) return navigate('');
 
 
     const handleInputChange = (e) => {
@@ -86,7 +89,7 @@ export const ResetPassword = () => {
                                     </div>
                                 </div>
                                 {(error.type) &&
-                                    <div className={`alert ${error.type}`}>{error.message}</div>}
+                                    <div className={error.type}>{error.message}</div>}
                             </div>
                             <div className={styles.loginWrap}>
                                 <button

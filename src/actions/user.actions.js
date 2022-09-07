@@ -115,8 +115,9 @@ function resetPas(password, id, from) {
                     password
                 }, {withCredentials: true}, {credentials: 'include'})
             //send res.message to forgot password screen and disable input
-            dispatch(success(user));
+            dispatch(success(user.data));
             localStorage.setItem('user', user.data._id);
+            dispatch(alertActions.success(user.data.message));
         } catch (e) {
             dispatch(failure(e));
             if (e.response.status === 400 || 422) {

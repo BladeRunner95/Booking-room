@@ -152,8 +152,10 @@ export const Login = () => {
                                         >
                                             <span>{t('login')}</span>
                                         </button>
-                                        {(error.message?.type === 'credentials') &&
-                                            <div className={styles.invalidLogIn}>{t('invalid_login')}</div>}
+                                        {(error.message) &&
+                                            <div className={error.type}>{error.message}</div>}
+                                        {/*{(error.message?.type === 'credentials') &&*/}
+                                        {/*    <div className={styles.invalidLogIn}>{t('invalid_login')}</div>}*/}
                                     </div>
                                     <Link className={styles.createAccount} to={'/signup'}>
                                         <span>{t('create-account')}</span>
