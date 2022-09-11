@@ -4,13 +4,11 @@ import {
     TextField,
     EmailField,
     BooleanField,
-    ArrayField,
     SimpleForm,
     TextInput,
     Edit,
     Create,
     EditButton,
-    DeleteButton,
     SimpleFormIterator,
     ArrayInput,
     PasswordInput,
@@ -18,17 +16,18 @@ import {
     WrapperField, Labeled
 } from 'react-admin';
 import {validateEmail, validatePassword, validateRequired} from '../validateInputs';
+import {myIdColumn} from "../dashboardHelpers";
 
 export const UsersDashboard = (props) => (
-    <List>
-        <Datagrid rowClick="edit">
+    <List {...props}>
+        <Datagrid
+            sx={myIdColumn}
+            rowClick="edit">
             <TextField source="id" sortBy="id"/>
             <TextField label="Username" source="username" sortByOrder="DESC"/>
             <EmailField label="Email" source="email" />
             <BooleanField label="Admin" source="isAdmin" />
-            <ArrayField source="bookings" label="Bookings"/>
             <EditButton basepath='/users' />
-            <DeleteButton basepath='/users' />
         </Datagrid>
     </List>
 );

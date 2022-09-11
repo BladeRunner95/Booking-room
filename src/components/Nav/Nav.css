@@ -5,3 +5,8 @@
 .myNav {
     height: 60px;
 }
+
+.dropdown-menu {
+    min-width: 2rem;
+    color: #ffffff;
+}

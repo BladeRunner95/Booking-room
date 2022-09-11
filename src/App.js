@@ -26,11 +26,15 @@ const Message = ({message}) => (
 );
 
 export default function App(props) {
-    const admin = useSelector(state => state.userReducer);
+    const authed = useSelector(state => state.userReducer);
     const dispatch = useDispatch();
     const loggedIn = Cookies.get('access_token');
+    const admin = localStorage.getItem('admin');
+    const userId = localStorage.getItem('user');
     const location = useLocation();
     const [message, setMessage] = useState("");
+    // const [isAdmin, setIsAdmin] = useState(false);
+    //this state should be stored in reducer
     const isLoggedIn = (component) => {
         return loggedIn ? location.state?.from ?
             <Navigate to={location.state.from} replace state={{from: location}}/> :
@@ -48,8 +52,27 @@ export default function App(props) {
         if (query.get("canceled")) {
             setMessage("Order canceled -- continue to shop around and checkout when you're ready.");
         }
-        // let isAdmin = await axios.get(`http://localhost:5000/api/auth/checkadmin/${}`)
     }, []);
+
+    // useEffect(()=> {
+    //         if (userId && authed.loggedIn) {
+    //             const checkAdmin = async () => {
+    //                 try {
+    //                 let isAdmin = await axios.get(`http://localhost:5000/api/auth/checkadmin`, {
+    //                     withCredentials: true
+    //                 });
+    //                if (isAdmin.status && isAdmin.status === 200) {
+    //                    // setIsAdmin(true);
+    //                }
+    //                 //all this move to user reducer after cookie checking
+    //                 } catch (e) {
+    //                     //send
+    //                     console.log(e.response.data);
+    //                 }
+    //             }
+    //             checkAdmin();
+    //     }
+    // },[userId]);
 
     useEffect(()=> {
         const cookieExpired = () => {
@@ -86,7 +109,7 @@ export default function App(props) {
                 </Route>
                 {loggedIn && <Route path="/myProfile/:id" element={<Profile/>}/>}
                 {/*private routes for admin*/}
-                {admin.loggedIn &&
+                {authed.loggedIn && admin &&
                     <Route path="/dashboard/*" element={<Dashboard/>}/>}
 
                 <Route path="*" element={<NotFound/>}/>

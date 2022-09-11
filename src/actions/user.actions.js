@@ -29,6 +29,9 @@ function login(email, password, remember= false, from) {
 
             dispatch(success(user.data));
             localStorage.setItem('user', user.data._id);
+            if (user.data.isAdmin) {
+                localStorage.setItem('admin', user.data.isAdmin);
+            }
         } catch (e) {
             dispatch(failure(e));
             console.log(e.response.data)
@@ -45,6 +48,9 @@ function login(email, password, remember= false, from) {
 function logout() {
     document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     localStorage.removeItem('user');
+    if (localStorage.getItem('admin')) {
+        localStorage.removeItem('admin');
+    }
     return { type: actionTypes.LOGOUT };
 }
 

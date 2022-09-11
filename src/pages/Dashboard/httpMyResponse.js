@@ -33,6 +33,6 @@ export const fetchJson = async (url, options = {}) => {
         }
         return Promise.resolve({status: status, headers: headers, body: body, json: json});
     } catch (e) {
-        console.log('http error' + e)
+        // console.log('http error' + e)
     }
 };

@@ -14,13 +14,15 @@ import {
 import {validatePrice, validateRequired} from '../validateInputs';
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {dateToTimestamp} from "../dashboardHelpers";
+import {dateToTimestamp, myIdColumn} from "../dashboardHelpers";
 
 export const BookingsDashboard = () => {
 
     return (
     <List>
-        <Datagrid rowClick="edit">
+        <Datagrid
+            sx={myIdColumn}
+            rowClick="edit">
             <TextField source="id"/>
             <TextField source="user" label="userId"/>
             <DateField  source="startDate" label='start'/>

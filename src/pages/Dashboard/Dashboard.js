@@ -3,9 +3,10 @@ import jsonServerProvider from 'ra-data-json-server';
 import {UsersDashboard, UsersEdit, UserCreate} from "./UsersDashboard/UsersDashboard";
 import {LocationCreate, LocationEdit, LocationsDashboard} from "./LocationsDashboard/LocationsDashboard";
 import Cookies from "js-cookie";
-import {fetchJson} from "./httpError";
+import {fetchJson} from "./httpMyResponse";
 import {BookingCreate, BookingsDashboard, BookingsEdit} from "./BookingsDashboard/BookingsDashboard";
 import {useEffect, useState} from "react";
+import MyLayout from "./CustomLayout/MyLayout";
 
 
 
@@ -41,7 +42,7 @@ export const Dashboard = (props) => {
         <>
             {myProvider?
                 // <RecordContextProvider value={myResponse}>
-            <Admin basename="/dashboard" dataProvider={myProvider}>
+            <Admin layout={MyLayout} basename="/dashboard" dataProvider={myProvider}>
                 <Resource name="locations" list={<LocationsDashboard myResponse={myResponse}/>} edit={<LocationEdit myresponse={myResponse}/>} create={<LocationCreate myresponse={myResponse}/>} />
                 <Resource name="auth/users" options={{ label: 'Users' }} list={UsersDashboard} edit={UsersEdit} create={UserCreate}/>
                 <Resource name="bookings" options={{ label: 'Bookings' }} list={BookingsDashboard} edit={BookingsEdit} create={<BookingCreate myresponse={myResponse}/>}/>

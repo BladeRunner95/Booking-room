@@ -87,17 +87,10 @@ export const Locations = (props) => {
                                                                type="text"
                                                                readOnly/>
                                                     </div>
-                                                    <span>▼</span>
+                                                    {/*<span>▼</span>*/}
                                                 </div>
                                             </div>
                                             <div>
-                                                 {/*className={opened.index === index ? styles.myDropdownLocation : styles.dropHidden}>*/}
-                                                {/*<div className="myDropdownInnerWrapper">*/}
-                                                {/*    <div className="myDropdownInner">*/}
-                                                {/*        {input.value.map((dropdownItem,index) => <div key={index}
-                                             className="myLocationOptions">{dropdownItem}</div>)}*/}
-                                                {/*    </div>*/}
-                                                {/*</div>*/}
                                             </div>
                                         </div>
                                     }
@@ -113,8 +106,8 @@ export const Locations = (props) => {
                                     }
 
                                     {input.title === t('time') &&
-                                        <DropdownLink disabled={timepickerOpened} stateChanger={setTimepickerOpened}>
                                         <div className={styles.timepickerInputWrapper}>
+                                        <DropdownLink disabled={timepickerOpened} stateChanger={setTimepickerOpened}>
                                             <div onClick={handleClickedTimepicker}
                                                  className={styles.myButton}>
                                                 <div className={styles.myButtonInner}>
@@ -178,8 +171,8 @@ export const Locations = (props) => {
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
                                         </DropdownLink>
+                                        </div>
                                     }
                                 </div>
                             ))

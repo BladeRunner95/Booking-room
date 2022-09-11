@@ -62,7 +62,6 @@ export const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setSubmitted(true);
         if (email && password) {
             validForm(email, password);
         } else {
