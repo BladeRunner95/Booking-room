@@ -54,25 +54,10 @@ export const MyDatepicker = (props) => {
     const filtersStored = useSelector(state => state.myReducer);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        async function getData() {
-            try {
-                if (props.editPage && !Cookies.get('filters')) return;
-                if (filtersStored.finishDate) {
-                    await Cookies.set('filters', JSON.stringify(filtersStored), {expires: inFifteenMinutes});
-                    fullUpdateState(filtersStored);
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        }
-
-        getData();
-    }, [filtersStored.finishDate]);
-
-    const fullUpdateState = (newState) => {
-        dispatch(allActions.fullUpdateState(newState));
-    };
+    useEffect(()=> {
+        if (props.editPage && !Cookies.get('filters')) return;
+        dispatch(allActions.fullUpdateState(filtersStored));
+    },[startRef]);
 
     const MyContainer = ({ className, children }) => {
         return (

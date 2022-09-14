@@ -17,6 +17,9 @@ import {userActions} from "./actions/user.actions";
 import {ForgotPas} from "./pages/Login/ForgotPas";
 import {ResetPassword} from "./pages/Login/ResetPassword";
 import axios from "axios";
+import {inFifteenMinutes} from "./helpers/dateCalculations";
+import {allActions} from "./actions/booking.actions";
+import moment from "moment";
 
 
 const Message = ({message}) => (
@@ -27,6 +30,7 @@ const Message = ({message}) => (
 
 export default function App(props) {
     const authed = useSelector(state => state.userReducer);
+    const filtersStored = useSelector(state => state.myReducer);
     const dispatch = useDispatch();
     const loggedIn = Cookies.get('access_token');
     const admin = localStorage.getItem('admin');
@@ -83,6 +87,22 @@ export default function App(props) {
         }
         cookieExpired();
     },[dispatch]);
+
+    useEffect(() => {
+        async function getData() {
+            try {
+                if (filtersStored.finishDate) {
+                    await Cookies.set('filters', JSON.stringify(filtersStored), {expires: inFifteenMinutes});
+                    console.log('Cookies.set(filters)')
+                    dispatch(allActions.fullUpdateState(filtersStored));
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        getData();
+    }, [filtersStored.finishDate]);
 
     return (
         <Wrapper>

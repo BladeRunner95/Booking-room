@@ -6,7 +6,7 @@ import moment from "moment";
 const filters = Cookies.get('filters') && JSON.parse(Cookies.get('filters'))
 
 export let initialState = filters? filters: {
-    startDate: moment().valueOf(),
+    startDate: moment().startOf('hour').valueOf(),
     finishDate: undefined,
     timeDuration: null,
     location: ["Tel-Aviv"]
@@ -53,7 +53,7 @@ export const myReducer = (state = initialState, action) => {
 
             case actionTypes.DEFAULT:
                 return {
-                    startDate: moment().valueOf(),
+                    startDate: moment().startOf('hour').valueOf(),
                     location: ["Tel-Aviv"]
 
                 };

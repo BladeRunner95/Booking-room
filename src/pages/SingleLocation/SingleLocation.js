@@ -2,6 +2,7 @@ import {useParams, useNavigate, Link} from "react-router-dom";
 import {useState, useEffect, useMemo} from "react";
 import {MyNav} from "../../components/Nav/MyNav";
 // import drocher from '../../assets/lexshug.jpg';
+import micro from '../../assets/microphone.svg';
 import noImg from '../../assets/noImage.jpg';
 import weAccept from '../../assets/weAccept.png';
 import './SingleLocation.module.css';
@@ -56,7 +57,7 @@ export const SingleLocation = (props) => {
         if (filters && location) {
             dispatch(allActions.setTotalCost(location.price * filters.timeDuration));
         }
-    },[filters, location])
+    },[filters, location]);
 
     // need to memorize this value. useMemo doesn't work with conditional statements
     const memoized = location?.images && 100 / location.images.length;
@@ -77,9 +78,9 @@ export const SingleLocation = (props) => {
         setSlide(prev => prev - (memoized));
     };
 
-    const notAvailable = (location) => {
-        return location.confirmedBookings.some(date => getTimeRange(filters.startDate, filters.finishDate).includes(date));
-    }
+    // const notAvailable = (location) => {
+    //     return location.confirmedBookings.some(date => getTimeRange(filters.startDate, filters.finishDate).includes(date));
+    // }
 
     const handleSetBooking = async () => {
         try {
@@ -88,11 +89,13 @@ export const SingleLocation = (props) => {
                 navigate('/signin');
                 return;
             }
-            if (notAvailable(location)) {
-                //add alert
-                console.log('this dates are already booked');
-                return;
-            }
+            // const checkAvailable = await notAvailable(location);
+            // console.log(checkAvailable);
+            // if (checkAvailable) {
+            //     //add alert
+            //     console.log('this dates are already booked');
+            //     return;
+            // }
             setLoading(true);
             const data = {
                 startDate: filters.startDate,
@@ -100,19 +103,22 @@ export const SingleLocation = (props) => {
                 location: id,
                 cost: filters.totalCost
             };
-            const booking = await axios.post(`http://localhost:5000/api/bookings/${userId}`, data);
+            const createBooking = await axios.post(`http://localhost:5000/api/bookings/${userId}`, data);
             setLoading(true);
+            dispatch(allActions.defaultState());
             navigate('/');
         } catch (e) {
+            if (e.response?.data) {
+                console.log(e.response.data);
+                //alert.danger(e.response.data)
+                setLoading(false);
+                return;
+            }
             console.log(e);
         }
     };
 
     const handleOpenEdit = () => {
-        // if (!openEdit && !Cookies.get('filters')) {
-        //     dispatch(allActions.defaultState());
-        //     navigate('/');
-        // }
       setOpenEdit(prev=> !prev);
     };
 
@@ -147,17 +153,16 @@ export const SingleLocation = (props) => {
 
     if ((!location && !filters) || loading) return <div className={styles.SingleLocloading}><Loading/></div>
 
-
     const svgs = [
         <svg width="24" height="24" overflow="visible"
-                       preserveAspectRatio="xMinYMin meet"
-                       strokeWidth="0" viewBox="0 0 25 25"
-                       fill="#000000" stroke="#000000">
-        <g><path d="M13 18.92C14.6646 18.6797 16.187 17.8482 17.2888 16.5775C18.3906 15.3067 18.998 13.6818 19
+             preserveAspectRatio="xMinYMin meet"
+             strokeWidth="0" viewBox="0 0 25 25"
+             fill="#000000" stroke="#000000">
+            <g><path d="M13 18.92C14.6646 18.6797 16.187 17.8482 17.2888 16.5775C18.3906 15.3067 18.998 13.6818 19
         12H17C17 13.3261 16.4732 14.5978 15.5355 15.5355C14.5978 16.4732 13.3261 17 12 17C10.6739 17 9.40214
         16.4732 8.46446 15.5355C7.52678 14.5978 6.99998 13.3261 6.99998 12H4.99998C5.00196 13.6818 5.60939
         15.3067 6.71117 16.5775C7.81294 17.8482 9.33539 18.6797 11 18.92V22H5.99998V24H18V22H13V18.92Z"/>
-            <path d="M12 16C13.1089 15.9481 14.1521 15.4593 14.9017 14.6404C15.6512 13.8215 16.0461 12.7392 16
+                <path d="M12 16C13.1089 15.9481 14.1521 15.4593 14.9017 14.6404C15.6512 13.8215 16.0461 12.7392 16
             11.63V4.35999C16 3.29912 15.5785 2.2817 14.8284 1.53156C14.0782 0.78141 13.0608 0.359985 12
             0.359985C10.9391 0.359985 9.92167 0.78141 9.17153 1.53156C8.42138 2.2817 7.99996 3.29912 7.99996
             4.35999V11.63C7.95381 12.7392 8.34867 13.8215 9.09822 14.6404C9.84777 15.4593 10.891 15.9481 12
@@ -306,7 +311,8 @@ export const SingleLocation = (props) => {
                                                             {location.details.map((detailObj, index) => (
                                                                 <div key={detailObj.title} className={styles.singleLocaDetailEquipItem}>
                                                                     <div className={styles.singleLocaDetailEquipIcon}>
-                                                                        {svgs[index]}
+                                                                    {svgs[index]}
+                                                                    {/*    <img className={styles.singleLocaDetailEquipIcon} src={detailObj.icons} alt=""/>*/}
                                                                     </div>
                                                                     <div className="ps-1">
                                                                         <h4 className={styles.singleLocaDetailEquipTitle}>{detailObj.title}</h4>
@@ -432,7 +438,11 @@ export const SingleLocation = (props) => {
                                                 {/*<Link className={styles.paymentPayButton} to={`/payment/${id}`}>*/}
                                                 {/*  <span>Book this studio</span>*/}
                                                 {/*</Link>*/}
-                                                <button className={styles.paymentPayButton} onClick={handleSetBooking}>
+                                                <button
+                                                    className={styles.paymentPayButton}
+                                                    onClick={handleSetBooking}
+                                                    // disabled={true}
+                                                >
                                                     <span>Book this studio</span>
                                                 </button>
                                                 <div className={styles.paymentCardsWrap}>

@@ -4,22 +4,15 @@
     <list default="true" id="37aa10dd-2f46-4349-8f1c-a3aa6e31e09e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/user.actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/user.actions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Nav/MyNav.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Nav/MyNav.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Nav/Nav.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Nav/Nav.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Datepicker/MyDatepicker.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Datepicker/MyDatepicker.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/helpers/validationForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/helpers/validationForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Dashboard/BookingsDashboard/BookingsDashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Dashboard/BookingsDashboard/BookingsDashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Dashboard/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Dashboard/Dashboard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Dashboard/LocationsDashboard/LocationsDashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Dashboard/LocationsDashboard/LocationsDashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Dashboard/UsersDashboard/UsersDashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Dashboard/UsersDashboard/UsersDashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Dashboard/httpError.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Dashboard/httpMyResponse.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Locations/Locations.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Locations/Locations.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Login/Login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/LocationList/LocationList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/LocationList/LocationList.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/SingleLocation/SingleLocation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/SingleLocation/SingleLocation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../booking-server/controllers/usersController.js" beforeDir="false" afterPath="$PROJECT_DIR$/../booking-server/controllers/usersController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../booking-server/middleware/responseMiddleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/../booking-server/middleware/responseMiddleware.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../booking-server/middleware/verifyToken.js" beforeDir="false" afterPath="$PROJECT_DIR$/../booking-server/middleware/verifyToken.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../booking-server/routes/getUsers.js" beforeDir="false" afterPath="$PROJECT_DIR$/../booking-server/routes/getUsers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reducers/booking.reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/booking.reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../booking-server/controllers/bookingsController.js" beforeDir="false" afterPath="$PROJECT_DIR$/../booking-server/controllers/bookingsController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../booking-server/controllers/locationsController.js" beforeDir="false" afterPath="$PROJECT_DIR$/../booking-server/controllers/locationsController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../booking-server/models/locationModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/../booking-server/models/locationModel.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,11 +69,14 @@
       <recent name="C:\Dev\booking-music-room\src\pages\Login" />
     </key>
   </component>
-  <component name="RunManager" selected="Node.js.tasks.js">
+  <component name="RunManager" selected="Node.js.bookingsController.js">
     <configuration name="transit.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/booking-music-room/transit.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
     <configuration name="Locations.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/src/pages/Locations/Locations.js" working-dir="$PROJECT_DIR$/src/pages/Locations">
+      <method v="2" />
+    </configuration>
+    <configuration name="bookingsController.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/../booking-server/controllers/bookingsController.js" working-dir="$PROJECT_DIR$/../booking-server/controllers">
       <method v="2" />
     </configuration>
     <configuration name="tasks.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/../booking-server/tasks.js" working-dir="$PROJECT_DIR$/../booking-server">
@@ -91,6 +87,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Node.js.bookingsController.js" />
         <item itemvalue="Node.js.tasks.js" />
         <item itemvalue="JavaScript Debug.transit.html" />
         <item itemvalue="Node.js.Locations.js" />
@@ -148,7 +145,8 @@
       <workItem from="1661687516068" duration="15152000" />
       <workItem from="1661773678576" duration="11861000" />
       <workItem from="1661861203014" duration="12277000" />
-      <workItem from="1662121137046" duration="147490000" />
+      <workItem from="1662121137046" duration="147773000" />
+      <workItem from="1662981154837" duration="42759000" />
     </task>
     <servers />
   </component>
@@ -176,7 +174,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/SingleLocation/SingleLocation.js</url>
-          <line>220</line>
+          <line>229</line>
           <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -186,7 +184,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/SingleLocation/SingleLocation.js</url>
-          <line>431</line>
+          <line>440</line>
           <option name="timeStamp" value="25" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -196,18 +194,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/SingleLocation/SingleLocation.js</url>
-          <line>103</line>
+          <line>105</line>
           <option name="timeStamp" value="28" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/SingleLocation/SingleLocation.js</url>
           <line>80</line>
           <option name="timeStamp" value="30" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/../booking-server/controllers/bookingsController.js</url>
-          <line>61</line>
-          <option name="timeStamp" value="31" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/LocationList/LocationList.js</url>
@@ -266,23 +259,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/SingleLocation/SingleLocation.js</url>
-          <line>365</line>
+          <line>374</line>
           <option name="timeStamp" value="58" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/SingleLocation/SingleLocation.js</url>
-          <line>405</line>
+          <line>414</line>
           <option name="timeStamp" value="59" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/SingleLocation/SingleLocation.js</url>
-          <line>383</line>
+          <line>392</line>
           <option name="timeStamp" value="60" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/components/Datepicker/MyDatepicker.js</url>
-          <line>53</line>
-          <option name="timeStamp" value="65" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/SingleLocation/SingleLocation.js</url>
@@ -291,7 +279,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/SingleLocation/SingleLocation.js</url>
-          <line>128</line>
+          <line>137</line>
           <option name="timeStamp" value="68" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -312,98 +300,107 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/Login/ForgotPas.js</url>
           <line>30</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="73" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/../booking-server/controllers/usersController.js</url>
           <line>149</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="74" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/../booking-server/controllers/usersController.js</url>
           <line>142</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="75" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/actions/user.actions.js</url>
           <line>99</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="82" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/Login/ResetPassword.js</url>
           <line>18</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="84" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/Login/ResetPassword.js</url>
           <line>24</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="85" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/../booking-server/models/accessHashModel.js</url>
           <line>10</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="87" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/Login/ResetPassword.js</url>
           <line>63</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="91" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/../booking-server/controllers/usersController.js</url>
           <line>175</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="92" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/reducers/user.reducer.js</url>
           <line>34</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="94" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/components/Datepicker/MyDatepicker.js</url>
-          <line>17</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="95" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/../booking-server/controllers/usersController.js</url>
           <line>123</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="100" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/../booking-server/controllers/usersController.js</url>
           <line>121</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="101" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/actions/user.actions.js</url>
           <line>31</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="102" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/../booking-server/middleware/verifyToken.js</url>
           <line>34</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="103" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/pages/SingleLocation/SingleLocation.js</url>
-          <line>305</line>
-          <properties lambdaOrdinal="-1" />
+          <line>314</line>
           <option name="timeStamp" value="104" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/../booking-server/controllers/locationsController.js</url>
+          <line>37</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="107" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/../booking-server/controllers/locationsController.js</url>
+          <line>35</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="108" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/components/Datepicker/MyDatepicker.js</url>
+          <line>58</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="110" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/../booking-server/controllers/locationsController.js</url>
+          <line>58</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="111" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/../booking-server/controllers/locationsController.js</url>
+          <line>36</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="114" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
