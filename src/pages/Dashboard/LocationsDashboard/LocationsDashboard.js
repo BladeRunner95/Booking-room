@@ -80,16 +80,6 @@ export const LocationEdit = (props) => {
                         </ArrayInput>
                     </WrapperField>
                 </Labeled>
-                <Labeled label="confirmedBookings">
-                    <WrapperField>
-                        <ArrayInput source="confirmedBookings" label={false}>
-                            <SimpleFormIterator disableReordering>
-                                <DateTimeInput source="startDate" parse={dateToTimestamp}/>
-                                <DateTimeInput source="finishDate" parse={dateToTimestamp}/>
-                            </SimpleFormIterator>
-                        </ArrayInput>
-                    </WrapperField>
-                </Labeled>
             </SimpleForm>
         </Edit>
     );

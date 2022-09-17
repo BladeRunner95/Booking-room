@@ -102,7 +102,7 @@ export default function App(props) {
         }
 
         getData();
-    }, [filtersStored.finishDate]);
+    }, [filtersStored.finishDate, filtersStored.totalCost]);
 
     return (
         <Wrapper>

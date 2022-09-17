@@ -5,7 +5,6 @@ import axios from "axios";
 import {useParams} from "react-router-dom";
 import {Table, Button} from "react-bootstrap";
 import moment from "moment";
-import {toAmPm} from "../../helpers/dateCalculations";
 import {useTranslation} from "react-i18next";
 
 
@@ -104,9 +103,9 @@ export const Profile = () => {
                                     {myBookings.map((booking, index) => (
                                             <tr key={booking._id}>
                                                 <td>{index}</td>
-                                                <td>{booking.location}</td>
-                                                <td>{moment(booking.startDate).format('ddd DD.MM.YY')} - {toAmPm(booking.startDate)}</td>
-                                                <td>{moment(booking.finishDate).format('ddd DD.MM.YY')} - {toAmPm(booking.finishDate + 1)}</td>
+                                                <td>{booking.locationName}</td>
+                                                <td>{moment(booking.startDate).format('ddd DD.MM.YY')} - {moment(booking.startDate).format('ha')}</td>
+                                                <td>{moment(booking.finishDate).format('ddd DD.MM.YY')} - {moment(booking.finishDate + 1).format('ha')}</td>
                                                 <td>{booking.cost || Math.round(Math.random())}</td>
                                                 <td><Button variant="dark">{t('refund')}</Button></td>
                                             </tr>

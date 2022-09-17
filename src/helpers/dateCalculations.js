@@ -17,6 +17,7 @@ export const getTimeRange = (startDate, finishDate) => {
         list.push(startDate);
         startDate = startDate + (60 * 60 * 1000);
     }
+    list.push(finishDate);
     return list;
 };
 
@@ -25,7 +26,5 @@ export const timeDuration = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 24];
 export const timePrefix = (hour) => ((hour + 11) % 12 + 1) + (hour >= 12 ? "pm" : "am");
 
 export const inFifteenMinutes = new Date(new Date().getTime() + 30 * 60 * 1000);
-
-export const toAmPm = (date) => moment(date).format('ha');
 
 export const addToTimestamp = (selectedTime, duration) => selectedTime + (duration * 3600000);

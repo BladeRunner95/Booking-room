@@ -7,7 +7,7 @@ import {LocationList} from "../LocationList/LocationList";
 import {useSelector, useDispatch} from "react-redux";
 import {allActions} from "../../actions/booking.actions";
 import {Loading} from "../../components/Spinner/Spinner";
-import {hoursInDay, toAmPm, handleTimeSelect, addToTimestamp} from "../../helpers/dateCalculations";
+import {hoursInDay, addToTimestamp} from "../../helpers/dateCalculations";
 import {timeDuration} from "../../helpers/dateCalculations";
 import moment from "moment";
 import {useTranslation} from "react-i18next";
@@ -115,9 +115,9 @@ export const Locations = (props) => {
                                                         <label htmlFor="input"
                                                                className={styles.myLabel}>{input.title}</label>
                                                         <input placeholder="choose time and duration"
-                                                               value={toAmPm(filtersStored.startDate) +
+                                                               value={moment(filtersStored.startDate).format('ha') +
                                                                    (filtersStored.finishDate ? ' - ' +
-                                                                   toAmPm(filtersStored.finishDate)
+                                                                   moment(filtersStored.finishDate).format('ha')
                                                                    : "")}
                                                                className={styles.myInput}
                                                                type="text"
