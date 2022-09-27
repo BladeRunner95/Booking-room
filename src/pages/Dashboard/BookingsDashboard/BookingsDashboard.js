@@ -8,19 +8,16 @@ import {
     Edit,
     Create,
     SimpleForm,
-    TextInput, useNotify, SelectInput, useDataProvider
+    TextInput, useNotify, SelectInput, useDataProvider, Pagination
 } from 'react-admin';
 
-import {validatePrice, validateRequired} from '../validateInputs';
-import {useNavigate} from "react-router-dom";
+import {isAfterStart, validatePrice, validateRequired} from '../validateInputs';
 import {useEffect, useState} from "react";
-import moment from "moment";
 import {startDateToTimestamp, finishDateToTimestamp, myIdColumn, finishTimeDisplay} from "../dashboardHelpers";
 
-export const BookingsDashboard = () => {
-
+export const BookingsDashboard = (props) => {
     return (
-    <List>
+    <List {...props} pagination={<Pagination rowsPerPageOptions={[5]} perPage={5} />} bulkActionButtons={false}>
         <Datagrid
             sx={myIdColumn}
             rowClick="edit">
@@ -37,7 +34,6 @@ export const BookingsDashboard = () => {
 }
 
 export const BookingsEdit = (props) => {
-    const notify = useNotify();
     // const navigate = useNavigate();
     // const onSuccess = () => {
     //     // navigate(-1);
@@ -64,7 +60,7 @@ export const BookingsEdit = (props) => {
                 setError(error);
                 setLoading(false);
             })
-    }, []);
+    }, [dataProvider]);
 
 
     useEffect(() => {
@@ -80,7 +76,7 @@ export const BookingsEdit = (props) => {
                 setError(error);
                 setLoading(false);
             })
-    }, []);
+    }, [dataProvider]);
 
     if (loading) return <div>LOADING </div>;
     if (error) return <div>{error.toString()}</div>;
@@ -136,7 +132,7 @@ export const BookingCreate = props => {
                 setError(error);
                 setLoading(false);
             })
-    }, []);
+    }, [dataProvider]);
 
 
     useEffect(() => {
@@ -152,7 +148,7 @@ export const BookingCreate = props => {
                 setError(error);
                 setLoading(false);
             })
-    }, []);
+    }, [dataProvider]);
 
     const onError = () => {
         notify(`Missing required fields`, {type: 'error'}); // default message is 'ra.notification.updated'
@@ -164,9 +160,9 @@ export const BookingCreate = props => {
 
     return (
         <Create mutationOptions={{onError}} title="Create booking" {...props}>
-            <SimpleForm>
+            <SimpleForm validate={isAfterStart}>
                 <DateTimeInput source="startDate" label="Start" parse={startDateToTimestamp} validate={validateRequired}/>
-                <DateTimeInput  source="finishDate" label="End" format={(v)=> finishTimeDisplay(v)} parse={finishDateToTimestamp} validate={validateRequired} />
+                <DateTimeInput  source="finishDate" label="End" parse={finishDateToTimestamp} format={finishTimeDisplay} validate={validateRequired}/>
                 {locations ? <SelectInput source="location"
                                           choices={locations}
                                           optionValue="_id"

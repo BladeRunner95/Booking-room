@@ -8,12 +8,17 @@ const filters = Cookies.get('filters') && JSON.parse(Cookies.get('filters'))
 export let initialState = filters? filters: {
     startDate: moment().startOf('hour').valueOf(),
     finishDate: undefined,
-    timeDuration: null,
-    location: ["Tel-Aviv"]
+    timeDuration: null
 }
 
 export const myReducer = (state = initialState, action) => {
     switch (action.type) {
+
+        case actionTypes.SETLOCATION:
+            return {
+                ...state,
+                location: action.selectedLocation
+            };
         case actionTypes.SETSTARTDATE:
             return {
                 ...state,
@@ -49,12 +54,12 @@ export const myReducer = (state = initialState, action) => {
                 finishDate: action.newState.finishDate,
                 totalCost: action.newState.totalCost,
                 timeDuration: action.newState.timeDuration,
+                location: action.newState.location
             };
 
             case actionTypes.DEFAULT:
                 return {
-                    startDate: moment().startOf('hour').valueOf(),
-                    location: ["Tel-Aviv"]
+                    startDate: moment().startOf('hour').valueOf()
 
                 };
         default :

@@ -8,7 +8,7 @@ import StripeCheckout from "react-stripe-checkout";
 
 export const Payment = () => {
     const {id} = useParams();
-    const [message, setMessage] = useState("");
+    // const [message, setMessage] = useState("");
     const [ location, setLocation ] = useState(null);
     const [ filters, setFilters ] = useState(null);
 

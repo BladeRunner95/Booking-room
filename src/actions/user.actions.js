@@ -1,8 +1,6 @@
 import {actionTypes} from "../types/user.types";
 import axios from "axios";
 import {alertActions} from "./alert.actions";
-import {alertTypes} from "../types/alert.types";
-
 
 export const userActions = {
     login,

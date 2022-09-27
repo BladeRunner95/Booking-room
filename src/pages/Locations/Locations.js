@@ -1,7 +1,7 @@
 import {MyNav} from "../../components/Nav/MyNav";
 import styles from "./Locations.module.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {useState, useRef} from "react";
+import {useEffect, useState} from "react";
 import {MyDatepicker} from "../../components/Datepicker/MyDatepicker";
 import {LocationList} from "../LocationList/LocationList";
 import {useSelector, useDispatch} from "react-redux";
@@ -12,16 +12,16 @@ import {timeDuration} from "../../helpers/dateCalculations";
 import moment from "moment";
 import {useTranslation} from "react-i18next";
 import {DropdownLink} from "../../components/Dropdown/Dropdown";
+import axios from "axios";
 
 
 export const Locations = (props) => {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     let filtersStored = useSelector(state => state.myReducer);
     const dispatch = useDispatch();
     const filtersNames = [
         {
-            title: t('location'),
-            value: 'Tel-Aviv'
+            title: t('location')
         },
         {
             title: t('date')
@@ -31,9 +31,31 @@ export const Locations = (props) => {
         }
     ];
     const [timepickerOpened, setTimepickerOpened] = useState(false);
+    const [locationPickerOpened, setLocationPickerOpened] = useState(false);
+    const [locationNames, setLocationNames] = useState(null);
+
+    useEffect(() => {
+        const getLocationNames = async () => {
+            const getNames = await axios.get('http://localhost:5000/api/locations/titles');
+            setLocationNames(getNames.data);
+            if (!filtersStored.location) {
+                dispatch(allActions.setLocation(getNames.data[0]));
+            }
+        }
+        getLocationNames();
+    }, []);
+
+    const handleSelectLocation = (e) => {
+        dispatch(allActions.setLocation(e.target.innerText));
+    };
+
     const handleClickedTimepicker = () => {
         setTimepickerOpened(prev => !prev);
-    }
+    };
+
+    const handleClickedLocationPicker = () => {
+        setLocationPickerOpened(prev => !prev);
+    };
 
 
     const handleDateSelect = (selectedDate) => {
@@ -73,25 +95,49 @@ export const Locations = (props) => {
                                 <div key={input.title} className={styles.myButtonWrapper}>
 
                                     {input.title === t('location') &&
-                                        <div className={styles.timepickerInputWrapper}>
-                                            <div onClick={() => {
-                                            }}
-                                                 className={styles.myButton}>
+                                        <div className={styles.timepickerInputWrapper}
+                                             onClick={handleClickedLocationPicker}>
+                                            <DropdownLink disabled={locationPickerOpened}
+                                                          stateChanger={setLocationPickerOpened}>
+                                            <div className={styles.myButton}>
                                                 <div className={styles.myButtonInner}>
-                                                    <div>
-                                                        <label htmlFor="input"
-                                                               className={styles.myLabel}>{input.title}</label>
-                                                        <input placeholder="location"
-                                                               value={input.value}
-                                                               className={styles.myInput}
-                                                               type="text"
-                                                               readOnly/>
-                                                    </div>
-                                                    {/*<span>▼</span>*/}
+                                                    {locationNames?
+                                                        <div>
+                                                            <label htmlFor="input"
+                                                                   className={styles.myLabel}>{input.title}</label>
+                                                            <input placeholder="location"
+                                                                   value={filtersStored.location}
+                                                                   className={styles.myInput}
+                                                                   type="text"
+                                                                   readOnly/>
+                                                        </div>
+                                                        :
+                                                       "Loading..."}
+                                                    <span>▼</span>
                                                 </div>
                                             </div>
                                             <div>
                                             </div>
+                                            {locationPickerOpened &&
+                                                <div className={styles.locationDropdown}>
+                                                    <div className={styles.locationDropdownInner}>
+                                                        <div className={styles.locationsList}>
+                                                            {locationNames &&
+                                                                locationNames.map(location => (
+                                                                        <div key={location}
+                                                                             className={filtersStored.location === location ?
+                                                                                 styles.singleLocationSelected : styles.singleLocation}
+                                                                             onClick={handleSelectLocation}>
+                                                                            {location}
+                                                                        </div>
+                                                                    )
+                                                                )
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                            </DropdownLink>
                                         </div>
                                     }
 
@@ -107,71 +153,72 @@ export const Locations = (props) => {
 
                                     {input.title === t('time') &&
                                         <div className={styles.timepickerInputWrapper}>
-                                        <DropdownLink disabled={timepickerOpened} stateChanger={setTimepickerOpened}>
-                                            <div onClick={handleClickedTimepicker}
-                                                 className={styles.myButton}>
-                                                <div className={styles.myButtonInner}>
-                                                    <div>
-                                                        <label htmlFor="input"
-                                                               className={styles.myLabel}>{input.title}</label>
-                                                        <input placeholder="choose time and duration"
-                                                               value={moment(filtersStored.startDate).format('ha') +
-                                                                   (filtersStored.finishDate ? ' - ' +
-                                                                   moment(filtersStored.finishDate).format('ha')
-                                                                   : "")}
-                                                               className={styles.myInput}
-                                                               type="text"
-                                                               readOnly/>
+                                            <DropdownLink disabled={timepickerOpened}
+                                                          stateChanger={setTimepickerOpened}>
+                                                <div onClick={handleClickedTimepicker}
+                                                     className={styles.myButton}>
+                                                    <div className={styles.myButtonInner}>
+                                                        <div>
+                                                            <label htmlFor="input"
+                                                                   className={styles.myLabel}>{input.title}</label>
+                                                            <input placeholder="choose time and duration"
+                                                                   value={moment(filtersStored.startDate).format('ha') +
+                                                                       (filtersStored.finishDate ? ' - ' +
+                                                                           moment(filtersStored.finishDate).format('ha')
+                                                                           : "")}
+                                                                   className={styles.myInput}
+                                                                   type="text"
+                                                                   readOnly/>
+                                                        </div>
+                                                        <span>▼</span>
                                                     </div>
-                                                    <span>▼</span>
                                                 </div>
-                                            </div>
 
-                                            <div
-                                                className={timepickerOpened? styles.myDropdownTime : styles.dropHidden}>
-                                                <div className={styles.DateTimeWrapper}>
-                                                    <div className={styles.timepickerContainer}>
-                                                        <div className={styles.timepickerColumnContainer}>
-                                                            <strong><span>{t('start-time')}</span></strong>
-                                                            <div className={styles.timepickerTimeContainer}>
-                                                                {hoursInDay(moment(filtersStored.startDate)).map(time =>
-                                                                    <label key={time.format('ha')}
-                                                                           className={time.isSame(filtersStored.startDate, 'hour') ?
-                                                                               `${styles.timepickerTime} ${styles.timepickerTimeSelected}`
-                                                                               : styles.timepickerTime}>
-                                                                        <input
-                                                                            onClick={() => handleTimeSelect(time)}
-                                                                            // value={time}
-                                                                            className={styles.timepickerInput}
-                                                                            type="radio"/>
-                                                                        {time.format('ha')}
-                                                                    </label>
-                                                                )}
+                                                <div
+                                                    className={timepickerOpened ? styles.myDropdownTime : styles.dropHidden}>
+                                                    <div className={styles.DateTimeWrapper}>
+                                                        <div className={styles.timepickerContainer}>
+                                                            <div className={styles.timepickerColumnContainer}>
+                                                                <strong><span>{t('start-time')}</span></strong>
+                                                                <div className={styles.timepickerTimeContainer}>
+                                                                    {hoursInDay(moment(filtersStored.startDate)).map(time =>
+                                                                        <label key={time.format('ha')}
+                                                                               className={time.isSame(filtersStored.startDate, 'hour') ?
+                                                                                   `${styles.timepickerTime} ${styles.timepickerTimeSelected}`
+                                                                                   : styles.timepickerTime}>
+                                                                            <input
+                                                                                onClick={() => handleTimeSelect(time)}
+                                                                                // value={time}
+                                                                                className={styles.timepickerInput}
+                                                                                type="radio"/>
+                                                                            {time.format('ha')}
+                                                                        </label>
+                                                                    )}
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div className={styles.timepickerColumnContainer}>
-                                                            <strong><span>{t('duration')}</span></strong>
-                                                            <div className={styles.timepickerTimeContainer}>
-                                                                {timeDuration.map(duration =>
-                                                                    <label
-                                                                        key={duration}
-                                                                        className={filtersStored.timeDuration === duration ?
-                                                                            `${styles.timepickerTime} ${styles.timepickerTimeSelected}`
-                                                                            : styles.timepickerTime}>
-                                                                        <input
-                                                                            onClick={() => handleDurationSelect(duration)}
-                                                                            value={duration}
-                                                                            className={styles.timepickerInput}
-                                                                            type="radio"/>
-                                                                        {duration + ' ' + (duration === 1 ? t('hour') : t('hours'))}
-                                                                    </label>
-                                                                )}
+                                                            <div className={styles.timepickerColumnContainer}>
+                                                                <strong><span>{t('duration')}</span></strong>
+                                                                <div className={styles.timepickerTimeContainer}>
+                                                                    {timeDuration.map(duration =>
+                                                                        <label
+                                                                            key={duration}
+                                                                            className={filtersStored.timeDuration === duration ?
+                                                                                `${styles.timepickerTime} ${styles.timepickerTimeSelected}`
+                                                                                : styles.timepickerTime}>
+                                                                            <input
+                                                                                onClick={() => handleDurationSelect(duration)}
+                                                                                value={duration}
+                                                                                className={styles.timepickerInput}
+                                                                                type="radio"/>
+                                                                            {duration + ' ' + (duration === 1 ? t('hour') : t('hours'))}
+                                                                        </label>
+                                                                    )}
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </DropdownLink>
+                                            </DropdownLink>
                                         </div>
                                     }
                                 </div>

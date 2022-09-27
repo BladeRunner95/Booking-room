@@ -1,6 +1,7 @@
 import {actionTypes} from "../types/booking.types";
 
 export const allActions = {
+    setLocation,
     setStartDate,
     setStartFinishDate,
     setFinishDate,
@@ -9,6 +10,10 @@ export const allActions = {
     defaultState
 }
 
+
+function setLocation(selectedLocation) {
+    return {type: actionTypes.SETLOCATION, selectedLocation}
+}
 
 function setStartDate(selectedDate) {
     return {type: actionTypes.SETSTARTDATE, selectedDate}

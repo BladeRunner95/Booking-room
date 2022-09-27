@@ -188,6 +188,20 @@ a {
     overflow: hidden;
 }
 
+.profileSvg {
+    fill: rgb(255, 255, 255);
+    stroke: rgb(255, 255, 255);
+    width: 16px;
+    height: 16px;
+}
+
+@media (min-width: 768px) {
+    .profileSvg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
 .carouselNoImages {
     display: flex;
     height: 300px;

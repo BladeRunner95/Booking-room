@@ -6,7 +6,6 @@ import styles from "./MyDatepicker.module.css"
 import moment from "moment";
 import {useEffect} from "react";
 import Cookies from "js-cookie";
-import {inFifteenMinutes} from "../../helpers/dateCalculations";
 import {useDispatch, useSelector} from "react-redux";
 import {allActions} from "../../actions/booking.actions";
 import {Loading} from "../Spinner/Spinner";

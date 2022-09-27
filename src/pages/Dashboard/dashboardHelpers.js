@@ -9,6 +9,7 @@ export const finishDateToTimestamp = value => {
 }
 
 export const finishTimeDisplay = v => {
+    if (v == null || v === '') return '';
     const hour = moment(v).hour() + 1;
     return moment(v).clone().set({
         'hour': hour,

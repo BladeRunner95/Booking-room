@@ -1,6 +1,5 @@
 import {MyNav} from "../../components/Nav/MyNav";
 import styles from "./Login.module.css";
-import {Link} from "react-router-dom";
 import {useState} from "react";
 import {alertActions} from "../../actions/alert.actions";
 import {useDispatch, useSelector} from "react-redux";

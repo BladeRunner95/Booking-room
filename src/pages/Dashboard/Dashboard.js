@@ -1,4 +1,4 @@
-import {Admin, Resource, fetchUtils, useDataProvider, RecordContextProvider } from "react-admin";
+import {Admin, Resource} from "react-admin";
 import jsonServerProvider from 'ra-data-json-server';
 import {UsersDashboard, UsersEdit, UserCreate} from "./UsersDashboard/UsersDashboard";
 import {LocationCreate, LocationEdit, LocationsDashboard} from "./LocationsDashboard/LocationsDashboard";
@@ -45,7 +45,7 @@ export const Dashboard = (props) => {
             <Admin layout={MyLayout} basename="/dashboard" dataProvider={myProvider}>
                 <Resource name="locations" list={<LocationsDashboard myResponse={myResponse}/>} edit={<LocationEdit myresponse={myResponse}/>} create={<LocationCreate myresponse={myResponse}/>} />
                 <Resource name="auth/users" options={{ label: 'Users' }} list={UsersDashboard} edit={UsersEdit} create={UserCreate}/>
-                <Resource name="bookings" options={{ label: 'Bookings' }} list={BookingsDashboard} edit={BookingsEdit} create={<BookingCreate myresponse={myResponse}/>}/>
+                <Resource name="bookings" options={{ label: 'Bookings' }} list={BookingsDashboard} edit={<BookingsEdit myresponse={myResponse}/>} create={<BookingCreate myresponse={myResponse}/>}/>
             </Admin>
                 // </RecordContextProvider>
                 :

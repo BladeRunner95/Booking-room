@@ -158,6 +158,12 @@
     line-height: 0;
 }
 
+.userSvg {
+    width: 14px;
+    height: 14px;
+    overflow: visible;
+}
+
 .locationCapacityCount {
     font-size: 1rem;
     font-weight: bold;

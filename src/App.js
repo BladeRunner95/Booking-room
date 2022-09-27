@@ -1,5 +1,5 @@
 import {Wrapper} from "./App.styles";
-import {Navigate, Route, Routes, useLocation, useNavigate} from "react-router-dom";
+import {Navigate, Route, Routes, useLocation} from "react-router-dom";
 import {Locations} from "./pages/Locations/Locations";
 import {Login} from "./pages/Login/Login";
 import {SignUp} from "./pages/SignUp/SignUp";
@@ -16,11 +16,8 @@ import {Profile} from "./pages/Profile/Profile";
 import {userActions} from "./actions/user.actions";
 import {ForgotPas} from "./pages/Login/ForgotPas";
 import {ResetPassword} from "./pages/Login/ResetPassword";
-import axios from "axios";
 import {inFifteenMinutes} from "./helpers/dateCalculations";
 import {allActions} from "./actions/booking.actions";
-import moment from "moment";
-
 
 const Message = ({message}) => (
     <section>
@@ -79,14 +76,14 @@ export default function App(props) {
     // },[userId]);
 
     useEffect(()=> {
-        const cookieExpired = () => {
-            if (!loggedIn) {
+        const authExpired = () => {
+            if (!loggedIn || !userId) {
                 dispatch(userActions.logout());
                 console.log('i was logged out');
             }
         }
-        cookieExpired();
-    },[dispatch]);
+        authExpired();
+    },[loggedIn, userId]);
 
     useEffect(() => {
         async function getData() {
@@ -97,12 +94,12 @@ export default function App(props) {
                     dispatch(allActions.fullUpdateState(filtersStored));
                 }
             } catch (error) {
-                console.log(error);
+                console.log(error)
             }
         }
 
         getData();
-    }, [filtersStored.finishDate, filtersStored.totalCost]);
+    }, [filtersStored.finishDate, filtersStored.totalCost, filtersStored.location]);
 
     return (
         <Wrapper>

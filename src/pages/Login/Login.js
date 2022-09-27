@@ -1,26 +1,24 @@
 import styles from './Login.module.css';
 import {MyNav} from "../../components/Nav/MyNav";
-import {Link, useNavigate, Navigate, useLocation} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {userActions} from "../../actions/user.actions";
-import {Loading} from "../../components/Spinner/Spinner";
-import {alertTypes} from "../../types/alert.types";
 import {alertActions} from "../../actions/alert.actions";
 import {useTranslation} from "react-i18next";
 
 export const Login = () => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
-    const loggingIn = useSelector(state => state.userReducer.loggingIn);
+    // const loggingIn = useSelector(state => state.userReducer.loggingIn);
     const error = useSelector(state => state.alertReducer);
-    const loggedIn = useSelector(state => state.userReducer.loggedIn);
-    const location = useLocation();
+    // const loggedIn = useSelector(state => state.userReducer.loggedIn);
+    // const location = useLocation();
 
     let [email, setEmail] = useState('');
     let [password, setPassword] = useState('');
 
-    const [submitted, setSubmitted] = useState(false);
+    // const [submitted, setSubmitted] = useState(false);
     const [checkbox, setCheckbox] = useState(false);
 
     const handleInputsChange = (e, index) => {

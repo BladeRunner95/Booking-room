@@ -9,13 +9,12 @@ import {
     TextInput,
     SimpleFormIterator,
     ArrayInput,
-    DateTimeInput,
     Labeled,
     WrapperField, useNotify
 } from 'react-admin';
 
 import {validatePrice, validateRequired} from '../validateInputs';
-import {dateToTimestamp, myIdColumn} from "../dashboardHelpers";
+import {myIdColumn} from "../dashboardHelpers";
 
 
 const myRowStyled = (record) => {
@@ -73,9 +72,8 @@ export const LocationEdit = (props) => {
                     <WrapperField>
                         <ArrayInput source="details" label={false}>
                             <SimpleFormIterator disableReordering>
-                                <TextInput multiline source="title"/>
+                                <TextInput multiline placeholder='Choose of three available' source="title"/>
                                 <TextInput multiline rows={2} source="description"/>
-                                <TextInput multiline rows={2} source="icons"/>
                             </SimpleFormIterator>
                         </ArrayInput>
                     </WrapperField>
@@ -105,9 +103,8 @@ export const LocationCreate = props => {
                 </ArrayInput>
                 <ArrayInput source="details">
                     <SimpleFormIterator disableReordering>
-                        <TextInput source="title"/>
+                        <TextInput source="title" placeholder="choose one of 3 available"/>
                         <TextInput source="description"/>
-                        <TextInput source="icons"/>
                     </SimpleFormIterator>
                 </ArrayInput>
             </SimpleForm>
